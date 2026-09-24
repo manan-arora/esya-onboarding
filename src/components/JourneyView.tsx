@@ -57,13 +57,6 @@ export const JourneyView = ({
             Five cores. Thirty days. One complete transformation.
           </p>
 
-          {/* Sample Program Disclaimer Note */}
-          <div className="inline-flex items-start gap-3 p-4 rounded-2xl bg-amber-50 border border-amber-200/80 text-amber-900 text-xs sm:text-sm font-sans mt-2">
-            <Info className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
-            <div>
-              <span className="font-bold">SAMPLE PROGRAM</span> — Concept demonstration only. Final training modules and daily missions will be finalised with the GET program team.
-            </div>
-          </div>
         </div>
 
         {/* Continuous Timeline by Core */}
