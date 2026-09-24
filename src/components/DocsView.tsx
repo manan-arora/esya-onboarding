@@ -141,8 +141,8 @@ export const DocsView = () => {
       {/* Main Layout: Sticky Sidebar Navigation + Content Reader */}
       <div className="max-w-[1400px] mx-auto px-6 pt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative z-10">
         
-        {/* Left 4 Columns: Sticky Section Sidebar */}
-        <div className="lg:col-span-4 sticky top-24 space-y-4 max-h-[calc(100vh-7rem)] overflow-y-auto pr-2">
+        {/* Left 4 Columns: Section Sidebar */}
+        <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-4 max-h-60 lg:max-h-[calc(100vh-7rem)] overflow-y-auto pr-2">
           <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
             <div className="flex items-center justify-between border-b border-slate-100 pb-2">
               <span className="text-xs font-mono font-bold text-[#061513] uppercase tracking-wider flex items-center gap-1.5">
