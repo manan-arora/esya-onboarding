@@ -1,6 +1,6 @@
 import type { DayMission, CoreInfo, CoreId } from '../types';
 import { CORES } from '../data/curriculum';
-import { CheckCircle2, Circle, Info, Navigation } from 'lucide-react';
+import { CheckCircle2, Circle, Navigation } from 'lucide-react';
 import { Hero } from './Hero';
 
 interface JourneyViewProps {
