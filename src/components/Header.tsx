@@ -1,5 +1,5 @@
 import type { ViewTab } from '../types';
-import { Cpu, Zap } from 'lucide-react';
+import { Cpu } from 'lucide-react';
 
 interface HeaderProps {
   activeTab: ViewTab;

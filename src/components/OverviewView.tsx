@@ -6,7 +6,6 @@ import {
   Check,
   ChevronRight,
   CircleHelp,
-  Compass,
   Flame,
   MessageCircle,
   Play,
