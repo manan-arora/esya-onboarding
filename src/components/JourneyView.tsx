@@ -8,6 +8,7 @@ interface JourneyViewProps {
   completedDays: number[];
   currentDay: number;
   onSelectDay: (dayNumber: number) => void;
+  onToggleCheckpoint: (dayNumber: number) => void;
   onExploreVolt: () => void;
   overallPercentage: number;
 }
@@ -17,6 +18,7 @@ export const JourneyView = ({
   completedDays,
   currentDay,
   onSelectDay,
+  onToggleCheckpoint,
   onExploreVolt,
   overallPercentage
 }: JourneyViewProps) => {
@@ -132,7 +134,14 @@ export const JourneyView = ({
                         }`}
                       >
                         {/* Node Icon */}
-                        <div className="mt-0.5 shrink-0">
+                        <div
+                          className="mt-0.5 shrink-0 hover:scale-125 transition-transform"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onToggleCheckpoint(mission.day);
+                          }}
+                          title={isCompletedNode ? "Completed (Click to unmark)" : "Click to mark as completed"}
+                        >
                           {isCompletedNode ? (
                             <CheckCircle2 className={`w-5 h-5 ${isCurrentNode ? 'text-[#8CFF00]' : 'text-emerald-600'}`} />
                           ) : isCurrentNode ? (

@@ -152,20 +152,23 @@ export const DocsView = () => {
               <span className="text-[10px] font-mono text-slate-400 font-bold">24 SECTIONS</span>
             </div>
 
-            <div className="space-y-1 max-h-[420px] overflow-y-auto pr-1 text-xs font-mono">
+            <div className="space-y-1 max-h-[460px] overflow-y-auto pr-1 text-xs font-mono">
               {sectionsList.map((sec) => (
-                <a
+                <button
                   key={sec.id}
-                  href={`#${sec.id}`}
-                  onClick={() => setActiveSection(sec.id)}
-                  className={`block px-3 py-2 rounded-xl transition text-left truncate ${
+                  onClick={() => {
+                    setActiveSection(sec.id);
+                    const el = document.getElementById(sec.id);
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className={`w-full px-3 py-2 rounded-xl transition text-left truncate cursor-pointer ${
                     activeSection === sec.id
                       ? 'bg-[#061513] text-[#8CFF00] font-bold'
                       : 'text-slate-700 hover:bg-slate-100'
                   }`}
                 >
                   {sec.title}
-                </a>
+                </button>
               ))}
             </div>
           </div>
@@ -298,27 +301,198 @@ export const DocsView = () => {
             </ol>
           </section>
 
-          {/* Section 6 - 15 Summary Highlights */}
+          {/* Section 6 */}
           <section id="sec-6" className="space-y-4 border-b border-slate-100 pb-8">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513]">6. Energy Transition & Key Business Units</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513]">6. The Energy Transition</h2>
+            <p>
+              The energy transition is the shift toward energy systems that are cleaner, more efficient, more flexible and increasingly digital. Esyasoft's portfolio connects renewable generation, electrification, storage, e-mobility and digital intelligence across global energy infrastructure.
+            </p>
+            <div className="overflow-x-auto rounded-2xl border border-slate-200">
+              <table className="w-full text-left text-xs font-sans">
+                <thead>
+                  <tr className="bg-[#061513] text-[#8CFF00] font-mono uppercase">
+                    <th className="p-3">Concept</th>
+                    <th className="p-3">Plain-English Meaning</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  <tr><td className="p-3 font-bold">Generation</td><td className="p-3">Producing electricity from solar, wind, hydro, or thermal sources.</td></tr>
+                  <tr className="bg-slate-50"><td className="p-3 font-bold">Transmission</td><td className="p-3">Moving bulk high-voltage electricity across regions.</td></tr>
+                  <tr><td className="p-3 font-bold">Distribution</td><td className="p-3">Delivering power through local networks to end consumers.</td></tr>
+                  <tr className="bg-slate-50"><td className="p-3 font-bold">Grid Modernization</td><td className="p-3">Upgrading digital and physical grid infrastructure for visibility and control.</td></tr>
+                  <tr><td className="p-3 font-bold">DER</td><td className="p-3">Distributed Energy Resources like rooftop solar and local batteries.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* Section 7 */}
+          <section id="sec-7" className="space-y-4 border-b border-slate-100 pb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513]">7. Smart Utilities</h2>
+            <p>
+              Esyasoft's Smart Utility Solutions digitize electricity, water, and gas distribution networks through smart metering, IoT sensors, secure telemetry, and unified management platforms.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <h4 className="font-extrabold text-[#061513]">Smart Utilities & AMI</h4>
-                <p className="text-xs text-slate-600">Electricity, water and gas smart metering, loss reduction, HES and MDMS platforms.</p>
+                <h4 className="font-extrabold text-[#061513]">Electricity Utilities</h4>
+                <p className="text-xs text-slate-600">Smart metering, AMI, loss reduction, outage management, and distribution visibility.</p>
               </div>
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <h4 className="font-extrabold text-[#061513]">Software, Analytics & AI</h4>
-                <p className="text-xs text-slate-600">Gartner-recognized MDMS, grid analytics, digital twins, demand forecasting and energy audit tools.</p>
+                <h4 className="font-extrabold text-[#061513]">Water Utilities</h4>
+                <p className="text-xs text-slate-600">Leak detection, non-revenue water reduction, remote reading, and consumption monitoring.</p>
               </div>
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <h4 className="font-extrabold text-[#061513]">Battery Energy Storage (BESS)</h4>
-                <p className="text-xs text-slate-600">Grid-scale battery storage, peak shaving, renewable integration and frequency regulation.</p>
-              </div>
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <h4 className="font-extrabold text-[#061513]">e-Mobility & EaaS</h4>
-                <p className="text-xs text-slate-600">EV charging infrastructure, charge point management, Zapmap ecosystem and Good Energy acquisition.</p>
+                <h4 className="font-extrabold text-[#061513]">Gas Utilities</h4>
+                <p className="text-xs text-slate-600">Smart gas metering, retrofit modules, safety monitoring, and remote valve control.</p>
               </div>
             </div>
+          </section>
+
+          {/* Section 8 */}
+          <section id="sec-8" className="space-y-4 border-b border-slate-100 pb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513]">8. Smart Metering & AMI</h2>
+            <p>
+              Advanced Metering Infrastructure (AMI) combines smart meters, IoT devices, communication networks, HES (Head End System), and MDMS (Meter Data Management System) into a two-way real-time data ecosystem.
+            </p>
+            <div className="p-4 rounded-2xl bg-[#061513] text-white space-y-2">
+              <span className="text-xs font-mono text-[#8CFF00] font-bold uppercase">AMI 2.0 & EDGE INTELLIGENCE</span>
+              <p className="text-xs text-slate-300">
+                Beyond monthly billing reads: AMI 2.0 introduces high-frequency interval data, edge computing at the meter, AI-driven anomaly detection, and bidirectional grid control.
+              </p>
+            </div>
+          </section>
+
+          {/* Section 9 */}
+          <section id="sec-9" className="space-y-4 border-b border-slate-100 pb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513]">9. Meter-to-Decision Data Journey</h2>
+            <div className="p-4 rounded-2xl bg-slate-900 text-white font-mono text-xs space-y-2 border-l-4 border-[#8CFF00]">
+              <span className="text-[#8CFF00] font-bold">METER → COMMUNICATION → HES → MDMS → ANALYTICS → ACTION</span>
+              <p className="text-slate-300">
+                1. Smart Meter measures interval consumption.<br />
+                2. Communication network transmits packet via Cellular/Mesh/LoRaWAN.<br />
+                3. Head End System (HES) handles protocol parsing & device control.<br />
+                4. Meter Data Management System (MDMS) validates and stores readings.<br />
+                5. Grid Analytics engine computes load profiles & anomaly alerts.<br />
+                6. Utility operators trigger billing, maintenance, or grid optimization.
+              </p>
+            </div>
+          </section>
+
+          {/* Section 10 */}
+          <section id="sec-10" className="space-y-4 border-b border-slate-100 pb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513]">10. Software, Analytics & AI</h2>
+            <p>
+              Esyasoft's software suite turns raw data into actionable intelligence. Key platforms include Gartner-recognized MDMS, Grid Analytics, Digital Twins, Demand Forecasting, and Energy Audit tools.
+            </p>
+            <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 font-medium">
+              ★ Recognized by Gartner for MDMS capability for 7 consecutive years & Smart Edge Metering Systems Hype Cycle.
+            </div>
+          </section>
+
+          {/* Section 11 */}
+          <section id="sec-11" className="space-y-4 border-b border-slate-100 pb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513]">11. Energy as a Service (EaaS)</h2>
+            <p>
+              Energy as a Service transitions energy from a capital-heavy transaction to a managed outcome. Esyasoft provides end-to-end infrastructure, software, data monitoring, and optimization models for utilities and industrial enterprises.
+            </p>
+          </section>
+
+          {/* Section 12 */}
+          <section id="sec-12" className="space-y-4 border-b border-slate-100 pb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513]">12. Battery Energy Storage Systems (BESS)</h2>
+            <p>
+              Utility-scale BESS solutions stabilize modern energy grids. Applications include peak load shaving, renewable energy time-shifting, frequency regulation, and microgrid backup.
+            </p>
+            <p className="text-xs text-slate-600 italic">
+              Note: Esyasoft collaborates with Tesla on utility-scale BESS deployments.
+            </p>
+          </section>
+
+          {/* Section 13 */}
+          <section id="sec-13" className="space-y-4 border-b border-slate-100 pb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513]">13. e-Mobility</h2>
+            <p>
+              Esyasoft's e-Mobility ecosystem covers EV charging hardware, Charge Point Management Software (CPMS), driver mobile apps, fleet electrification, and carbon tracking platforms.
+            </p>
+          </section>
+
+          {/* Section 14 */}
+          <section id="sec-14" className="space-y-4 border-b border-slate-100 pb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513]">14. Products & Connected Infrastructure</h2>
+            <p>
+              The physical product line includes DLMS/M-Bus smart gateways, LoRaWAN retrofit gas modules, digital grid analyzers, and multi-protocol IoT concentrators for electricity, water, and gas networks.
+            </p>
+          </section>
+
+          {/* Section 15 */}
+          <section id="sec-15" className="space-y-4 border-b border-slate-100 pb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513]">15. Portfolio & Ecosystem</h2>
+            <p>
+              The Esyasoft ecosystem includes Good Energy (UK renewable provider), Esyasoft Landis+Gyr JV, Zapmap, Correla, Float IoT, S3, Engage, Hedge5, Blive, and Nuvolt.
+            </p>
+          </section>
+
+          {/* Section 16 */}
+          <section id="sec-16" className="space-y-4 border-b border-slate-100 pb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513]">16. Global Footprint</h2>
+            <p>
+              Esyasoft operates across 12+ countries including UAE, India, UK, USA, Azerbaijan, Netherlands, Indonesia, Romania, Georgia, and Kazakhstan.
+            </p>
+          </section>
+
+          {/* Section 17 */}
+          <section id="sec-17" className="space-y-4 border-b border-slate-100 pb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513]">17. Esyasoft Graduate Program</h2>
+            <p>
+              A flagship 2-year rotational program designed to transition high-potential engineering graduates into energy-transition technology leaders across smart grids, IoT, AI, and enterprise software.
+            </p>
+          </section>
+
+          {/* Section 18 */}
+          <section id="sec-18" className="space-y-4 border-b border-slate-100 pb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513]">18. Mangalore Global Capability Centre</h2>
+            <p>
+              A 50,000+ sq. ft. state-of-the-art learning, R&D, and residential campus located in Mangalore, India, featuring IoT/embedded laboratories, smart grid simulation setups, and residential suites for trainees.
+            </p>
+          </section>
+
+          {/* Section 19 */}
+          <section id="sec-19" className="space-y-4 border-b border-slate-100 pb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513]">19. Life at Esyasoft</h2>
+            <p>
+              Over 2,000+ people across 25+ nationalities work together in a culture of continuous learning, cross-functional collaboration, technical excellence, and rapid execution.
+            </p>
+          </section>
+
+          {/* Section 20 */}
+          <section id="sec-20" className="space-y-4 border-b border-slate-100 pb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513]">20. Practical GET Expectations</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-sans">
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                <span className="font-bold text-[#061513]">Be Curious</span>
+                <p className="text-slate-600 mt-0.5">Understand the problem context before jumping to code.</p>
+              </div>
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                <span className="font-bold text-[#061513]">Be Accountable</span>
+                <p className="text-slate-600 mt-0.5">Own your assigned tasks from design to verification.</p>
+              </div>
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                <span className="font-bold text-[#061513]">Communicate Early</span>
+                <p className="text-slate-600 mt-0.5">Surface blockers and risks promptly.</p>
+              </div>
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                <span className="font-bold text-[#061513]">Think End-to-End</span>
+                <p className="text-slate-600 mt-0.5">Understand how UI, APIs, databases & hardware connect.</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 21 */}
+          <section id="sec-21" className="space-y-4 border-b border-slate-100 pb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513]">21. First 30 Days Companion Map</h2>
+            <p>
+              Your guide for month one: master company mission in week 1, utility domain in week 2, technical stack in week 3, and ship your first feature contribution by week 4.
+            </p>
           </section>
 
           {/* Section 22: Glossary */}

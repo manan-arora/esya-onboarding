@@ -82,18 +82,23 @@ export function App() {
   const currentMission = MISSIONS.find((m) => m.day === currentDayNumber) || MISSIONS[0];
 
   // Actions
-  const handleCompleteCheckpoint = (dayNum: number) => {
-    if (!completedDays.includes(dayNum)) {
-      const updated = [...completedDays, dayNum].sort((a, b) => a - b);
-      setCompletedDays(updated);
+  const handleToggleCheckpoint = (dayNum: number) => {
+    setCompletedDays((prev) => {
+      let updated: number[];
+      if (prev.includes(dayNum)) {
+        updated = prev.filter((d) => d !== dayNum);
+      } else {
+        updated = [...prev, dayNum].sort((a, b) => a - b);
+      }
 
       // If Day 30 completed (or all 30 days done), trigger final activation moment!
-      if (updated.length === 30 || dayNum === 30) {
+      if (updated.length === 30 || (dayNum === 30 && updated.includes(30))) {
         setTimeout(() => {
           setShowFinalActivation(true);
         }, 500);
       }
-    }
+      return updated;
+    });
   };
 
   const handleSelectDay = (dayNum: number) => {
@@ -147,6 +152,7 @@ export function App() {
             completedDays={completedDays}
             currentDay={currentDayNumber}
             onSelectDay={handleSelectDay}
+            onToggleCheckpoint={handleToggleCheckpoint}
             onExploreVolt={() => {
               setActiveTab('VOLT');
               window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -160,7 +166,7 @@ export function App() {
             currentDayMission={currentMission}
             allMissions={MISSIONS}
             completedDays={completedDays}
-            onCompleteCheckpoint={handleCompleteCheckpoint}
+            onCompleteCheckpoint={handleToggleCheckpoint}
             onSelectDay={handleSelectDay}
             overallPercentage={overallPercentage}
           />
