@@ -372,11 +372,11 @@ export const OverviewView = ({
             <div className="relative overflow-hidden rounded-3xl border-4 border-[#13332D] bg-[#071B18] shadow-2xl">
               <img
                 src={images.founder}
-                alt="Dr. Bipin Chandra, founder and Group CEO of Esyasoft"
+                alt="Bipin Chandra, founder and Group CEO of Esyasoft"
                 className="w-full aspect-[0.95] object-cover object-top filter brightness-105"
               />
               <div className="bg-[#020605] p-5 border-t border-[#13332D]">
-                <h3 className="text-lg font-extrabold text-white">Dr. Bipin Chandra</h3>
+                <h3 className="text-lg font-extrabold text-white">Bipin Chandra</h3>
                 <p className="text-xs font-mono font-bold text-[#8CFF00] uppercase tracking-wider mt-0.5">
                   Founder & Group CEO
                 </p>
