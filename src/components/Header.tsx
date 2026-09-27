@@ -21,19 +21,24 @@ export const Header = ({
     setMobileMenuOpen(false);
   };
 
-  const navTabs: ViewTab[] = ['OVERVIEW', 'JOURNEY', 'TODAY', 'GET_HUB', 'DOCS', 'VOLT'];
+  const navTabs: { id: ViewTab; label: string }[] = [
+    { id: 'HOME', label: 'HOME' },
+    { id: 'JOURNEY', label: '90-DAY JOURNEY' },
+    { id: 'GUIDE', label: 'GET GUIDE' },
+    { id: 'VOLT', label: 'VOLT' }
+  ];
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 backdrop-blur-md border-b ${
       isDarkBg 
-        ? 'bg-[#020605]/85 border-[#071B18]/80 text-[#F5F5F0]' 
-        : 'bg-[#F5F5F0]/90 border-slate-200/80 text-[#061513]'
+        ? 'bg-[#020605]/90 border-[#071B18]/90 text-[#F5F5F0]' 
+        : 'bg-[#F5F5F0]/95 border-slate-200/90 text-[#061513]'
     }`}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         
         {/* Left: Brand */}
         <button 
-          onClick={() => handleTabClick('OVERVIEW')}
+          onClick={() => handleTabClick('HOME')}
           className="flex items-center gap-2.5 sm:gap-3 group text-left transition-transform active:scale-95 cursor-pointer shrink-0"
         >
           <div className="w-8 h-8 rounded-full overflow-hidden border border-[#8CFF00]/40 flex items-center justify-center relative shadow-[0_0_12px_rgba(140,255,0,0.2)] group-hover:border-[#8CFF00] transition-colors">
@@ -45,21 +50,20 @@ export const Header = ({
               ESYASOFT
             </span>
             <span className="text-[9px] sm:text-[10px] tracking-widest font-mono text-[#8CFF00] font-semibold mt-0.5">
-              GET 2026
+              GET 90-DAY PROGRAM
             </span>
           </div>
         </button>
 
         {/* Center: Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-1 sm:gap-1.5">
+        <nav className="hidden lg:flex items-center gap-1 sm:gap-2">
           {navTabs.map((tab) => {
-            const isActive = activeTab === tab;
-            const label = tab === 'GET_HUB' ? 'ESYALIFE' : tab;
+            const isActive = activeTab === tab.id;
             return (
               <button
-                key={tab}
-                onClick={() => handleTabClick(tab)}
-                className={`relative px-3 py-1.5 text-xs font-semibold tracking-wider font-mono transition-all duration-200 rounded-md cursor-pointer ${
+                key={tab.id}
+                onClick={() => handleTabClick(tab.id)}
+                className={`relative px-3.5 py-1.5 text-xs font-semibold tracking-wider font-mono transition-all duration-200 rounded-md cursor-pointer ${
                   isActive
                     ? isDarkBg
                       ? 'text-[#8CFF00]'
@@ -69,7 +73,7 @@ export const Header = ({
                       : 'text-neutral-600 hover:text-black'
                 }`}
               >
-                {label}
+                {tab.label}
                 {isActive && (
                   <span className={`absolute bottom-0 left-2 right-2 h-[2px] rounded-full transition-all ${
                     isDarkBg ? 'bg-[#8CFF00] shadow-[0_0_8px_#8CFF00]' : 'bg-[#061513]'
@@ -122,12 +126,11 @@ export const Header = ({
         }`}>
           <div className="grid grid-cols-2 gap-2 font-mono text-xs">
             {navTabs.map((tab) => {
-              const isActive = activeTab === tab;
-              const label = tab === 'GET_HUB' ? 'ESYALIFE' : tab;
+              const isActive = activeTab === tab.id;
               return (
                 <button
-                  key={tab}
-                  onClick={() => handleTabClick(tab)}
+                  key={tab.id}
+                  onClick={() => handleTabClick(tab.id)}
                   className={`p-3 rounded-xl font-bold transition text-left flex items-center justify-between ${
                     isActive
                       ? isDarkBg
@@ -138,7 +141,7 @@ export const Header = ({
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                   }`}
                 >
-                  <span>{label}</span>
+                  <span>{tab.label}</span>
                   {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#8CFF00]" />}
                 </button>
               );

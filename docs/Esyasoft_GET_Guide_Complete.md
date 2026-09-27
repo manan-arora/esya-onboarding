@@ -453,3 +453,810 @@ User-provided document
 | IMPORTANT<br>This handbook is a researched onboarding reference, not a substitute for official employment documents, HR policies, security policies, project-specific architecture, manager instructions or the latest program communication. Where internal instructions differ, follow the current official instruction. |
 | --- |
 
+---
+
+# GET GUIDE — EXTENDED HANDBOOK SECTIONS
+
+The sections below extend the researched company/domain guide into a fuller onboarding-handbook structure. They are intended for the GET Guide section of the website and should be adapted to the latest approved internal policies and program communication.
+
+# 25. Welcome & Your First 90 Days
+
+## What This Guide Is For
+
+Use this handbook to answer practical questions about:
+
+- Esyasoft and its businesses
+- the energy and utilities domain
+- products and technology
+- the GET program
+- working effectively with teams
+- security and responsible technology use
+- Mangalore and training-centre logistics
+- common new-joiner questions
+- useful terminology and resources
+
+## What This Guide Is Not
+
+This guide is not a substitute for:
+
+- employment agreements,
+- HR policies,
+- information-security policies,
+- project-specific instructions,
+- customer requirements,
+- manager instructions,
+- official travel/admin communication,
+- or the latest internal program communication.
+
+When an official instruction differs from this guide, follow the official instruction.
+
+## First 90 Days — Simple Mental Model
+
+**ORIENT → DISCOVER → BUILD → SPECIALIZE → CONTRIBUTE**
+
+The website's 90-Day Journey contains the detailed learning plan. This guide is the reference layer that supports that journey.
+
+---
+
+# 26. New-Joiner Orientation
+
+## Before You Start
+
+Make sure you know:
+
+- your reporting/point-of-contact structure,
+- your training schedule,
+- your accommodation arrangements if applicable,
+- where the training centre is,
+- how to contact the relevant HR/Admin/program team,
+- what equipment or access you have been issued,
+- where official policies and resources are located.
+
+## During Your First Week
+
+Aim to:
+
+- understand what Esyasoft does,
+- understand why your GET program exists,
+- meet your cohort and key program contacts,
+- understand how communication works,
+- understand the expectations placed on you,
+- become familiar with the campus,
+- start a personal glossary of unfamiliar terms,
+- begin documenting questions rather than relying on memory.
+
+## Questions to Ask Early
+
+- What does my team own?
+- Who are the users/customers of our work?
+- What does success look like?
+- Which systems or products will I work with?
+- Where should I look for documentation?
+- Who reviews my work?
+- What is the escalation path when I am blocked?
+- Which tools are approved for development and communication?
+
+---
+
+# 27. How to Navigate Esyasoft
+
+A GET may interact with several types of teams.
+
+Depending on the assignment, these may include:
+
+- Engineering
+- Software Development
+- QA / Testing
+- Product
+- Project Management
+- Business Analysis
+- UI/UX
+- DevOps / Cloud
+- Data / Analytics
+- AI / ML
+- Embedded / IoT
+- Sales / Business Development
+- Operations
+- Customer-facing teams
+- HR / People functions
+
+## Why Cross-Functional Understanding Matters
+
+A technical requirement usually exists because a customer, business or operational problem exists.
+
+A strong engineer therefore asks:
+
+> **What problem does this feature solve?**
+
+not only:
+
+> **What code do I need to write?**
+
+---
+
+# 28. Working in a Project Team
+
+## Understand the Context
+
+Before implementation, identify:
+
+- the problem,
+- the user,
+- the expected outcome,
+- constraints,
+- dependencies,
+- acceptance criteria.
+
+## Break Work Down
+
+Convert a large problem into:
+
+**Epic / Goal → Feature → Task → Implementation → Test → Review → Delivery**
+
+The exact workflow may vary by team.
+
+## Keep Work Visible
+
+Use the team's approved tools and workflow to communicate:
+
+- what you are doing,
+- what is completed,
+- what is blocked,
+- what comes next.
+
+## Raise Blockers Early
+
+A blocker is not a failure.
+
+A blocker becomes a problem when it remains invisible for too long.
+
+Use:
+
+**Context → What I tried → Current status → Blocker → Help needed → Next step**
+
+---
+
+# 29. Meetings, Stand-ups & Reviews
+
+## Before a Meeting
+
+Know:
+
+- why the meeting exists,
+- what decision is needed,
+- what information you need to bring.
+
+## During
+
+- Listen actively.
+- Ask concise questions.
+- Distinguish facts from assumptions.
+- Record decisions and action items.
+
+## After
+
+Capture:
+
+- action,
+- owner,
+- expected completion,
+- dependencies.
+
+## In a Demo
+
+A useful demonstration explains:
+
+1. What problem were we solving?
+2. What did we build?
+3. How does it work?
+4. What did we learn?
+5. What remains?
+
+---
+
+# 30. Feedback & Mentorship
+
+Feedback is most useful when it is specific.
+
+Instead of:
+
+> "The code needs improvement."
+
+Useful feedback identifies:
+
+- what happened,
+- why it matters,
+- what can change,
+- how success will look.
+
+As a GET:
+
+- ask for feedback,
+- clarify feedback you do not understand,
+- apply it,
+- return with the improved result.
+
+A mentor conversation can focus on:
+
+- technical growth,
+- domain understanding,
+- career direction,
+- communication,
+- project context,
+- learning resources.
+
+---
+
+# 31. Learning & Self-Development
+
+A strong onboarding habit is to maintain three lists:
+
+### I UNDERSTAND
+
+Concepts you can explain confidently.
+
+### I AM LEARNING
+
+Concepts you understand partially.
+
+### I NEED TO EXPLORE
+
+Questions or topics that require further investigation.
+
+## Build a Personal Glossary
+
+Record:
+
+- unfamiliar domain terms,
+- technical acronyms,
+- product names,
+- architecture terms,
+- business terminology.
+
+For each term, write a one-line explanation in your own words.
+
+---
+
+# 32. Technology & Development Environment
+
+The exact technology stack depends on your assignment and team.
+
+Common engineering onboarding areas may include:
+
+- source control,
+- IDE/editor,
+- local development environment,
+- package/dependency management,
+- databases,
+- APIs,
+- environment variables,
+- logging,
+- debugging,
+- testing,
+- CI/CD,
+- containers,
+- cloud environments.
+
+## Environment Setup Checklist
+
+- [ ] Development tools installed
+- [ ] Required repository access confirmed
+- [ ] Required credentials/access configured through approved processes
+- [ ] Dependencies installed
+- [ ] Application runs locally where applicable
+- [ ] Tests can be executed
+- [ ] Documentation located
+- [ ] Team workflow understood
+
+Never put credentials or secrets directly into source code.
+
+---
+
+# 33. Engineering Quality
+
+Quality is more than "it works on my machine."
+
+Consider:
+
+### Correctness
+
+Does the implementation solve the intended problem?
+
+### Reliability
+
+What happens when dependencies fail?
+
+### Maintainability
+
+Can another engineer understand and change the code?
+
+### Security
+
+Could data, credentials or systems be exposed?
+
+### Performance
+
+Does the solution behave appropriately at expected scale?
+
+### Testability
+
+Can the behavior be verified?
+
+### Observability
+
+Can problems be diagnosed after deployment?
+
+---
+
+# 34. Testing Mindset
+
+Testing should be connected to risk.
+
+Think about:
+
+- happy paths,
+- invalid input,
+- edge cases,
+- failure scenarios,
+- integration behavior,
+- regression risk.
+
+Before submitting work, ask:
+
+> What could break?
+
+Then test the most important risks.
+
+---
+
+# 35. Documentation Standards
+
+Useful documentation answers:
+
+- What is this?
+- Why does it exist?
+- How do I run/use it?
+- What assumptions does it make?
+- What can go wrong?
+- Where should I look next?
+
+Useful documentation types:
+
+- README
+- setup guide
+- architecture diagram
+- API documentation
+- troubleshooting guide
+- decision record
+- test documentation
+- meeting notes
+
+Documentation should be concise enough to maintain and complete enough to be useful.
+
+---
+
+# 36. Security & Privacy
+
+Always follow the latest official company security requirements.
+
+General principles:
+
+- Do not share passwords.
+- Do not expose API keys or tokens.
+- Do not commit secrets.
+- Do not copy confidential information into unapproved tools.
+- Do not share customer data unnecessarily.
+- Lock your device when away.
+- Use approved storage and communication channels.
+- Report suspicious activity through the official process.
+
+## Before Using an External AI Tool
+
+Ask:
+
+1. Is the information confidential?
+2. Does it contain customer data?
+3. Does it contain proprietary source code?
+4. Is the tool approved for this information?
+5. Have I reviewed the generated output?
+
+AI-generated code and explanations must still be reviewed by the engineer responsible for the work.
+
+---
+
+# 37. Responsible AI & Software Use
+
+AI can be useful for:
+
+- explaining unfamiliar concepts,
+- generating examples,
+- brainstorming,
+- debugging assistance,
+- documentation drafts,
+- test-case ideas,
+- learning.
+
+AI output can also be incorrect, insecure or inappropriate for the actual system.
+
+Therefore:
+
+**Generate → Inspect → Verify → Test → Own**
+
+Do not treat generated output as automatically correct.
+
+---
+
+# 38. Professional Conduct
+
+A professional workplace depends on:
+
+- respect,
+- inclusion,
+- appropriate communication,
+- responsible behavior,
+- confidentiality,
+- accountability.
+
+Follow official company policies for:
+
+- workplace conduct,
+- anti-harassment / POSH,
+- information security,
+- leave and attendance,
+- remote/hybrid work where applicable,
+- travel,
+- expenses,
+- device usage,
+- acceptable technology use.
+
+The latest official policy always takes precedence over this guide.
+
+---
+
+# 39. Communication Quick Reference
+
+## Status Update
+
+**Completed:**  
+What is done.
+
+**In Progress:**  
+What is being worked on.
+
+**Blocked:**  
+What is preventing progress.
+
+**Next:**  
+What happens next.
+
+## Asking for Help
+
+A useful question includes:
+
+- context,
+- what you expected,
+- what happened,
+- what you tried,
+- the specific help you need.
+
+This makes it easier for the other person to help quickly.
+
+---
+
+# 40. Building Relationships During Onboarding
+
+Do not restrict your learning network to your immediate trainer or team.
+
+Useful conversations can include:
+
+- "What does your team work on?"
+- "What problem does this product solve?"
+- "What should a new engineer understand about this domain?"
+- "What skills helped you most early in your career?"
+- "What should I read to understand this system better?"
+
+The goal is not networking for its own sake.
+
+The goal is to understand how the organization works.
+
+---
+
+# 41. Getting Value From the Mangalore Campus
+
+Where facilities are available, use the centre as part of the learning experience.
+
+Potential uses include:
+
+- training classrooms,
+- IoT/embedded labs,
+- workshops,
+- library,
+- recreation facilities,
+- peer learning,
+- informal discussions.
+
+The supplied GET FAQ documents a gym, table tennis, foosball and library facilities in the residential/campus area.
+
+---
+
+# 42. Accommodation & Travel Quick Reference
+
+> These details are from the supplied September 2026 GET Travel & Accommodation FAQ and are batch/date-specific. Confirm the latest Admin/HR communication before relying on them.
+
+### Venue
+
+**Esyasoft Global Capability Center**  
+Kolambe Proper, Karnataka 574142
+
+Approximate distance:
+
+- Mangalore Airport — 10 km
+- Mangalore Central railway station — 20 km
+
+### Accommodation
+
+The supplied FAQ documents:
+
+- sharing accommodation,
+- 3 BHK and 4 BHK units,
+- kitchen facilities,
+- furniture,
+- appliances,
+- bathroom/utility items.
+
+### Bring Your Own
+
+- toiletries,
+- towels,
+- personal hygiene products,
+- mosquito repellent,
+- umbrella,
+- personal medicines,
+- garbage bags/covers if required,
+- other personal essentials.
+
+### Facilities
+
+- gymnasium,
+- table tennis,
+- foosball,
+- library.
+
+### Contacts
+
+Travel/logistics before the program:
+
+**Chiranth AR Hegde**  
+chiranth.hegde@esyasoft.com  
+9535727038
+
+**Anneyappa P**  
+Anneyappa.p@esyasoft.com  
+9035028788
+
+HR policies/processes after program start:
+
+**Prabhu D**  
+Prabhu.D@esyasoft.com  
+9884307031
+
+---
+
+# 43. Frequently Asked Questions
+
+## What should I focus on first?
+
+Understand the company, your program, the domain and the expectations of your role.
+
+## Do I need to know everything before joining a project?
+
+No. The purpose of the GET program is progressive capability building.
+
+## What should I do when I do not understand a domain term?
+
+Write it down, search the approved internal resources, ask a trainer/mentor/team member and explain it back in your own words.
+
+## What if I am blocked?
+
+Try to isolate the problem, document what you tried and communicate the blocker early.
+
+## Should I focus only on technology?
+
+No. Domain knowledge and business context are important parts of engineering work in energy and utilities.
+
+## Should I ask questions during training?
+
+Yes. Good questions improve both your understanding and the quality of the discussion.
+
+## What should I do if official instructions differ from this guide?
+
+Follow the latest official instruction.
+
+## Where should I go for travel or accommodation questions?
+
+Use the latest official Admin/HR communication. The supplied September 2026 FAQ lists the travel/logistics contacts in this guide.
+
+## Where should I go for HR policy questions?
+
+Use the current HR process/contact communicated by the program.
+
+---
+
+# 44. First 30 Days — Quick Reference
+
+By the end of the first month, aim to be able to explain:
+
+### Company
+
+- What Esyasoft does.
+- What the major business areas are.
+- What the company's public vision and values are.
+
+### Domain
+
+- Electricity generation, transmission and distribution.
+- Smart metering.
+- AMI.
+- HES.
+- MDMS.
+- BESS.
+- EV charging.
+- Basic utility problems and outcomes.
+
+### Technology
+
+- How devices generate data.
+- How communication moves data.
+- How backend systems process it.
+- How databases store it.
+- How analytics create insight.
+- Where software engineering fits.
+
+### Professional
+
+- How your team works.
+- How to communicate blockers.
+- How to document work.
+- How to ask for feedback.
+- Who to approach for help.
+
+---
+
+# 45. 90-Day Self-Check
+
+At the end of the program, ask yourself:
+
+### Company
+
+Can I explain Esyasoft to someone unfamiliar with the company?
+
+### Domain
+
+Can I explain the business problem behind the technology I work on?
+
+### Technology
+
+Can I understand and contribute to the relevant technical stack?
+
+### Engineering
+
+Can I build, test, debug and explain my work?
+
+### Collaboration
+
+Can I work effectively with people from different functions?
+
+### Ownership
+
+Can I take a task from understanding through delivery?
+
+### Communication
+
+Can I clearly explain status, risks, decisions and results?
+
+### Growth
+
+Do I know what capability I want to build next?
+
+---
+
+# 46. New-Joiner Checklist — Master Version
+
+## Before Arrival
+
+- [ ] Confirm travel
+- [ ] Confirm accommodation
+- [ ] Save official contacts
+- [ ] Review company overview
+- [ ] Review program information
+- [ ] Pack personal essentials
+
+## Week 1
+
+- [ ] Understand company story
+- [ ] Understand vision and values
+- [ ] Meet cohort and program contacts
+- [ ] Understand communication channels
+- [ ] Understand workplace expectations
+- [ ] Locate essential facilities
+
+## Domain
+
+- [ ] Understand energy value chain
+- [ ] Understand smart metering
+- [ ] Understand AMI
+- [ ] Understand HES
+- [ ] Understand MDMS
+- [ ] Understand BESS
+- [ ] Understand EV charging
+- [ ] Understand at least one Esyasoft solution end-to-end
+
+## Technology
+
+- [ ] Set up development environment
+- [ ] Access required repositories/tools
+- [ ] Understand team workflow
+- [ ] Understand relevant architecture
+- [ ] Build/test something small
+- [ ] Document what you learned
+
+## Professional
+
+- [ ] Ask questions
+- [ ] Communicate blockers
+- [ ] Participate in reviews
+- [ ] Request feedback
+- [ ] Meet people outside your immediate team
+- [ ] Maintain a personal glossary
+
+## Program Completion
+
+- [ ] Complete required learning activities
+- [ ] Complete practical work
+- [ ] Demonstrate relevant capability
+- [ ] Present or explain your work
+- [ ] Reflect on learning
+- [ ] Identify next development goals
+
+---
+
+# 47. Quick Reference — Who to Ask
+
+When you are unsure, start with the most relevant available person:
+
+| Question | Start with |
+|---|---|
+| Program schedule | Program / training team |
+| HR policy | HR |
+| Travel / accommodation | Admin / travel contact |
+| Technical implementation | Technical trainer / mentor / team |
+| Domain concept | Domain SME / trainer |
+| Project requirement | Project / product / business contact |
+| Code review | Assigned reviewer / technical lead |
+| Blocker | Immediate lead / mentor |
+
+Always follow the current internal escalation structure.
+
+---
+
+# 48. Final Principle
+
+A successful GET onboarding experience should not leave a trainee with only a list of completed sessions.
+
+It should leave them with:
+
+**Context** — I understand the company and domain.
+
+**Capability** — I can apply what I learned.
+
+**Confidence** — I know how to ask, communicate and solve problems.
+
+**Connections** — I know who to approach.
+
+**Direction** — I understand what I should develop next.
+
+The 90-Day Journey provides the structured development path.
+
+The GET Guide provides the knowledge and reference layer.
+
+The rest of the onboarding experience should help turn those two things into confident contribution.

@@ -1,23 +1,26 @@
 import { useState, useEffect } from 'react';
-import type { ViewTab, CoreId, VoltCoreStatus } from './types';
-import { MISSIONS, CORES } from './data/curriculum';
+import type { ViewTab, VoltCoreId, VoltCoreStatus } from './types';
+import { MISSIONS, VOLT_CORES } from './data/curriculum';
+import { calculateAutomaticProgramDay } from './utils/dateUtils';
 import { Header } from './components/Header';
-import { OverviewView } from './components/OverviewView';
-import { TodayView } from './components/TodayView';
+import { HomeView } from './components/HomeView';
 import { JourneyView } from './components/JourneyView';
-import { GetHubView } from './components/GetHubView';
-import { DocsView } from './components/DocsView';
+import { GetGuideView } from './components/GetGuideView';
 import { VoltView } from './components/VoltView';
 import { FinalActivation } from './components/FinalActivation';
 import { DemoToolbar } from './components/DemoToolbar';
 
-const STORAGE_KEY_COMPLETED = 'esyasoft_volt_completed_days';
-const STORAGE_KEY_CURRENT = 'esyasoft_volt_current_day';
+const STORAGE_KEY_COMPLETED = 'esyasoft_volt_completed_days_90';
+const STORAGE_KEY_DEMO_OVERRIDE = 'esyasoft_volt_demo_override_day';
 
 export function App() {
-  const [activeTab, setActiveTab] = useState<ViewTab>('OVERVIEW');
-  
-  // Initialize state with default Day 8 demo baseline (Days 1-7 completed) or local storage
+  const [activeTab, setActiveTab] = useState<ViewTab>('HOME');
+
+  const automaticDay = calculateAutomaticProgramDay();
+
+  // Default baseline completed days (Day 1 to 23 completed)
+  const defaultCompletedDays = Array.from({ length: 23 }, (_, i) => i + 1);
+
   const [completedDays, setCompletedDays] = useState<number[]>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY_COMPLETED);
@@ -25,22 +28,26 @@ export function App() {
     } catch (e) {
       console.warn('Could not read completed days from localStorage', e);
     }
-    return [1, 2, 3, 4, 5, 6, 7]; // Default initial baseline: 7 days done (Power Core 100%, Domain Core 40%)
+    return defaultCompletedDays;
   });
 
-  const [currentDayNumber, setCurrentDayNumber] = useState<number>(() => {
+  const [demoOverrideDay, setDemoOverrideDay] = useState<number | null>(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY_CURRENT);
-      if (saved) return Number(saved);
+      const saved = localStorage.getItem(STORAGE_KEY_DEMO_OVERRIDE);
+      if (saved !== null) return Number(saved);
     } catch (e) {
-      console.warn('Could not read current day from localStorage', e);
+      console.warn('Could not read demo override day from localStorage', e);
     }
-    return 8; // Default initial view: Day 08 / 30
+    return 23; // Default demo initial view: Day 23 of 90
   });
 
   const [showFinalActivation, setShowFinalActivation] = useState(false);
 
-  // Sync to localStorage
+  // Active current day (Demo override takes precedence over automatic date)
+  const isDemoOverride = demoOverrideDay !== null;
+  const currentDayNumber = isDemoOverride ? demoOverrideDay : automaticDay;
+
+  // Sync state to localStorage
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY_COMPLETED, JSON.stringify(completedDays));
@@ -51,37 +58,48 @@ export function App() {
 
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY_CURRENT, String(currentDayNumber));
+      if (demoOverrideDay !== null) {
+        localStorage.setItem(STORAGE_KEY_DEMO_OVERRIDE, String(demoOverrideDay));
+      } else {
+        localStorage.removeItem(STORAGE_KEY_DEMO_OVERRIDE);
+      }
     } catch (e) {
       // ignore
     }
-  }, [currentDayNumber]);
+  }, [demoOverrideDay]);
 
-  // Overall percentage calculation
-  const overallPercentage = Math.round((completedDays.length / 30) * 100);
+  // Overall percentage calculation out of 90 days
+  const overallPercentage = Math.round((completedDays.length / 90) * 100);
 
-  // Calculate 5 core statuses dynamically
-  const coreIds: CoreId[] = ['POWER', 'DOMAIN', 'NEURAL', 'ENGINE', 'DRIVE'];
-  const coreStatuses: VoltCoreStatus[] = coreIds.map((cId) => {
-    const coreInfo = CORES[cId];
-    const coreMissions = MISSIONS.filter((m) => m.coreId === cId);
+  // Calculate 5 Volt Core statuses dynamically
+  const voltCoreIds: VoltCoreId[] = ['POWER', 'DOMAIN', 'NEURAL', 'ENGINE', 'DRIVE'];
+  const voltCoreStatuses: VoltCoreStatus[] = voltCoreIds.map((coreId) => {
+    const coreInfo = VOLT_CORES[coreId];
+    const coreMissions = MISSIONS.filter((m) => m.day >= coreInfo.dayStart && m.day <= coreInfo.dayEnd);
     const completedCount = coreMissions.filter((m) => completedDays.includes(m.day)).length;
     const percentage = Math.round((completedCount / coreMissions.length) * 100);
 
+    const isComplete = percentage === 100;
+    const isInProgress = !isComplete && (completedCount > 0 || (currentDayNumber >= coreInfo.dayStart && currentDayNumber <= coreInfo.dayEnd));
+    const isLocked = !isComplete && !isInProgress;
+
     return {
-      id: cId,
+      id: coreId,
       name: coreInfo.name,
       percentage,
       completedDays: completedCount,
       totalDays: coreMissions.length,
-      isFullyBuilt: percentage === 100
+      isFullyBuilt: isComplete,
+      isLocked,
+      isInProgress,
+      isComplete
     };
   });
 
   // Current day mission object
   const currentMission = MISSIONS.find((m) => m.day === currentDayNumber) || MISSIONS[0];
 
-  // Actions
+  // Action handlers
   const handleToggleCheckpoint = (dayNum: number) => {
     setCompletedDays((prev) => {
       let updated: number[];
@@ -91,8 +109,7 @@ export function App() {
         updated = [...prev, dayNum].sort((a, b) => a - b);
       }
 
-      // If Day 30 completed (or all 30 days done), trigger final activation moment!
-      if (updated.length === 30 || (dayNum === 30 && updated.includes(30))) {
+      if (updated.length === 90 || (dayNum === 90 && updated.includes(90))) {
         setTimeout(() => {
           setShowFinalActivation(true);
         }, 500);
@@ -102,29 +119,26 @@ export function App() {
   };
 
   const handleSelectDay = (dayNum: number) => {
-    setCurrentDayNumber(dayNum);
-    setActiveTab('TODAY');
+    setDemoOverrideDay(dayNum);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleResetToToday = () => {
+    setDemoOverrideDay(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleCompleteAll = () => {
-    const allDays = Array.from({ length: 30 }, (_, i) => i + 1);
+    const allDays = Array.from({ length: 90 }, (_, i) => i + 1);
     setCompletedDays(allDays);
-    setCurrentDayNumber(30);
+    setDemoOverrideDay(90);
     setShowFinalActivation(true);
-  };
-
-  const handleResetDemo = () => {
-    setCompletedDays([1, 2, 3, 4, 5, 6, 7]);
-    setCurrentDayNumber(8);
-    setShowFinalActivation(false);
-    setActiveTab('OVERVIEW');
   };
 
   return (
     <div className="min-h-screen bg-[#020605] text-[#F5F5F0] font-sans antialiased relative">
       
-      {/* Top Header Navigation */}
+      {/* Primary Top Header Navigation (4 Destinations ONLY: HOME, 90-DAY JOURNEY, GET GUIDE, VOLT) */}
       <Header
         activeTab={activeTab}
         setActiveTab={(tab) => {
@@ -134,15 +148,23 @@ export function App() {
         overallPercentage={overallPercentage}
       />
 
-      {/* Main Page View Switcher */}
+      {/* Main View Router */}
       <main>
-        {activeTab === 'OVERVIEW' && (
-          <OverviewView
-            onStartJourney={() => {
+        {activeTab === 'HOME' && (
+          <HomeView
+            currentDayNumber={currentDayNumber}
+            completedDays={completedDays}
+            overallPercentage={overallPercentage}
+            currentMission={currentMission}
+            onGoToJourney={() => {
               setActiveTab('JOURNEY');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            onSelectDay={handleSelectDay}
+            onGoToVolt={() => {
+              setActiveTab('VOLT');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            onToggleCheckpoint={handleToggleCheckpoint}
           />
         )}
 
@@ -152,7 +174,6 @@ export function App() {
             completedDays={completedDays}
             currentDay={currentDayNumber}
             onSelectDay={handleSelectDay}
-            onToggleCheckpoint={handleToggleCheckpoint}
             onExploreVolt={() => {
               setActiveTab('VOLT');
               window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -161,34 +182,14 @@ export function App() {
           />
         )}
 
-        {activeTab === 'TODAY' && (
-          <TodayView
-            currentDayMission={currentMission}
-            allMissions={MISSIONS}
-            completedDays={completedDays}
-            onCompleteCheckpoint={handleToggleCheckpoint}
-            onSelectDay={handleSelectDay}
-            overallPercentage={overallPercentage}
-          />
-        )}
-
-        {activeTab === 'GET_HUB' && (
-          <GetHubView
-            onGoToJourney={() => {
-              setActiveTab('JOURNEY');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-          />
-        )}
-
-        {activeTab === 'DOCS' && (
-          <DocsView />
+        {activeTab === 'GUIDE' && (
+          <GetGuideView />
         )}
 
         {activeTab === 'VOLT' && (
           <VoltView
             overallPercentage={overallPercentage}
-            coreStatuses={coreStatuses}
+            coreStatuses={voltCoreStatuses}
             onTriggerActivation={() => setShowFinalActivation(true)}
             completedDaysCount={completedDays.length}
           />
@@ -207,23 +208,26 @@ export function App() {
         />
       )}
 
-      {/* Demo Floating Controls */}
+      {/* Demo Floating Control Toolbar */}
       <DemoToolbar
-        onSelectDay={handleSelectDay}
-        onCompleteAllDays={handleCompleteAll}
-        onResetDemo={handleResetDemo}
         currentDay={currentDayNumber}
+        automaticDay={automaticDay}
+        isDemoOverride={isDemoOverride}
+        onSelectDay={handleSelectDay}
+        onResetToToday={handleResetToToday}
         completedCount={completedDays.length}
+        onCompleteAllDays={handleCompleteAll}
       />
 
       {/* Footer */}
       <footer className="py-8 border-t border-[#071B18] bg-[#020605] text-xs font-mono text-neutral-500 text-center space-y-2">
-        <p>ESYASOFT GRADUATE ENGINEER TRAINEE PROGRAM 2026 • BUILD VOLT</p>
+        <p className="text-neutral-400 font-semibold">ESYASOFT GRADUATE ENGINEER TRAINEE PROGRAM • 90-DAY JOURNEY</p>
         <p className="text-[10px] text-neutral-600">
-          Concept Prototype • Designed for Esyasoft GET Onboarding Experience
+          Official GET Onboarding & Development Program • Esyasoft Technologies
         </p>
       </footer>
     </div>
   );
 }
+
 export default App;

@@ -1,7 +1,8 @@
-export type CoreId = 'POWER' | 'DOMAIN' | 'NEURAL' | 'ENGINE' | 'DRIVE';
+export type PhaseId = 'ORIENT' | 'DISCOVER' | 'BUILD' | 'SPECIALIZE' | 'CONTRIBUTE';
+export type VoltCoreId = 'POWER' | 'DOMAIN' | 'NEURAL' | 'ENGINE' | 'DRIVE';
 
-export interface CoreInfo {
-  id: CoreId;
+export interface PhaseInfo {
+  id: PhaseId;
   number: string;
   name: string;
   subtitle: string;
@@ -11,43 +12,53 @@ export interface CoreInfo {
   dayEnd: number;
   totalDays: number;
   color: string;
-  highlights: string[];
+  weeks?: {
+    title: string;
+    topics: string[];
+  }[];
+  deliverables?: string[];
+  milestone?: string;
+}
+
+export interface VoltCoreInfo {
+  id: VoltCoreId;
+  number: string;
+  name: string;
+  description: string;
+  dayStart: number;
+  dayEnd: number;
+  totalDays: number;
+  challenge: {
+    keyword: string;
+    description: string;
+  };
 }
 
 export interface DayMission {
   day: number;
   title: string;
-  coreId: CoreId;
+  phaseId: PhaseId;
   objective: string;
   learn: string[];
   practice: string[];
   checkpoint: string;
-  unlockItem: string;
-  estimatedMinutes?: number;
+  timeSchedule?: {
+    time: string;
+    activity: string;
+    type: 'Trainer Session' | 'Learning Activity' | 'Reflection';
+  }[];
 }
 
-export type ViewTab = 'OVERVIEW' | 'JOURNEY' | 'TODAY' | 'GET_HUB' | 'DOCS' | 'VOLT';
+export type ViewTab = 'HOME' | 'JOURNEY' | 'GUIDE' | 'VOLT';
 
 export interface VoltCoreStatus {
-  id: CoreId;
+  id: VoltCoreId;
   name: string;
   percentage: number;
   completedDays: number;
   totalDays: number;
   isFullyBuilt: boolean;
-}
-
-export interface CoreUnlock {
-  coreId: CoreId;
-  coreNumber: string;
-  challenge: {
-    keyword: string;
-    description: string;
-  };
-  experience: {
-    title: string;
-    description: string;
-    details: string;
-    instructions: string;
-  };
+  isLocked: boolean;
+  isInProgress: boolean;
+  isComplete: boolean;
 }
