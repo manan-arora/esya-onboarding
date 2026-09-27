@@ -41,18 +41,16 @@ export const Header = ({
           onClick={() => handleTabClick('HOME')}
           className="flex items-center gap-2.5 sm:gap-3 group text-left transition-transform active:scale-95 cursor-pointer shrink-0"
         >
-          <div className="w-8 h-8 rounded-full overflow-hidden border border-[#8CFF00]/40 flex items-center justify-center relative shadow-[0_0_12px_rgba(140,255,0,0.2)] group-hover:border-[#8CFF00] transition-colors">
-            <img src="/assets/esyasoft_logo.png" alt="Esyasoft Logo" className="w-full h-full object-cover" />
-            <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#8CFF00] animate-pulse" />
+          <div className="bg-white px-3 py-1 rounded-lg border border-slate-200/90 shadow-sm group-hover:border-[#8CFF00] transition-all flex items-center h-9 sm:h-10">
+            <img 
+              src="/assets/esyasoft_logo.png" 
+              alt="Esyasoft Logo" 
+              className="h-6 sm:h-7 w-auto object-contain" 
+            />
           </div>
-          <div className="flex flex-col">
-            <span className="font-extrabold text-xs sm:text-sm tracking-wider uppercase leading-none font-sans">
-              ESYASOFT
-            </span>
-            <span className="text-[9px] sm:text-[10px] tracking-widest font-mono text-[#8CFF00] font-semibold mt-0.5">
-              GET 90-DAY PROGRAM
-            </span>
-          </div>
+          <span className="text-[9px] sm:text-[10px] tracking-widest font-mono text-[#8CFF00] font-bold uppercase bg-[#061513] px-2 py-1 rounded-md border border-[#8CFF00]/30 shadow-sm hidden sm:inline-block">
+            GET 90-DAY PROGRAM
+          </span>
         </button>
 
         {/* Center: Desktop Navigation */}

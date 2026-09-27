@@ -179,6 +179,7 @@ export function App() {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             overallPercentage={overallPercentage}
+            onToggleCheckpoint={handleToggleCheckpoint}
           />
         )}
 

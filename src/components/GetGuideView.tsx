@@ -329,7 +329,7 @@ export const GetGuideView = () => {
                 </div>
               </div>
               <div className="pt-2 border-t border-[#E5E5DC] text-xs text-gray-500 flex flex-wrap gap-4">
-                <span><strong>Research cut-off:</strong> 24 September 2026</span>
+            
                 <span><strong>Target Audience:</strong> First-Time GETs & Engineers</span>
                 <span><strong>Companion:</strong> 90-Day Journey Curriculum</span>
               </div>
@@ -954,7 +954,7 @@ export const GetGuideView = () => {
             </div>
 
             <div className="bg-rose-50 border border-rose-200 p-4 rounded-xl text-rose-800 text-xs font-semibold">
-              ⚠️ SECURITY RULE: Never place credentials, API keys, database passwords, or customer tokens directly in source code or Git commits.
+              SECURITY RULE: Never place credentials, API keys, database passwords, or customer tokens directly in source code or Git commits.
             </div>
           </section>
 
@@ -1105,7 +1105,7 @@ export const GetGuideView = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                 <div className="bg-white p-4 rounded-xl border border-[#E5E5DC] space-y-2">
                   <h4 className="font-bold text-[#061513] text-sm flex items-center gap-1.5">
-                    ⚡ Electrical Appliances
+                    Electrical Appliances
                   </h4>
                   <ul className="text-gray-700 space-y-1 list-disc list-inside">
                     <li>Air Conditioner & Geyser</li>
@@ -1120,7 +1120,7 @@ export const GetGuideView = () => {
 
                 <div className="bg-white p-4 rounded-xl border border-[#E5E5DC] space-y-2">
                   <h4 className="font-bold text-[#061513] text-sm flex items-center gap-1.5">
-                    🍽️ Kitchenware & Utensils
+                    Kitchenware & Utensils
                   </h4>
                   <ul className="text-gray-700 space-y-1 list-disc list-inside">
                     <li>Full & Quarter Plates, Bowls</li>
@@ -1135,7 +1135,7 @@ export const GetGuideView = () => {
 
                 <div className="bg-white p-4 rounded-xl border border-[#E5E5DC] space-y-2">
                   <h4 className="font-bold text-[#061513] text-sm flex items-center gap-1.5">
-                    🛋️ Furniture & Utilities
+                    Furniture & Utilities
                   </h4>
                   <ul className="text-gray-700 space-y-1 list-disc list-inside">
                     <li>Mattress, Bedsheets, Quilt, Pillow</li>
@@ -1151,7 +1151,7 @@ export const GetGuideView = () => {
 
             {/* Sub-card 2: Campus Recreation */}
             <div className="bg-[#F5F5F0] border border-[#E5E5DC] rounded-xl p-5 space-y-3">
-              <h3 className="text-base font-bold text-[#061513]">🏋️ Campus Recreation & Wellness</h3>
+              <h3 className="text-base font-bold text-[#061513]">Campus Recreation & Wellness</h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                 <div className="bg-white p-3 rounded-lg border border-[#E5E5DC]">
                   <strong className="text-[#061513] block mb-1">Gymnasium</strong>
@@ -1172,7 +1172,7 @@ export const GetGuideView = () => {
             <div className="bg-white border border-[#E5E5DC] rounded-xl p-5 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-base font-bold text-[#061513]">🧳 Items NOT Provided (Interactive Trainee Packing Checklist)</h3>
+                  <h3 className="text-base font-bold text-[#061513]">Items NOT Provided (Interactive Trainee Packing Checklist)</h3>
                   <p className="text-xs text-gray-600">Check off items as you pack them for your Mangalore travel.</p>
                 </div>
                 <span className="text-xs font-mono font-bold text-emerald-800">
@@ -1204,16 +1204,16 @@ export const GetGuideView = () => {
 
             {/* Sub-card 4: Travel & Arrival Logistics */}
             <div className="bg-[#061513] text-white p-5 rounded-xl border border-[#13332D] space-y-3">
-              <h3 className="text-[#8CFF00] font-bold text-sm">📍 Venue Location & Travel Logistics</h3>
+              <h3 className="text-[#8CFF00] font-bold text-sm">Venue Location & Travel Logistics</h3>
               <p className="font-mono text-xs text-gray-200">
                 Esyasoft Global Capability Center, Kolambe Proper, Karnataka 574142
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-gray-300">
                 <div className="bg-white/10 p-3 rounded-lg border border-white/15">
-                  <strong>✈️ Mangalore Airport:</strong> ~10 km distance (Cab pickups coordinated for pre-booked arrivals).
+                  <strong>Mangalore Airport:</strong> ~10 km distance (Cab pickups coordinated for pre-booked arrivals).
                 </div>
                 <div className="bg-white/10 p-3 rounded-lg border border-white/15">
-                  <strong>🚂 Central Railway Station:</strong> ~20 km distance (Cab pickups coordinated for train arrivals).
+                  <strong>Central Railway Station:</strong> ~20 km distance (Cab pickups coordinated for train arrivals).
                 </div>
               </div>
               <p className="text-xs text-gray-400 pt-1">

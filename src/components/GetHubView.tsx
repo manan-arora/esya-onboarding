@@ -15,6 +15,9 @@ import {
   Plane,
   Train,
   Dumbbell,
+  Trophy,
+  BookOpen,
+  Activity,
   HelpCircle,
   ChevronDown,
   Mail,
@@ -391,7 +394,7 @@ export const GetHubView = ({ onGoToJourney }: GetHubViewProps) => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="p-5 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3">
               <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-800 font-bold">
-                🏋️
+                <Dumbbell className="w-5 h-5 text-emerald-700" />
               </div>
               <h4 className="font-extrabold text-base text-[#061513]">GYMNASIUM</h4>
               <p className="text-xs text-slate-600 leading-relaxed">
@@ -401,7 +404,7 @@ export const GetHubView = ({ onGoToJourney }: GetHubViewProps) => {
 
             <div className="p-5 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3">
               <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-800 font-bold">
-                🏓
+                <Activity className="w-5 h-5 text-emerald-700" />
               </div>
               <h4 className="font-extrabold text-base text-[#061513]">TABLE TENNIS</h4>
               <p className="text-xs text-slate-600 leading-relaxed">
@@ -411,7 +414,7 @@ export const GetHubView = ({ onGoToJourney }: GetHubViewProps) => {
 
             <div className="p-5 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3">
               <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-800 font-bold">
-                ⚽
+                <Trophy className="w-5 h-5 text-emerald-700" />
               </div>
               <h4 className="font-extrabold text-base text-[#061513]">FOOSBALL</h4>
               <p className="text-xs text-slate-600 leading-relaxed">
@@ -421,7 +424,7 @@ export const GetHubView = ({ onGoToJourney }: GetHubViewProps) => {
 
             <div className="p-5 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3">
               <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-800 font-bold">
-                📚
+                <BookOpen className="w-5 h-5 text-emerald-700" />
               </div>
               <h4 className="font-extrabold text-base text-[#061513]">LIBRARY</h4>
               <p className="text-xs text-slate-600 leading-relaxed">

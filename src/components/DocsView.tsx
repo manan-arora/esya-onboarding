@@ -385,7 +385,7 @@ export const DocsView = () => {
               Esyasoft's software suite turns raw data into actionable intelligence. Key platforms include Gartner-recognized MDMS, Grid Analytics, Digital Twins, Demand Forecasting, and Energy Audit tools.
             </p>
             <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 font-medium">
-              ★ Recognized by Gartner for MDMS capability for 7 consecutive years & Smart Edge Metering Systems Hype Cycle.
+              Recognized by Gartner for MDMS capability for 7 consecutive years & Smart Edge Metering Systems Hype Cycle.
             </div>
           </section>
 
