@@ -136,7 +136,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020605] text-[#F5F5F0] font-sans antialiased relative">
+    <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#020605] text-[#F5F5F0] font-sans antialiased relative">
       
       {/* Primary Top Header Navigation (4 Destinations ONLY: HOME, 90-DAY JOURNEY, GET GUIDE, VOLT) */}
       <Header

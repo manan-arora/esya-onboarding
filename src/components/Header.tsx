@@ -29,12 +29,12 @@ export const Header = ({
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 backdrop-blur-md border-b ${
+    <header className={`fixed top-0 left-0 right-0 z-50 w-full max-w-[100vw] overflow-hidden transition-colors duration-300 backdrop-blur-md border-b ${
       isDarkBg 
         ? 'bg-[#020605]/90 border-[#071B18]/90 text-[#F5F5F0]' 
         : 'bg-[#F5F5F0]/95 border-slate-200/90 text-[#061513]'
     }`}>
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div className="max-w-[1400px] w-full mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2">
         
         {/* Left: Brand */}
         <button 

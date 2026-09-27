@@ -65,6 +65,7 @@ const TOC_SECTIONS: TocSection[] = [
 export const GetGuideView = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeSectionId, setActiveSectionId] = useState<string>('sec-1');
+  const [mobileTocOpen, setMobileTocOpen] = useState(false);
 
   // Master New-Joiner Checklist State
   const [checkedMasterItems, setCheckedMasterItems] = useState<number[]>(() => {
@@ -139,6 +140,7 @@ export const GetGuideView = () => {
 
   const scrollToSection = (id: string) => {
     setActiveSectionId(id);
+    setMobileTocOpen(false);
     const elem = document.getElementById(id);
     if (elem) {
       elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -256,17 +258,82 @@ export const GetGuideView = () => {
     }
   ];
 
+  const activeSection = TOC_SECTIONS.find(s => s.id === activeSectionId) || TOC_SECTIONS[0];
+
   return (
-    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8 relative z-10">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        
-        {/* LEFT STICKY SIDEBAR: TABLE OF CONTENTS (LIGHT THEME) */}
-        <aside className="lg:col-span-3 lg:sticky lg:top-24 bg-white border border-[#E5E5DC] rounded-2xl p-4 shadow-sm max-h-[calc(100vh-7rem)] overflow-y-auto custom-scrollbar">
-          <div className="mb-4 pb-3 border-b border-[#E5E5DC]">
+    <div className="max-w-[1400px] w-full mx-auto px-2.5 sm:px-6 py-6 sm:py-8 relative z-10 overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start w-full min-w-0">
+
+        {/* MOBILE STICKY ACCORDION TOC (COMPACT 48PX BAR, NEVER BLOCKS SCREEN) */}
+        <div className="lg:hidden sticky top-16 z-30 mb-2 bg-white border border-[#E5E5DC] rounded-2xl p-3 shadow-md w-full max-w-full overflow-hidden">
+          <button
+            type="button"
+            onClick={() => setMobileTocOpen(!mobileTocOpen)}
+            className="w-full flex items-center justify-between text-left cursor-pointer gap-2"
+          >
+            <div className="flex items-center gap-2 overflow-hidden">
+              <BookOpen className="w-4 h-4 text-emerald-600 shrink-0" />
+              <div className="truncate">
+                <span className="text-[9px] font-mono text-gray-500 block uppercase font-bold">
+                  Guide Navigation • Section {activeSection.num < 10 ? `0${activeSection.num}` : activeSection.num}
+                </span>
+                <span className="text-xs font-bold text-[#061513] truncate block">
+                  {activeSection.title}
+                </span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-1 shrink-0 bg-[#061513] text-[#8CFF00] px-2.5 py-1 rounded-xl text-[10px] font-mono font-bold">
+              <span>{mobileTocOpen ? 'CLOSE' : 'TOPICS ▾'}</span>
+            </div>
+          </button>
+
+          {mobileTocOpen && (
+            <div className="mt-3 pt-3 border-t border-[#E5E5DC] space-y-3">
+              <div className="relative">
+                <Search className="w-4 h-4 absolute left-3 top-2.5 text-gray-400" />
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={e => setSearchTerm(e.target.value)}
+                  placeholder="Search 32 handbook topics..."
+                  className="w-full bg-[#F5F5F0] border border-[#E5E5DC] rounded-xl pl-9 pr-3 py-2 text-xs text-[#061513] placeholder-gray-500 focus:outline-none focus:border-[#8CFF00]"
+                />
+              </div>
+
+              <div className="max-h-56 overflow-y-auto space-y-1 custom-scrollbar pr-1">
+                {filteredToc.map(sec => {
+                  const isActive = activeSectionId === sec.id;
+                  return (
+                    <button
+                      key={sec.id}
+                      onClick={() => scrollToSection(sec.id)}
+                      className={`w-full text-left px-3 py-2 rounded-xl text-xs transition-all flex items-center gap-2.5 ${
+                        isActive
+                          ? 'bg-[#8CFF00]/25 text-[#061513] font-bold border-l-4 border-[#8CFF00]'
+                          : 'text-gray-700 hover:bg-[#F5F5F0]'
+                      }`}
+                    >
+                      <span className="font-mono text-[10px] text-gray-400 min-w-[18px]">
+                        {sec.num < 10 ? `0${sec.num}` : sec.num}
+                      </span>
+                      <span className="truncate">{sec.title}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* DESKTOP STICKY SIDEBAR: TABLE OF CONTENTS */}
+        <aside className="hidden lg:block lg:col-span-3 lg:sticky lg:top-24 bg-white border border-[#E5E5DC] rounded-2xl p-4 shadow-sm max-h-[calc(100vh-7rem)] overflow-y-auto custom-scrollbar">
+          <div className="pb-3 border-b border-[#E5E5DC] mb-3">
             <div className="flex items-center gap-2 mb-2 text-[#061513] font-bold text-sm uppercase tracking-wider">
               <BookOpen className="w-4 h-4 text-emerald-600" />
-              Table of Contents
+              <span>Table of Contents</span>
             </div>
+            
             <div className="relative">
               <Search className="w-4 h-4 absolute left-3 top-2.5 text-gray-400" />
               <input
@@ -303,18 +370,16 @@ export const GetGuideView = () => {
         </aside>
 
         {/* MAIN CONTINUOUS LEARNING HANDBOOK (LIGHT THEME) */}
-        <main className="lg:col-span-9 bg-white border border-[#E5E5DC] rounded-2xl p-6 sm:p-10 shadow-sm space-y-16 text-[#061513]">
+        <main className="w-full min-w-0 lg:col-span-9 bg-white border border-[#E5E5DC] rounded-2xl p-4 sm:p-10 shadow-sm space-y-12 sm:space-y-16 text-[#061513] overflow-hidden">
           
           {/* HANDBOOK HEADER BANNER */}
-          <div className="border-b border-[#E5E5DC] pb-10">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#061513] border border-[#8CFF00]/40 text-[#8CFF00] text-xs font-mono font-bold uppercase tracking-wider mb-4">
-              <FileText className="w-3.5 h-3.5 text-[#8CFF00]" />
-              OFFICIAL LEARNING HANDBOOK — ESYASOFT GET PROGRAM
+          <div className="border-b border-[#E5E5DC] pb-8 sm:pb-10">
+            <div className="gap-2 px-3 py-1.5">
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-[#061513] tracking-tight mb-2">
+            <h1 className="text-2xl sm:text-4xl font-extrabold text-[#061513] tracking-tight mb-2 break-words">
               ESYASOFT GET ONBOARDING GUIDE
             </h1>
-            <p className="text-lg text-emerald-800 font-semibold mb-6">
+            <p className="text-base sm:text-lg text-emerald-800 font-semibold mb-6">
               Understand the company. Understand the industry. Understand where you fit.
             </p>
 

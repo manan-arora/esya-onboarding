@@ -150,7 +150,7 @@ export const VoltView: React.FC<VoltViewProps> = ({
                     <button
                       key={core.id}
                       onClick={() => setSelectedCoreId(core.id)}
-                      className={`w-full p-4 rounded-2xl border text-left transition-all duration-200 cursor-pointer flex items-center justify-between gap-4 ${
+                      className={`w-full p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-200 cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 ${
                         isSelected
                           ? 'bg-[#071B18] border-[#8CFF00] shadow-[0_0_20px_rgba(140,255,0,0.15)]'
                           : 'bg-[#061513] border-[#13332D] hover:border-neutral-700'
