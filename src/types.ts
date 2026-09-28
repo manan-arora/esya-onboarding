@@ -9,7 +9,8 @@ export type ContentSourceType =
   | 'OFFICIAL' 
   | 'COMPANY CONTEXT' 
   | 'ONBOARDING GUIDANCE' 
-  | 'PROGRAM / ROLE SPECIFIC';
+  | 'PROGRAM / ROLE SPECIFIC'
+  | 'PROJECT / ROLE SPECIFIC';
 
 export interface GridNode {
   id: string;

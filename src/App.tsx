@@ -10,11 +10,11 @@ import { StartHereView } from './components/StartHereView';
 import { CompanyView } from './components/CompanyView';
 import { HowWeWorkView } from './components/HowWeWorkView';
 import { First90View } from './components/First90View';
-import { X, Zap, ArrowUp } from 'lucide-react';
+import { X, ArrowUp } from 'lucide-react';
 
 export function App() {
   const [currentTab, setCurrentTab] = useState<ViewTab>('HOME');
-  const [activeSection, setActiveSection] = useState<string | undefined>(undefined);
+  const [, setActiveSection] = useState<string | undefined>(undefined);
   const [activePolicyId, setActivePolicyId] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [isGridModalOpen, setIsGridModalOpen] = useState<boolean>(false);
@@ -48,7 +48,7 @@ export function App() {
   const activePolicyDoc = POLICIES_DATA.find((p) => p.id === activePolicyId) || null;
 
   return (
-    <div className="min-h-screen bg-[#F4F5F0] text-[#061210] flex flex-col font-sans selection:bg-[#8CFF00] selection:text-[#061210]">
+    <div className="min-h-screen bg-[#F4F5F0] text-[#061210] flex flex-col font-sans selection:bg-[#8CFF00] selection:text-[#061210] overflow-x-hidden max-w-full w-full relative">
       
       {/* Top Global Navigation Bar */}
       <Header
@@ -60,7 +60,7 @@ export function App() {
       />
 
       {/* Main View Area */}
-      <main className="flex-1">
+      <main className="flex-1 w-full max-w-full overflow-x-hidden">
         {currentTab === 'HOME' && (
           <HomeView
             onSelectTab={handleSelectTab}
@@ -134,7 +134,7 @@ export function App() {
       {showScrollTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-6 right-6 z-40 p-3.5 rounded-full bg-[#061210] border border-[#8CFF00] text-[#8CFF00] shadow-xl hover:bg-[#8CFF00] hover:text-[#061210] transition-all cursor-pointer"
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 p-3 sm:p-3.5 rounded-full bg-[#061210] border border-[#8CFF00] text-[#8CFF00] shadow-xl hover:bg-[#8CFF00] hover:text-[#061210] transition-all cursor-pointer"
           title="Scroll to Top"
         >
           <ArrowUp className="w-4 h-4 stroke-[2.5]" />
@@ -142,8 +142,8 @@ export function App() {
       )}
 
       {/* Footer */}
-      <footer className="bg-[#061210] border-t border-[#14332B] text-white py-12 text-xs font-sans">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <footer className="bg-[#061210] border-t border-[#14332B] text-white py-8 sm:py-12 text-xs font-sans">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
           
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div>
@@ -157,7 +157,7 @@ export function App() {
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 text-xs font-extrabold text-slate-300 uppercase tracking-wider">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-extrabold text-slate-300 uppercase tracking-wider">
               <button onClick={() => handleSelectTab('START_HERE')} className="hover:text-[#8CFF00] cursor-pointer">Start Here</button>
               <button onClick={() => handleSelectTab('ESYASOFT')} className="hover:text-[#8CFF00] cursor-pointer">Esyasoft</button>
               <button onClick={() => handleSelectTab('HOW_WE_WORK')} className="hover:text-[#8CFF00] cursor-pointer">How We Work</button>

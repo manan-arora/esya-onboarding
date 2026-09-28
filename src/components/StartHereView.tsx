@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { ViewTab } from '../types';
-import { CheckCircle2, Square, HelpCircle, FileText, ArrowRight } from 'lucide-react';
+import { CheckCircle2, Square, HelpCircle, FileText } from 'lucide-react';
 
 interface StartHereViewProps {
   onSelectTab?: (tab: ViewTab, sectionId?: string) => void;
@@ -31,35 +31,35 @@ export const StartHereView: React.FC<StartHereViewProps> = ({ onOpenPolicy }) =>
   const progressPercent = Math.round((completedCount / firstDayChecklist.length) * 100);
 
   return (
-    <div className="space-y-20 pb-20 font-sans text-[#061210] selection:bg-[#8CFF00] selection:text-[#061210]">
+    <div className="space-y-12 sm:space-y-20 pb-16 sm:pb-20 font-sans text-[#061210] selection:bg-[#8CFF00] selection:text-[#061210]">
       
       {/* 01. HERO SECTION */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 space-y-4">
-        <div className="border-b border-[#E2E4DC] pb-8 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#061210] text-[#8CFF00] text-xs font-extrabold uppercase tracking-widest">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 space-y-4">
+        <div className="border-b border-[#E2E4DC] pb-6 sm:pb-8 space-y-3 sm:space-y-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#061210] text-[#8CFF00] text-[11px] sm:text-xs font-extrabold uppercase tracking-widest">
             <span>● START HERE</span>
           </div>
-          <h1 className="text-4xl sm:text-6xl font-extrabold text-[#061210] tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-6xl font-extrabold text-[#061210] tracking-tight leading-tight">
             Your practical first steps.
           </h1>
-          <p className="text-lg text-slate-700 max-w-3xl leading-relaxed">
+          <p className="text-base sm:text-lg text-slate-700 max-w-3xl leading-relaxed">
             There is a lot to take in when you join a new company. Start with what is relevant to you today. The sections below cover the things most new joiners need first: getting ready, getting settled, understanding who to talk to, and finding the systems and information you will use.
           </p>
         </div>
       </section>
 
       {/* 02. BEFORE YOU JOIN */}
-      <section id="before-you-join" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <section id="before-you-join" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 sm:space-y-6">
         <div className="border-b border-[#E2E4DC] pb-4">
-          <span className="text-xs font-extrabold text-[#061210] uppercase tracking-widest block mb-1">
+          <span className="text-[11px] sm:text-xs font-extrabold text-[#061210] uppercase tracking-widest block mb-1">
             ● PRE-JOINING PREPARATION
           </span>
-          <h2 className="text-3xl font-extrabold text-[#061210]">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061210]">
             Before You Join
           </h2>
         </div>
 
-        <p className="text-base text-slate-700 leading-relaxed max-w-3xl">
+        <p className="text-sm sm:text-base text-slate-700 leading-relaxed max-w-3xl">
           If you have not started yet, you do not need to prepare for everything. Focus on knowing the basics: where and when you are expected to report, who your joining or HR contact is, what documents or information you need to provide, whether any equipment or access arrangements have been communicated, whether there are location-specific instructions, and where you can find the latest official joining information.
         </p>
 
@@ -68,11 +68,11 @@ export const StartHereView: React.FC<StartHereViewProps> = ({ onOpenPolicy }) =>
         </p>
 
         {/* Checklist Box */}
-        <div className="p-8 bg-white border border-[#E2E4DC] rounded-3xl space-y-4 shadow-xs">
-          <h3 className="text-lg font-extrabold text-[#061210] uppercase tracking-wider">
+        <div className="p-5 sm:p-8 bg-white border border-[#E2E4DC] rounded-3xl space-y-4 shadow-xs">
+          <h3 className="text-base sm:text-lg font-extrabold text-[#061210] uppercase tracking-wider">
             Pre-Joining Checklist
           </h3>
-          <ul className="space-y-3 text-sm text-slate-700 font-medium">
+          <ul className="space-y-3 text-xs sm:text-sm text-slate-700 font-medium">
             <li className="flex items-start gap-3">
               <span className="w-5 h-5 rounded-full bg-[#8CFF00] text-[#061210] font-bold flex items-center justify-center shrink-0 text-xs">✓</span>
               <span>Read your joining communication carefully.</span>
@@ -109,8 +109,8 @@ export const StartHereView: React.FC<StartHereViewProps> = ({ onOpenPolicy }) =>
         </div>
 
         {/* Callout Quote */}
-        <div className="p-6 bg-[#061210] text-white rounded-2xl border border-[#14332B] shadow-lg">
-          <p className="text-sm font-medium text-slate-200">
+        <div className="p-5 sm:p-6 bg-[#061210] text-white rounded-2xl border border-[#14332B] shadow-lg">
+          <p className="text-xs sm:text-sm font-medium text-slate-200">
             <span className="text-[#8CFF00] font-extrabold mr-2">● GUIDANCE:</span>
             "You are allowed to arrive without knowing everything. Curiosity is more useful than trying to memorise the company website before you start."
           </p>
@@ -118,17 +118,17 @@ export const StartHereView: React.FC<StartHereViewProps> = ({ onOpenPolicy }) =>
       </section>
 
       {/* 03. FIRST DAY */}
-      <section id="first-day" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <section id="first-day" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         <div className="border-b border-[#E2E4DC] pb-4">
-          <span className="text-xs font-extrabold text-[#061210] uppercase tracking-widest block mb-1">
+          <span className="text-[11px] sm:text-xs font-extrabold text-[#061210] uppercase tracking-widest block mb-1">
             ● DAY 1 ORIENTATION
           </span>
-          <h2 className="text-3xl font-extrabold text-[#061210]">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061210]">
             First Day
           </h2>
         </div>
 
-        <div className="space-y-4 text-base text-slate-700 leading-relaxed font-normal">
+        <div className="space-y-3 sm:space-y-4 text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
           <p>
             Your first day is mainly about orientation and connection. You are not expected to understand the entire organisation, technology stack, product, or your role in a few hours.
           </p>
@@ -138,15 +138,15 @@ export const StartHereView: React.FC<StartHereViewProps> = ({ onOpenPolicy }) =>
         </div>
 
         {/* Interactive First Day Checklist */}
-        <div className="p-8 bg-white border border-[#E2E4DC] rounded-3xl space-y-6 shadow-sm">
-          <div className="flex items-center justify-between border-b border-[#E2E4DC] pb-4">
+        <div className="p-5 sm:p-8 bg-white border border-[#E2E4DC] rounded-3xl space-y-4 sm:space-y-6 shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#E2E4DC] pb-4 gap-3">
             <div>
-              <h3 className="text-lg font-extrabold text-[#061210] uppercase tracking-wider">
+              <h3 className="text-base sm:text-lg font-extrabold text-[#061210] uppercase tracking-wider">
                 First-Day Action Checklist
               </h3>
               <p className="text-xs text-slate-500 mt-0.5">Click any task below to mark as completed ({progressPercent}% complete).</p>
             </div>
-            <div className="w-32 bg-[#E7E9E0] rounded-full h-3 overflow-hidden">
+            <div className="w-full sm:w-32 bg-[#E7E9E0] rounded-full h-3 overflow-hidden">
               <div
                 className="bg-[#8CFF00] h-full transition-all duration-500"
                 style={{ width: `${progressPercent}%` }}
@@ -223,37 +223,37 @@ export const StartHereView: React.FC<StartHereViewProps> = ({ onOpenPolicy }) =>
           The first week is about building context.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-          <div className="p-5 bg-white border border-[#E2E4DC] rounded-2xl space-y-2">
-            <span className="px-2.5 py-1 rounded-full bg-[#061210] text-[#8CFF00] text-[10px] font-extrabold uppercase">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4">
+          <div className="p-4 sm:p-5 bg-white border border-[#E2E4DC] rounded-2xl space-y-2">
+            <span className="px-2.5 py-1 rounded-full bg-[#061210] text-[#8CFF00] text-[10px] font-extrabold uppercase inline-block">
               DAY 1 — CONNECT
             </span>
             <p className="text-xs text-slate-700 leading-relaxed">Meet people and understand where you fit.</p>
           </div>
 
-          <div className="p-5 bg-white border border-[#E2E4DC] rounded-2xl space-y-2">
-            <span className="px-2.5 py-1 rounded-full bg-[#061210] text-[#8CFF00] text-[10px] font-extrabold uppercase">
+          <div className="p-4 sm:p-5 bg-white border border-[#E2E4DC] rounded-2xl space-y-2">
+            <span className="px-2.5 py-1 rounded-full bg-[#061210] text-[#8CFF00] text-[10px] font-extrabold uppercase inline-block">
               DAY 2 — UNDERSTAND
             </span>
             <p className="text-xs text-slate-700 leading-relaxed">Learn what your team does and why it matters.</p>
           </div>
 
-          <div className="p-5 bg-white border border-[#E2E4DC] rounded-2xl space-y-2">
-            <span className="px-2.5 py-1 rounded-full bg-[#061210] text-[#8CFF00] text-[10px] font-extrabold uppercase">
+          <div className="p-4 sm:p-5 bg-white border border-[#E2E4DC] rounded-2xl space-y-2">
+            <span className="px-2.5 py-1 rounded-full bg-[#061210] text-[#8CFF00] text-[10px] font-extrabold uppercase inline-block">
               DAY 3 — OBSERVE
             </span>
             <p className="text-xs text-slate-700 leading-relaxed">Watch how communication, meetings, documentation and decisions happen.</p>
           </div>
 
-          <div className="p-5 bg-white border border-[#E2E4DC] rounded-2xl space-y-2">
-            <span className="px-2.5 py-1 rounded-full bg-[#061210] text-[#8CFF00] text-[10px] font-extrabold uppercase">
+          <div className="p-4 sm:p-5 bg-white border border-[#E2E4DC] rounded-2xl space-y-2">
+            <span className="px-2.5 py-1 rounded-full bg-[#061210] text-[#8CFF00] text-[10px] font-extrabold uppercase inline-block">
               DAY 4 — EXPLORE
             </span>
             <p className="text-xs text-slate-700 leading-relaxed">Read systems, products, processes or technical material relevant to your role.</p>
           </div>
 
-          <div className="p-5 bg-white border border-[#E2E4DC] rounded-2xl space-y-2">
-            <span className="px-2.5 py-1 rounded-full bg-[#061210] text-[#8CFF00] text-[10px] font-extrabold uppercase">
+          <div className="p-4 sm:p-5 bg-white border border-[#E2E4DC] rounded-2xl space-y-2 sm:col-span-2 md:col-span-1">
+            <span className="px-2.5 py-1 rounded-full bg-[#061210] text-[#8CFF00] text-[10px] font-extrabold uppercase inline-block">
               DAY 5 — REFLECT
             </span>
             <p className="text-xs text-slate-700 leading-relaxed">Write down: what you understand, what is still unclear, who you need to speak to, what you want to learn next.</p>
@@ -261,8 +261,8 @@ export const StartHereView: React.FC<StartHereViewProps> = ({ onOpenPolicy }) =>
         </div>
 
         {/* First-week outcome */}
-        <div className="p-6 bg-[#061210] text-white rounded-2xl border border-[#14332B] shadow-lg">
-          <p className="text-sm font-medium text-slate-200">
+        <div className="p-5 sm:p-6 bg-[#061210] text-white rounded-2xl border border-[#14332B] shadow-lg">
+          <p className="text-xs sm:text-sm font-medium text-slate-200">
             <span className="text-[#8CFF00] font-extrabold mr-2">● FIRST-WEEK OUTCOME:</span>
             By the end of your first week, aim to explain: "This is what my team does, this is where my work fits, these are the people I work with, these are the systems I use, and this is what I need to learn next."
           </p>
@@ -270,38 +270,38 @@ export const StartHereView: React.FC<StartHereViewProps> = ({ onOpenPolicy }) =>
       </section>
 
       {/* 05. ESSENTIAL SYSTEMS & ACCESS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         <div className="border-b border-[#E2E4DC] pb-4">
-          <span className="text-xs font-extrabold text-[#061210] uppercase tracking-widest block mb-1">
+          <span className="text-[11px] sm:text-xs font-extrabold text-[#061210] uppercase tracking-widest block mb-1">
             ● TOOLSTACK & ACCESS
           </span>
-          <h2 className="text-3xl font-extrabold text-[#061210]">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061210]">
             Essential systems & access
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="p-8 bg-white border border-[#E2E4DC] rounded-3xl space-y-4">
-            <h3 className="text-lg font-extrabold text-[#061210] uppercase">Known company tools</h3>
-            <ul className="space-y-3 text-xs font-medium text-slate-700">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          <div className="p-5 sm:p-8 bg-white border border-[#E2E4DC] rounded-3xl space-y-4">
+            <h3 className="text-base sm:text-lg font-extrabold text-[#061210] uppercase">Known company tools</h3>
+            <ul className="space-y-2.5 sm:space-y-3 text-xs font-medium text-slate-700">
               <li className="p-3 bg-[#F4F5F0] rounded-xl">
-                <strong className="text-[#061210] block text-sm">Zoho People</strong>
+                <strong className="text-[#061210] block text-xs sm:text-sm">Zoho People</strong>
                 <span>Employee/HR-related activities (Leave, Attendance, Profile, PMS).</span>
               </li>
               <li className="p-3 bg-[#F4F5F0] rounded-xl">
-                <strong className="text-[#061210] block text-sm">Zoho Expense</strong>
+                <strong className="text-[#061210] block text-xs sm:text-sm">Zoho Expense</strong>
                 <span>Expense claims and domestic travel reimbursements.</span>
               </li>
               <li className="p-3 bg-[#F4F5F0] rounded-xl">
-                <strong className="text-[#061210] block text-sm">Zoho Recruit</strong>
+                <strong className="text-[#061210] block text-xs sm:text-sm">Zoho Recruit</strong>
                 <span>Recruitment-related activities and employee referrals.</span>
               </li>
               <li className="p-3 bg-[#F4F5F0] rounded-xl">
-                <strong className="text-[#061210] block text-sm">Microsoft Teams</strong>
+                <strong className="text-[#061210] block text-xs sm:text-sm">Microsoft Teams</strong>
                 <span>Corporate chat, channels, and video meetings.</span>
               </li>
               <li className="p-3 bg-[#F4F5F0] rounded-xl">
-                <strong className="text-[#061210] block text-sm">Outlook</strong>
+                <strong className="text-[#061210] block text-xs sm:text-sm">Outlook</strong>
                 <span>Corporate email and calendar scheduling.</span>
               </li>
             </ul>
@@ -310,8 +310,8 @@ export const StartHereView: React.FC<StartHereViewProps> = ({ onOpenPolicy }) =>
             </p>
           </div>
 
-          <div className="p-8 bg-[#061210] text-white rounded-3xl space-y-4 border border-[#14332B] shadow-xl">
-            <h3 className="text-lg font-extrabold text-[#8CFF00] uppercase">If something is not working</h3>
+          <div className="p-5 sm:p-8 bg-[#061210] text-white rounded-3xl space-y-4 border border-[#14332B] shadow-xl">
+            <h3 className="text-base sm:text-lg font-extrabold text-[#8CFF00] uppercase">If something is not working</h3>
             <ol className="space-y-3 text-xs font-medium text-slate-300">
               <li className="flex items-start gap-2.5">
                 <span className="w-5 h-5 rounded-full bg-[#8CFF00] text-[#061210] font-bold flex items-center justify-center shrink-0 text-xs">1</span>
@@ -334,7 +334,7 @@ export const StartHereView: React.FC<StartHereViewProps> = ({ onOpenPolicy }) =>
                 <span>Describe what you were trying to do, what happened and any visible error.</span>
               </li>
             </ol>
-            <div className="p-4 bg-[#0B1C18] rounded-xl border border-[#14332B] text-xs text-[#8CFF00] font-mono mt-4">
+            <div className="p-3.5 bg-[#0B1C18] rounded-xl border border-[#14332B] text-xs text-[#8CFF00] font-mono mt-4">
               Never share passwords or sensitive credentials when requesting help.
             </div>
           </div>
@@ -531,12 +531,12 @@ export const StartHereView: React.FC<StartHereViewProps> = ({ onOpenPolicy }) =>
           </div>
 
           {/* 7. Fix Attendance */}
-          <div className="p-6 bg-white border border-[#E2E4DC] rounded-3xl space-y-4 shadow-xs flex flex-col justify-between md:col-span-2 lg:col-span-3">
+          <div className="p-5 sm:p-6 bg-white border border-[#E2E4DC] rounded-3xl space-y-4 shadow-xs flex flex-col justify-between md:col-span-2 lg:col-span-3 max-w-full overflow-hidden">
             <div className="space-y-2">
               <span className="px-3 py-1 rounded-full bg-[#061210] text-[#8CFF00] font-extrabold text-[10px] uppercase">
                 OFFICIAL — Zoho People Handbook v5.0
               </span>
-              <h3 className="text-xl font-extrabold text-[#061210]">Fix attendance or log timesheets</h3>
+              <h3 className="text-lg sm:text-xl font-extrabold text-[#061210]">Fix attendance or log timesheets</h3>
               <div className="text-xs text-slate-700 leading-relaxed font-normal space-y-1.5">
                 <p className="font-semibold text-[#061210]">What do I do?</p>
                 <p>Use <strong>Zoho People → Attendance</strong> for check-in/out, breaks, permission/on-duty requests, and attendance regularisation. Use <strong>Zoho People → Timesheets</strong> to log job hours.</p>
@@ -545,10 +545,10 @@ export const StartHereView: React.FC<StartHereViewProps> = ({ onOpenPolicy }) =>
             <div className="pt-4 border-t border-[#E2E4DC]">
               <button
                 onClick={() => onOpenPolicy('zoho-people-handbook')}
-                className="v1-btn-primary px-6 py-2.5 text-xs inline-flex items-center gap-2 cursor-pointer"
+                className="v1-btn-primary w-full sm:w-auto px-4 sm:px-6 py-2.5 text-[11px] sm:text-xs inline-flex items-center justify-center gap-2 cursor-pointer max-w-full"
               >
-                <span>OPEN ZOHO PEOPLE HANDBOOK</span>
-                <FileText className="w-3.5 h-3.5" />
+                <span className="truncate">OPEN ZOHO PEOPLE HANDBOOK</span>
+                <FileText className="w-3.5 h-3.5 shrink-0" />
               </button>
             </div>
           </div>

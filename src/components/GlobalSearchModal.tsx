@@ -82,50 +82,50 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
     actionResults.length > 0;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 p-4 bg-black/75 backdrop-blur-md font-sans">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-8 sm:pt-24 p-3 sm:p-4 bg-black/75 backdrop-blur-md font-sans">
       <div
-        className="relative w-full max-w-3xl bg-white border border-[#E2E4DC] rounded-3xl shadow-2xl overflow-hidden text-[#061210] flex flex-col max-h-[80vh]"
+        className="relative w-full max-w-3xl bg-white border border-[#E2E4DC] rounded-3xl shadow-2xl overflow-hidden text-[#061210] flex flex-col max-h-[85vh] sm:max-h-[80vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Bar */}
-        <div className="flex items-center px-6 py-4 bg-[#061210] text-white border-b border-[#14332B]">
-          <Search className="w-5 h-5 text-[#8CFF00] mr-3" />
+        <div className="flex items-center px-4 sm:px-6 py-3 sm:py-4 bg-[#061210] text-white border-b border-[#14332B] gap-2">
+          <Search className="w-4 h-4 sm:w-5 sm:h-5 text-[#8CFF00] shrink-0" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search policies, products, leave, travel, per diem, BESS, HRMS, POSH..."
-            className="flex-1 bg-transparent text-white font-sans text-sm focus:outline-none placeholder-slate-400 font-medium"
+            placeholder="Search policies, products, leave, travel, BESS, HRMS..."
+            className="flex-1 bg-transparent text-white font-sans text-xs sm:text-sm focus:outline-none placeholder-slate-400 font-medium min-w-0"
             autoFocus
           />
           {query && (
             <button
               onClick={() => setQuery('')}
-              className="p-1 text-slate-300 hover:text-white text-xs font-sans mr-2 cursor-pointer"
+              className="p-1 text-slate-300 hover:text-white text-xs font-sans cursor-pointer shrink-0"
             >
               Clear
             </button>
           )}
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full text-slate-300 hover:text-white bg-white/10 cursor-pointer"
+            className="p-1.5 rounded-full text-slate-300 hover:text-white bg-white/10 cursor-pointer shrink-0"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Search Results */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 sm:space-y-6">
           {!q && (
-            <div className="py-8 text-center text-slate-500 text-xs space-y-3">
-              <Compass className="w-10 h-10 text-[#061210] mx-auto opacity-70" />
+            <div className="py-6 sm:py-8 text-center text-slate-500 text-xs space-y-3">
+              <Compass className="w-8 h-8 sm:w-10 sm:h-10 text-[#061210] mx-auto opacity-70" />
               <p className="font-medium text-slate-700">Type keywords to search across Esyasoft policies, guides, products, & glossary.</p>
-              <div className="flex flex-wrap items-center justify-center gap-2 pt-2 font-bold">
+              <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 pt-2 font-bold">
                 {['leave', 'POSH', 'travel', 'BESS', 'MDMS', 'HRMS', 'performance'].map((term) => (
                   <button
                     key={term}
                     onClick={() => setQuery(term)}
-                    className="px-3 py-1 rounded-full bg-[#F4F5F0] border border-[#E2E4DC] text-[#061210] hover:border-[#061210] text-xs cursor-pointer"
+                    className="px-2.5 py-1 rounded-full bg-[#F4F5F0] border border-[#E2E4DC] text-[#061210] hover:border-[#061210] text-[11px] sm:text-xs cursor-pointer"
                   >
                     "{term}"
                   </button>
@@ -135,7 +135,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
           )}
 
           {q && !hasResults && (
-            <div className="py-8 text-center text-slate-500 text-xs font-medium">
+            <div className="py-6 sm:py-8 text-center text-slate-500 text-xs font-medium">
               No matching records found for "{query}". Try checking policies or glossary terms.
             </div>
           )}
@@ -155,15 +155,15 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                       if (act.policyId) onOpenPolicy(act.policyId);
                       onClose();
                     }}
-                    className="p-4 rounded-2xl bg-[#F4F5F0] border border-[#E2E4DC] hover:border-[#061210] cursor-pointer flex items-center justify-between group transition-all"
+                    className="p-3.5 sm:p-4 rounded-2xl bg-[#F4F5F0] border border-[#E2E4DC] hover:border-[#061210] cursor-pointer flex items-center justify-between group transition-all gap-2"
                   >
-                    <div>
-                      <div className="flex items-center gap-2 text-xs font-extrabold text-[#061210] group-hover:text-emerald-700">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 text-xs font-extrabold text-[#061210] group-hover:text-emerald-700 truncate">
                         <span>{act.title}</span>
                       </div>
-                      <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">{act.description}</p>
+                      <p className="text-xs text-slate-600 mt-0.5 leading-relaxed truncate">{act.description}</p>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#061210] group-hover:translate-x-1 transition-all" />
+                    <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#061210] group-hover:translate-x-1 transition-all shrink-0" />
                   </div>
                 ))}
               </div>
@@ -184,20 +184,20 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                       onOpenPolicy(pol.id);
                       onClose();
                     }}
-                    className="p-4 rounded-2xl bg-[#F4F5F0] border border-[#E2E4DC] hover:border-[#061210] cursor-pointer flex items-center justify-between group transition-all"
+                    className="p-3.5 sm:p-4 rounded-2xl bg-[#F4F5F0] border border-[#E2E4DC] hover:border-[#061210] cursor-pointer flex items-center justify-between group transition-all gap-2"
                   >
-                    <div>
-                      <div className="flex items-center gap-2 text-xs font-extrabold text-[#061210] group-hover:text-emerald-700">
-                        <FileText className="w-4 h-4 text-[#061210]" />
-                        <span>{pol.title}</span>
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs font-extrabold text-[#061210] group-hover:text-emerald-700">
+                        <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#061210] shrink-0" />
+                        <span className="truncate">{pol.title}</span>
                         <SourceLabel type="OFFICIAL" />
                       </div>
-                      <p className="text-xs text-slate-600 mt-1">
+                      <p className="text-[11px] sm:text-xs text-slate-600 mt-1 truncate">
                         Applicability: {pol.applicability} • Owner: {pol.owner}
                       </p>
                     </div>
-                    <span className="text-[11px] font-extrabold text-[#061210] border border-[#061210]/30 px-3 py-1 rounded-full bg-white">
-                      READ POLICY →
+                    <span className="text-[10px] sm:text-[11px] font-extrabold text-[#061210] border border-[#061210]/30 px-2.5 sm:px-3 py-1 rounded-full bg-white shrink-0">
+                      READ →
                     </span>
                   </div>
                 ))}
@@ -219,17 +219,17 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                       onSelectTab('ESYASOFT', 'business-areas');
                       onClose();
                     }}
-                    className="p-4 rounded-2xl bg-[#F4F5F0] border border-[#E2E4DC] hover:border-[#061210] cursor-pointer flex items-center justify-between group transition-all"
+                    className="p-3.5 sm:p-4 rounded-2xl bg-[#F4F5F0] border border-[#E2E4DC] hover:border-[#061210] cursor-pointer flex items-center justify-between group transition-all gap-2"
                   >
-                    <div>
-                      <div className="flex items-center gap-2 text-xs font-extrabold text-[#061210] group-hover:text-emerald-700">
-                        <Cpu className="w-4 h-4 text-[#061210]" />
-                        <span>{prod.name}</span>
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs font-extrabold text-[#061210] group-hover:text-emerald-700">
+                        <Cpu className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#061210] shrink-0" />
+                        <span className="truncate">{prod.name}</span>
                         <SourceLabel type="COMPANY CONTEXT" />
                       </div>
-                      <p className="text-xs text-slate-600 mt-1">{prod.whatIsIt}</p>
+                      <p className="text-[11px] sm:text-xs text-slate-600 mt-1 truncate">{prod.whatIsIt}</p>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#061210] transition-all" />
+                    <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#061210] transition-all shrink-0" />
                   </div>
                 ))}
               </div>
@@ -238,9 +238,9 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-3 bg-[#F4F5F0] border-t border-[#E2E4DC] flex items-center justify-between text-[11px] text-slate-500 font-bold">
-          <span>Search matches across official documents & onboarding guides</span>
-          <span>ESC to close</span>
+        <div className="px-4 sm:px-6 py-2.5 sm:py-3 bg-[#F4F5F0] border-t border-[#E2E4DC] flex items-center justify-between text-[10px] sm:text-[11px] text-slate-500 font-bold">
+          <span className="truncate">Search matches across official documents & onboarding guides</span>
+          <span className="shrink-0 ml-2">ESC to close</span>
         </div>
       </div>
     </div>
