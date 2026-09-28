@@ -1,152 +1,122 @@
-import { useState } from 'react';
+import React from 'react';
 import type { ViewTab } from '../types';
-import { Cpu, Menu, X } from 'lucide-react';
+import { Search, Grid } from 'lucide-react';
 
 interface HeaderProps {
-  activeTab: ViewTab;
-  setActiveTab: (tab: ViewTab) => void;
-  overallPercentage: number;
+  currentTab: ViewTab;
+  onSelectTab: (tab: ViewTab, sectionId?: string) => void;
+  onOpenSearch: () => void;
+  onToggleGridModal: () => void;
+  isGridOpen?: boolean;
 }
 
-export const Header = ({
-  activeTab,
-  setActiveTab,
-  overallPercentage
-}: HeaderProps) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const isDarkBg = activeTab === 'VOLT' || activeTab === 'JOURNEY';
-
-  const handleTabClick = (tab: ViewTab) => {
-    setActiveTab(tab);
-    setMobileMenuOpen(false);
-  };
-
-  const navTabs: { id: ViewTab; label: string }[] = [
-    { id: 'HOME', label: 'HOME' },
-    { id: 'JOURNEY', label: '90-DAY JOURNEY' },
-    { id: 'GUIDE', label: 'GET GUIDE' },
-    { id: 'VOLT', label: 'VOLT' }
+export const Header: React.FC<HeaderProps> = ({
+  currentTab,
+  onSelectTab,
+  onOpenSearch,
+  onToggleGridModal,
+  isGridOpen = false
+}) => {
+  const navItems: { id: ViewTab; label: string }[] = [
+    { id: 'START_HERE', label: 'START HERE' },
+    { id: 'ESYASOFT', label: 'ESYASOFT' },
+    { id: 'BUSINESS', label: 'BUSINESS' },
+    { id: 'HOW_WE_WORK', label: 'HOW WE WORK' },
+    { id: 'WORKPLACE', label: 'WORKPLACE' },
+    { id: 'FIRST_90', label: 'FIRST 90' },
+    { id: 'HELP', label: 'HELP' }
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 w-full max-w-[100vw] overflow-hidden transition-colors duration-300 backdrop-blur-md border-b ${
-      isDarkBg 
-        ? 'bg-[#020605]/90 border-[#071B18]/90 text-[#F5F5F0]' 
-        : 'bg-[#F5F5F0]/95 border-slate-200/90 text-[#061513]'
-    }`}>
-      <div className="max-w-[1400px] w-full mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2">
-        
-        {/* Left: Brand */}
-        <button 
-          onClick={() => handleTabClick('HOME')}
-          className="flex items-center gap-2.5 sm:gap-3 group text-left transition-transform active:scale-95 cursor-pointer shrink-0"
-        >
-          <div className="bg-white px-3 py-1 rounded-lg border border-slate-200/90 shadow-sm group-hover:border-[#8CFF00] transition-all flex items-center h-9 sm:h-10">
-            <img 
-              src="/assets/esyasoft_logo.png" 
-              alt="Esyasoft Logo" 
-              className="h-6 sm:h-7 w-auto object-contain" 
-            />
+    <header className="sticky top-0 z-40 bg-[#050807]/90 backdrop-blur-md border-b border-[#162E21] transition-all">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Brand Logo & Tagline */}
+          <div className="flex items-center gap-3 cursor-pointer group" onClick={() => onSelectTab('HOME')}>
+            <div className="w-8 h-8 rounded border border-[#00FF66]/40 bg-[#00FF66]/10 flex items-center justify-center text-[#00FF66] font-mono font-bold text-sm group-hover:bg-[#00FF66]/20 transition-all shadow-[0_0_12px_rgba(0,255,102,0.15)]">
+              E90
+            </div>
+            <div>
+              <div className="flex items-center gap-1.5 font-mono text-sm font-bold text-white tracking-wider">
+                <span>ESYASOFT</span>
+                <span className="text-[#00FF66] font-normal">/</span>
+                <span className="text-[#00FF66]">FIRST 90</span>
+              </div>
+              <p className="text-[10px] text-slate-400 font-sans tracking-wide">Find your place in the system</p>
+            </div>
           </div>
-          <span className="text-[9px] sm:text-[10px] tracking-widest font-mono text-[#8CFF00] font-bold uppercase bg-[#061513] px-2 py-1 rounded-md border border-[#8CFF00]/30 shadow-sm hidden sm:inline-block">
-            GET 90-DAY PROGRAM
-          </span>
-        </button>
 
-        {/* Center: Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-1 sm:gap-2">
-          {navTabs.map((tab) => {
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => handleTabClick(tab.id)}
-                className={`relative px-3.5 py-1.5 text-xs font-semibold tracking-wider font-mono transition-all duration-200 rounded-md cursor-pointer ${
-                  isActive
-                    ? isDarkBg
-                      ? 'text-[#8CFF00]'
-                      : 'text-[#061513] font-bold'
-                    : isDarkBg
-                      ? 'text-neutral-400 hover:text-white'
-                      : 'text-neutral-600 hover:text-black'
-                }`}
-              >
-                {tab.label}
-                {isActive && (
-                  <span className={`absolute bottom-0 left-2 right-2 h-[2px] rounded-full transition-all ${
-                    isDarkBg ? 'bg-[#8CFF00] shadow-[0_0_8px_#8CFF00]' : 'bg-[#061513]'
-                  }`} />
-                )}
-              </button>
-            );
-          })}
-        </nav>
-
-        {/* Right: Controls & Mobile Hamburger */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          {/* Volt Progress Badge */}
-          <button
-            onClick={() => handleTabClick('VOLT')}
-            className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-mono border transition-all duration-300 ${
-              isDarkBg
-                ? 'bg-[#071B18] border-[#8CFF00]/30 hover:border-[#8CFF00] text-white'
-                : 'bg-white border-slate-200 hover:border-[#8CFF00] text-[#061513] shadow-sm'
-            }`}
-            title="View Volt mascot build progress"
-          >
-            <Cpu className="w-3.5 h-3.5 text-[#8CFF00]" />
-            <span className="font-semibold">{overallPercentage}% <span className="hidden sm:inline">BUILT</span></span>
-            <span className={`w-2 h-2 rounded-full ${overallPercentage === 100 ? 'bg-emerald-400' : 'bg-[#8CFF00] animate-ping'}`} />
-          </button>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`lg:hidden p-2 rounded-xl border transition cursor-pointer ${
-              isDarkBg
-                ? 'bg-[#071B18] border-[#13332D] text-white hover:border-[#8CFF00]/50'
-                : 'bg-white border-slate-200 text-[#061513] hover:bg-slate-50'
-            }`}
-            aria-label="Toggle navigation menu"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5 text-[#8CFF00]" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </div>
-
-      </div>
-
-      {/* Mobile Navigation Drawer */}
-      {mobileMenuOpen && (
-        <div className={`lg:hidden border-b px-4 py-4 space-y-2 backdrop-blur-xl ${
-          isDarkBg 
-            ? 'bg-[#020605]/95 border-[#071B18] text-white' 
-            : 'bg-white/95 border-slate-200 text-[#061513]'
-        }`}>
-          <div className="grid grid-cols-2 gap-2 font-mono text-xs">
-            {navTabs.map((tab) => {
-              const isActive = activeTab === tab.id;
+          {/* Primary Navigation */}
+          <nav className="hidden lg:flex items-center space-x-1 font-mono text-xs">
+            {navItems.map((item) => {
+              const isActive = currentTab === item.id;
               return (
                 <button
-                  key={tab.id}
-                  onClick={() => handleTabClick(tab.id)}
-                  className={`p-3 rounded-xl font-bold transition text-left flex items-center justify-between ${
+                  key={item.id}
+                  onClick={() => onSelectTab(item.id)}
+                  className={`px-3 py-2 rounded transition-all duration-150 ${
                     isActive
-                      ? isDarkBg
-                        ? 'bg-[#071B18] text-[#8CFF00] border border-[#8CFF00]/40'
-                        : 'bg-[#061513] text-[#8CFF00]'
-                      : isDarkBg
-                        ? 'bg-neutral-900/60 text-neutral-300 hover:text-white'
-                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                      ? 'bg-[#00FF66]/15 text-[#00FF66] border border-[#00FF66]/30 shadow-[0_0_10px_rgba(0,255,102,0.1)] font-semibold'
+                      : 'text-slate-300 hover:text-white hover:bg-emerald-950/40'
                   }`}
                 >
-                  <span>{tab.label}</span>
-                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#8CFF00]" />}
+                  {item.label}
                 </button>
               );
             })}
+          </nav>
+
+          {/* Utility Actions */}
+          <div className="flex items-center gap-2">
+            {/* Global Search Button */}
+            <button
+              onClick={onOpenSearch}
+              className="flex items-center gap-2 px-3 py-1.5 rounded bg-emerald-950/40 border border-[#162E21] hover:border-[#00FF66]/40 text-slate-300 hover:text-white transition-all text-xs font-mono group"
+              title="Global Search (Ctrl + K)"
+            >
+              <Search className="w-3.5 h-3.5 text-[#00FF66] group-hover:scale-110 transition-transform" />
+              <span className="hidden sm:inline">Search...</span>
+              <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] bg-black/50 border border-slate-700 text-slate-400 rounded">
+                Ctrl K
+              </kbd>
+            </button>
+
+            {/* Persistent Grid Overlay Control */}
+            <button
+              onClick={onToggleGridModal}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded font-mono text-xs border transition-all ${
+                isGridOpen
+                  ? 'bg-[#00FF66] text-[#050807] border-[#00FF66] font-bold shadow-[0_0_15px_rgba(0,255,102,0.4)]'
+                  : 'bg-emerald-950/30 text-[#00FF66] border-[#00FF66]/30 hover:bg-[#00FF66]/10'
+              }`}
+              title="Toggle System Energy Grid"
+            >
+              <Grid className="w-3.5 h-3.5" />
+              <span>GRID</span>
+            </button>
           </div>
         </div>
-      )}
+
+        {/* Mobile Navigation Bar */}
+        <div className="lg:hidden flex items-center overflow-x-auto py-2 space-x-1 font-mono text-[11px] border-t border-[#162E21]/60 no-scrollbar">
+          {navItems.map((item) => {
+            const isActive = currentTab === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => onSelectTab(item.id)}
+                className={`px-2.5 py-1 rounded whitespace-nowrap transition-all ${
+                  isActive
+                    ? 'bg-[#00FF66]/20 text-[#00FF66] border border-[#00FF66]/30 font-semibold'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                {item.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
     </header>
   );
 };

@@ -1,231 +1,194 @@
 import { useState, useEffect } from 'react';
-import type { ViewTab, VoltCoreId, VoltCoreStatus } from './types';
-import { MISSIONS, VOLT_CORES } from './data/curriculum';
-import { calculateAutomaticProgramDay } from './utils/dateUtils';
+import type { ViewTab } from './types';
+import { POLICIES_DATA } from './data/policiesData';
 import { Header } from './components/Header';
+import { PolicyModal } from './components/PolicyModal';
+import { GlobalSearchModal } from './components/GlobalSearchModal';
+import { EsyasoftGrid } from './components/EsyasoftGrid';
 import { HomeView } from './components/HomeView';
-import { JourneyView } from './components/JourneyView';
-import { GetGuideView } from './components/GetGuideView';
-import { VoltView } from './components/VoltView';
-import { FinalActivation } from './components/FinalActivation';
-import { DemoToolbar } from './components/DemoToolbar';
-
-const STORAGE_KEY_COMPLETED = 'esyasoft_volt_completed_days_90';
-const STORAGE_KEY_DEMO_OVERRIDE = 'esyasoft_volt_demo_override_day';
+import { StartHereView } from './components/StartHereView';
+import { CompanyView } from './components/CompanyView';
+import { BusinessView } from './components/BusinessView';
+import { HowWeWorkView } from './components/HowWeWorkView';
+import { WorkplaceView } from './components/WorkplaceView';
+import { First90View } from './components/First90View';
+import { HelpView } from './components/HelpView';
+import { X, Zap, ArrowUp } from 'lucide-react';
 
 export function App() {
-  const [activeTab, setActiveTab] = useState<ViewTab>('HOME');
+  const [currentTab, setCurrentTab] = useState<ViewTab>('HOME');
+  const [activeSection, setActiveSection] = useState<string | undefined>(undefined);
+  const [activePolicyId, setActivePolicyId] = useState<string | null>(null);
+  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
+  const [isGridModalOpen, setIsGridModalOpen] = useState<boolean>(false);
+  const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
 
-  const automaticDay = calculateAutomaticProgramDay();
-
-  // Default baseline completed days (Day 1 to 23 completed)
-  const defaultCompletedDays = Array.from({ length: 23 }, (_, i) => i + 1);
-
-  const [completedDays, setCompletedDays] = useState<number[]>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_COMPLETED);
-      if (saved) return JSON.parse(saved);
-    } catch (e) {
-      console.warn('Could not read completed days from localStorage', e);
-    }
-    return defaultCompletedDays;
-  });
-
-  const [demoOverrideDay, setDemoOverrideDay] = useState<number | null>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_DEMO_OVERRIDE);
-      if (saved !== null) return Number(saved);
-    } catch (e) {
-      console.warn('Could not read demo override day from localStorage', e);
-    }
-    return 23; // Default demo initial view: Day 23 of 90
-  });
-
-  const [showFinalActivation, setShowFinalActivation] = useState(false);
-
-  // Active current day (Demo override takes precedence over automatic date)
-  const isDemoOverride = demoOverrideDay !== null;
-  const currentDayNumber = isDemoOverride ? demoOverrideDay : automaticDay;
-
-  // Sync state to localStorage
+  // Scroll to top on tab change & track scroll for button
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY_COMPLETED, JSON.stringify(completedDays));
-    } catch (e) {
-      // ignore
-    }
-  }, [completedDays]);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentTab]);
 
   useEffect(() => {
-    try {
-      if (demoOverrideDay !== null) {
-        localStorage.setItem(STORAGE_KEY_DEMO_OVERRIDE, String(demoOverrideDay));
-      } else {
-        localStorage.removeItem(STORAGE_KEY_DEMO_OVERRIDE);
-      }
-    } catch (e) {
-      // ignore
-    }
-  }, [demoOverrideDay]);
-
-  // Overall percentage calculation out of 90 days
-  const overallPercentage = Math.round((completedDays.length / 90) * 100);
-
-  // Calculate 5 Volt Core statuses dynamically
-  const voltCoreIds: VoltCoreId[] = ['POWER', 'DOMAIN', 'NEURAL', 'ENGINE', 'DRIVE'];
-  const voltCoreStatuses: VoltCoreStatus[] = voltCoreIds.map((coreId) => {
-    const coreInfo = VOLT_CORES[coreId];
-    const coreMissions = MISSIONS.filter((m) => m.day >= coreInfo.dayStart && m.day <= coreInfo.dayEnd);
-    const completedCount = coreMissions.filter((m) => completedDays.includes(m.day)).length;
-    const percentage = Math.round((completedCount / coreMissions.length) * 100);
-
-    const isComplete = percentage === 100;
-    const isInProgress = !isComplete && (completedCount > 0 || (currentDayNumber >= coreInfo.dayStart && currentDayNumber <= coreInfo.dayEnd));
-    const isLocked = !isComplete && !isInProgress;
-
-    return {
-      id: coreId,
-      name: coreInfo.name,
-      percentage,
-      completedDays: completedCount,
-      totalDays: coreMissions.length,
-      isFullyBuilt: isComplete,
-      isLocked,
-      isInProgress,
-      isComplete
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
     };
-  });
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  // Current day mission object
-  const currentMission = MISSIONS.find((m) => m.day === currentDayNumber) || MISSIONS[0];
+  const handleSelectTab = (tab: ViewTab, sectionId?: string) => {
+    setCurrentTab(tab);
+    setActiveSection(sectionId);
+    setIsGridModalOpen(false);
 
-  // Action handlers
-  const handleToggleCheckpoint = (dayNum: number) => {
-    setCompletedDays((prev) => {
-      let updated: number[];
-      if (prev.includes(dayNum)) {
-        updated = prev.filter((d) => d !== dayNum);
-      } else {
-        updated = [...prev, dayNum].sort((a, b) => a - b);
-      }
-
-      if (updated.length === 90 || (dayNum === 90 && updated.includes(90))) {
-        setTimeout(() => {
-          setShowFinalActivation(true);
-        }, 500);
-      }
-      return updated;
-    });
+    if (sectionId) {
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
   };
 
-  const handleSelectDay = (dayNum: number) => {
-    setDemoOverrideDay(dayNum);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleResetToToday = () => {
-    setDemoOverrideDay(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleCompleteAll = () => {
-    const allDays = Array.from({ length: 90 }, (_, i) => i + 1);
-    setCompletedDays(allDays);
-    setDemoOverrideDay(90);
-    setShowFinalActivation(true);
-  };
+  const activePolicyDoc = POLICIES_DATA.find((p) => p.id === activePolicyId) || null;
 
   return (
-    <div className="min-h-screen w-full bg-[#020605] text-[#F5F5F0] font-sans antialiased relative">
-      
-      {/* Primary Top Header Navigation (4 Destinations ONLY: HOME, 90-DAY JOURNEY, GET GUIDE, VOLT) */}
+    <div className="min-h-screen bg-[#050807] text-[#F8FAF9] flex flex-col font-sans selection:bg-[#00FF66] selection:text-[#050807]">
+      {/* Top Global Navigation Bar */}
       <Header
-        activeTab={activeTab}
-        setActiveTab={(tab) => {
-          setActiveTab(tab);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-        overallPercentage={overallPercentage}
+        currentTab={currentTab}
+        onSelectTab={handleSelectTab}
+        onOpenSearch={() => setIsSearchOpen(true)}
+        onToggleGridModal={() => setIsGridModalOpen((prev) => !prev)}
+        isGridOpen={isGridModalOpen}
       />
 
-      {/* Main View Router */}
-      <main>
-        {activeTab === 'HOME' && (
+      {/* Main View Area */}
+      <main className="flex-1">
+        {currentTab === 'HOME' && (
           <HomeView
-            currentDayNumber={currentDayNumber}
-            completedDays={completedDays}
-            overallPercentage={overallPercentage}
-            currentMission={currentMission}
-            onGoToJourney={() => {
-              setActiveTab('JOURNEY');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            onGoToVolt={() => {
-              setActiveTab('VOLT');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            onToggleCheckpoint={handleToggleCheckpoint}
+            onSelectTab={handleSelectTab}
+            onOpenPolicy={(id) => setActivePolicyId(id)}
           />
         )}
-
-        {activeTab === 'JOURNEY' && (
-          <JourneyView
-            missions={MISSIONS}
-            completedDays={completedDays}
-            currentDay={currentDayNumber}
-            onSelectDay={handleSelectDay}
-            onExploreVolt={() => {
-              setActiveTab('VOLT');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            overallPercentage={overallPercentage}
-            onToggleCheckpoint={handleToggleCheckpoint}
+        {currentTab === 'START_HERE' && (
+          <StartHereView
+            onSelectTab={handleSelectTab}
+            onOpenPolicy={(id) => setActivePolicyId(id)}
           />
         )}
-
-        {activeTab === 'GUIDE' && (
-          <GetGuideView />
+        {currentTab === 'ESYASOFT' && (
+          <CompanyView onSelectTab={handleSelectTab} />
         )}
-
-        {activeTab === 'VOLT' && (
-          <VoltView
-            overallPercentage={overallPercentage}
-            coreStatuses={voltCoreStatuses}
-            onTriggerActivation={() => setShowFinalActivation(true)}
-            completedDaysCount={completedDays.length}
+        {currentTab === 'BUSINESS' && (
+          <BusinessView
+            onSelectTab={handleSelectTab}
+            initialSection={activeSection}
+          />
+        )}
+        {currentTab === 'HOW_WE_WORK' && (
+          <HowWeWorkView
+            onSelectTab={handleSelectTab}
+            onOpenPolicy={(id) => setActivePolicyId(id)}
+          />
+        )}
+        {currentTab === 'WORKPLACE' && (
+          <WorkplaceView
+            onSelectTab={handleSelectTab}
+            onOpenPolicy={(id) => setActivePolicyId(id)}
+            initialSection={activeSection}
+          />
+        )}
+        {currentTab === 'FIRST_90' && (
+          <First90View onSelectTab={handleSelectTab} />
+        )}
+        {currentTab === 'HELP' && (
+          <HelpView
+            onSelectTab={handleSelectTab}
+            onOpenPolicy={(id) => setActivePolicyId(id)}
+            onOpenSearch={() => setIsSearchOpen(true)}
+            initialSection={activeSection}
           />
         )}
       </main>
 
-      {/* Final Volt Activation Overlay */}
-      {showFinalActivation && (
-        <FinalActivation
-          onRevisitJourney={() => {
-            setShowFinalActivation(false);
-            setActiveTab('JOURNEY');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          onClose={() => setShowFinalActivation(false)}
-        />
+      {/* Persistent GRID Modal Drawer Overlay */}
+      {isGridModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in">
+          <div
+            className="relative w-full max-w-5xl bg-[#07110D] border border-[#162E21] rounded-2xl shadow-2xl p-6 space-y-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-[#162E21] pb-3">
+              <div className="flex items-center gap-2 font-mono text-sm font-bold text-white">
+                <Zap className="w-4 h-4 text-[#00FF66]" />
+                <span>ESYASOFT SYSTEM ENERGY GRID</span>
+              </div>
+              <button
+                onClick={() => setIsGridModalOpen(false)}
+                className="p-1.5 rounded bg-slate-900 border border-slate-800 text-slate-400 hover:text-white"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <EsyasoftGrid
+              onNavigateNode={(tab, section) => handleSelectTab(tab, section)}
+              selectedNodeId="you"
+            />
+          </div>
+        </div>
       )}
 
-      {/* Demo Floating Control Toolbar */}
-      <DemoToolbar
-        currentDay={currentDayNumber}
-        automaticDay={automaticDay}
-        isDemoOverride={isDemoOverride}
-        onSelectDay={handleSelectDay}
-        onResetToToday={handleResetToToday}
-        completedCount={completedDays.length}
-        onCompleteAllDays={handleCompleteAll}
+      {/* Global Search Modal */}
+      <GlobalSearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+        onSelectTab={handleSelectTab}
+        onOpenPolicy={(id) => setActivePolicyId(id)}
       />
 
+      {/* Official Policy Viewer Modal */}
+      <PolicyModal
+        policy={activePolicyDoc}
+        onClose={() => setActivePolicyId(null)}
+      />
+
+      {/* Scroll to top button */}
+      {showScrollTop && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-6 right-6 z-40 p-3 rounded-full bg-[#07110D] border border-[#00FF66]/50 text-[#00FF66] shadow-[0_0_15px_rgba(0,255,102,0.3)] hover:bg-[#00FF66] hover:text-[#050807] transition-all"
+          title="Scroll to Top"
+        >
+          <ArrowUp className="w-4 h-4" />
+        </button>
+      )}
+
       {/* Footer */}
-      <footer className="py-8 border-t border-[#071B18] bg-[#020605] text-xs font-mono text-neutral-500 text-center space-y-2">
-        <p className="text-neutral-400 font-semibold">ESYASOFT GRADUATE ENGINEER TRAINEE PROGRAM • 90-DAY JOURNEY</p>
-        <p className="text-[10px] text-neutral-600">
-          Official GET Onboarding & Development Program • Esyasoft Technologies
-        </p>
+      <footer className="bg-[#050807] border-t border-[#162E21] py-8 text-slate-400 font-mono text-xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 text-white font-bold">
+              <span>ESYASOFT</span>
+              <span className="text-[#00FF66]">/</span>
+              <span className="text-[#00FF66]">FIRST 90</span>
+            </div>
+            <p className="text-[11px] text-slate-500 font-sans mt-0.5">
+              Digital First 90 Days Employee Orientation & Reference Guide.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-4 text-[11px]">
+            <button onClick={() => handleSelectTab('START_HERE')} className="hover:text-white">Start Here</button>
+            <button onClick={() => handleSelectTab('WORKPLACE', 'policies')} className="hover:text-white">Policy Library</button>
+            <button onClick={() => handleSelectTab('BUSINESS')} className="hover:text-white">Energy System</button>
+            <button onClick={() => handleSelectTab('HELP')} className="hover:text-white">Help & Support</button>
+          </div>
+
+          <div className="text-right text-[10px] text-slate-500">
+            © 2026 Esyasoft Technologies Pvt. Ltd. All rights reserved.
+          </div>
+        </div>
       </footer>
     </div>
   );

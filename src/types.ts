@@ -1,64 +1,97 @@
-export type PhaseId = 'ORIENT' | 'DISCOVER' | 'BUILD' | 'SPECIALIZE' | 'CONTRIBUTE';
-export type VoltCoreId = 'POWER' | 'DOMAIN' | 'NEURAL' | 'ENGINE' | 'DRIVE';
+export type ViewTab = 
+  | 'HOME' 
+  | 'START_HERE' 
+  | 'ESYASOFT' 
+  | 'BUSINESS' 
+  | 'HOW_WE_WORK' 
+  | 'WORKPLACE' 
+  | 'FIRST_90' 
+  | 'HELP';
 
-export interface PhaseInfo {
-  id: PhaseId;
-  number: string;
-  name: string;
-  subtitle: string;
-  tagline: string;
+export type ContentSourceType = 
+  | 'OFFICIAL' 
+  | 'COMPANY CONTEXT' 
+  | 'ONBOARDING GUIDANCE' 
+  | 'PROJECT / ROLE SPECIFIC';
+
+export interface GridNode {
+  id: string;
+  label: string;
+  category: 'COMPANY' | 'BUSINESS' | 'PEOPLE' | 'CULTURE' | 'TECHNOLOGY' | 'HOW_WE_WORK' | 'SYSTEMS' | 'POLICIES' | 'WORKPLACE' | 'FIRST_90' | 'YOU';
+  x: number; // percentage (0-100)
+  y: number; // percentage (0-100)
   description: string;
-  dayStart: number;
-  dayEnd: number;
-  totalDays: number;
-  color: string;
-  weeks?: {
-    title: string;
-    topics: string[];
-  }[];
-  deliverables?: string[];
-  milestone?: string;
+  targetTab: ViewTab;
+  targetSection?: string;
+  connectedTo: string[];
 }
 
-export interface VoltCoreInfo {
-  id: VoltCoreId;
-  number: string;
-  name: string;
-  description: string;
-  dayStart: number;
-  dayEnd: number;
-  totalDays: number;
-  challenge: {
-    keyword: string;
-    description: string;
-  };
-}
-
-export interface DayMission {
-  day: number;
+export interface PolicyDoc {
+  id: string;
   title: string;
-  phaseId: PhaseId;
-  objective: string;
-  learn: string[];
-  practice: string[];
-  checkpoint: string;
-  timeSchedule?: {
-    time: string;
-    activity: string;
-    type: 'Trainer Session' | 'Learning Activity' | 'Reflection';
-  }[];
+  version: string;
+  revisionDate: string;
+  preparedBy: string;
+  approvedBy: string;
+  whatItAnswers: string[];
+  keyThingsToKnow: string[];
+  applicability: string;
+  owner: string;
+  contentMarkdown: string;
+  fileName: string;
 }
 
-export type ViewTab = 'HOME' | 'JOURNEY' | 'GUIDE' | 'VOLT';
-
-export interface VoltCoreStatus {
-  id: VoltCoreId;
+export interface ProductItem {
+  id: string;
   name: string;
-  percentage: number;
-  completedDays: number;
-  totalDays: number;
-  isFullyBuilt: boolean;
-  isLocked: boolean;
-  isInProgress: boolean;
-  isComplete: boolean;
+  category: 'Smart Metering & AMI' | 'Grid Software & Analytics' | 'Energy Storage & BESS' | 'e-Mobility' | 'IoT & Automation';
+  whatIsIt: string;
+  whatProblemItSolves: string;
+  whereItFits: string;
+  relatedTechnology: string[];
+  officialSource?: string;
+}
+
+export interface DataPipelineStage {
+  id: string;
+  step: number;
+  name: string;
+  shortName: string;
+  description: string;
+  esyasoftCapability: string;
+  technicalDetails: string;
+}
+
+export interface ActionPathway {
+  id: string;
+  title: string;
+  description: string;
+  targetTab: ViewTab;
+  targetSection?: string;
+  policyId?: string;
+  iconName?: string;
+}
+
+export interface SupportContact {
+  role: string;
+  description: string;
+  contactMethod: string;
+  emailOrChannel: string;
+  whenToContact: string;
+  escalationPath: string;
+}
+
+export interface GlossaryTerm {
+  term: string;
+  fullForm?: string;
+  definition: string;
+  category: 'Domain' | 'Esyasoft Product' | 'HR & Policy' | 'Technology';
+}
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+  category: 'Onboarding' | 'Leave & HR' | 'Travel & Expenses' | 'IT & Systems' | 'Performance & Career';
+  sourceType: ContentSourceType;
+  policyId?: string;
 }
