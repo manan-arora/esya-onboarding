@@ -2,16 +2,13 @@ import { useState } from 'react';
 import type { DayMission, PhaseId } from '../types';
 import { PHASES } from '../data/curriculum';
 import {
-  Sparkles,
-  Calendar,
   Clock,
   ArrowRight,
   CheckCircle2,
   ChevronRight,
   X,
   Zap,
-  Flame,
-  Layers
+  Flame
 } from 'lucide-react';
 
 interface HomeViewProps {
@@ -49,62 +46,75 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 pt-6 space-y-10 relative z-10">
 
-        {/* HERO AREA: Clean Hybrid Surface */}
-        <section className="p-8 sm:p-12 rounded-3xl bg-[#061513] text-white border border-[#13332D] shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-[#8CFF00]/15 via-transparent to-transparent pointer-events-none" />
-          
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-            <div className="space-y-4 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#071B18] border border-[#8CFF00]/40 text-xs font-mono font-bold tracking-widest text-[#8CFF00] uppercase">
-                <Sparkles className="w-3.5 h-3.5 text-[#8CFF00]" />
-                WELCOME TO ESYASOFT
+        {/* V1 SIMPLE HERO AREA */}
+        <section className="py-4 sm:py-8 text-[#061513] relative">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            {/* Left Column: Editorial Copy & CTAs */}
+            <div className="lg:col-span-7 space-y-6">
+              
+              {/* 1. Program Label Tag */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 shadow-xs">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#8CFF00] border border-[#76E000]" />
+                <span className="text-xs font-mono font-bold tracking-widest text-[#061513] uppercase">
+                  ESYASOFT GRADUATE PROGRAM 2026
+                </span>
               </div>
 
-              <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white font-sans leading-none">
-                Your 90-Day GET Journey
+              {/* 2. Editorial Headline */}
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-[#061513] leading-[1.05] font-sans">
+                Your first 90 days.<br />
+                Made simple.
               </h1>
 
-              <div className="flex flex-wrap items-center gap-3 pt-2">
-                <div className="px-4 py-2 rounded-xl bg-[#071B18] border border-[#8CFF00]/50 font-mono text-xs font-bold text-[#8CFF00] flex items-center gap-2 shadow-[0_0_15px_rgba(140,255,0,0.15)]">
-                  <Calendar className="w-4 h-4 text-[#8CFF00]" />
-                  <span>DAY {String(currentDayNumber).padStart(2, '0')} OF 90</span>
-                </div>
+              {/* 3. Short Explanatory Copy */}
+              <p className="text-base sm:text-lg text-slate-600 max-w-xl font-normal leading-relaxed">
+                Welcome to Esyasoft. Your structured journey from understanding the company and energy domain to building technical capability, discovering your specialization, and starting to contribute.
+              </p>
 
-                <div className="px-4 py-2 rounded-xl bg-[#071B18] border border-[#13332D] font-mono text-xs font-bold text-white uppercase flex items-center gap-2">
-                  <Layers className="w-4 h-4 text-[#8CFF00]" />
-                  <span>{currentPhaseInfo.name}</span>
-                </div>
+              {/* 4. Action CTAs */}
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <button
+                  onClick={onGoToJourney}
+                  className="px-6 py-3.5 rounded-xl bg-[#061513] text-[#8CFF00] font-bold text-xs tracking-wider uppercase font-mono flex items-center gap-2.5 hover:bg-black hover:scale-[1.02] transition-all cursor-pointer shadow-md group"
+                >
+                  <span>START YOUR JOURNEY</span>
+                  <ArrowRight className="w-4 h-4 text-[#8CFF00] group-hover:translate-x-0.5 transition-transform" />
+                </button>
+
+                <button
+                  onClick={onGoToJourney}
+                  className="px-6 py-3.5 rounded-xl bg-white border border-slate-200 text-[#061513] font-bold text-xs tracking-wider uppercase font-mono flex items-center gap-2 hover:bg-slate-50 hover:border-slate-300 transition-all cursor-pointer shadow-xs"
+                >
+                  VIEW 90-DAY PLAN
+                </button>
               </div>
 
-              <p className="text-base sm:text-lg text-neutral-300 font-normal leading-relaxed pt-1">
-                {currentPhaseInfo.description}
-              </p>
+              {/* 5. Cohort Detail */}
+              <div className="flex items-center gap-3 pt-4 border-t border-slate-200/80 w-full max-w-md">
+                <div className="flex -space-x-2 shrink-0">
+                  <span className="w-7 h-7 rounded-full bg-[#8CFF00] border-2 border-white flex items-center justify-center text-[10px] font-extrabold text-[#061513] shadow-xs">A</span>
+                  <span className="w-7 h-7 rounded-full bg-[#061513] border-2 border-white flex items-center justify-center text-[10px] font-extrabold text-[#8CFF00] shadow-xs">R</span>
+                  <span className="w-7 h-7 rounded-full bg-emerald-700 border-2 border-white flex items-center justify-center text-[10px] font-extrabold text-white shadow-xs">S</span>
+                </div>
+                <span className="text-xs font-mono text-slate-500 font-medium">
+                  Join your GET cohort and start your journey at Esyasoft.
+                </span>
+              </div>
+
             </div>
 
-            {/* Overall Progress Widget */}
-            <div className="p-6 rounded-2xl bg-[#071B18] border border-[#8CFF00]/30 shadow-xl space-y-4 shrink-0 min-w-[280px]">
-              <div className="flex items-center justify-between border-b border-[#13332D] pb-3 text-xs font-mono">
-                <span className="text-neutral-400 uppercase tracking-widest font-bold">PROGRAM COMPLETED</span>
-                <span className="text-[#8CFF00] font-extrabold">{completedDays.length} / 90 DAYS</span>
-              </div>
-
-              <div className="space-y-2">
-                <div className="flex items-center justify-between font-mono text-xs">
-                  <span className="text-white font-bold">{overallPercentage}% COMPLETE</span>
-                  <span className="text-neutral-400">TARGET: DAY 90</span>
-                </div>
-
-                <div className="w-full h-3 rounded-full bg-[#020605] overflow-hidden p-0.5 border border-[#13332D]">
-                  <div
-                    className="h-full rounded-full bg-gradient-to-r from-[#76E000] to-[#8CFF00] transition-all duration-700 shadow-[0_0_10px_#8CFF00]"
-                    style={{ width: `${Math.max(overallPercentage, 4)}%` }}
-                  />
-                </div>
-              </div>
-
-              <div className="pt-1 flex items-center justify-between text-[11px] font-mono text-neutral-400">
-                <span>PHASE: {currentPhaseInfo.name}</span>
-                <span className="text-[#8CFF00] font-bold">DAY {currentDayNumber} ACTIVE</span>
+            {/* Right Column: Simple Dark Volt Presentation Frame */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-end items-center">
+              <div className="relative w-full max-w-[420px] rounded-[2.2rem] bg-[#061513] border border-[#13332D] shadow-2xl p-6 sm:p-8 flex items-center justify-center overflow-hidden group">
+                {/* Subtle inner ambient glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#8CFF00]/10 via-transparent to-[#071B18]/60 pointer-events-none" />
+                
+                <img
+                  src="/assets/volt_mascot.png"
+                  alt="Volt Mascot — Esyasoft GET Mascot"
+                  className="w-full h-auto max-h-[320px] sm:max-h-[360px] object-contain relative z-10 animate-float drop-shadow-[0_15px_30px_rgba(140,255,0,0.2)] transition-transform duration-500 group-hover:scale-105"
+                />
               </div>
             </div>
 

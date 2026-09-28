@@ -13,58 +13,140 @@ import {
   Lightbulb,
   Layers,
   BatteryCharging,
-  Car
+  Car,
+  ChevronDown,
+  ChevronRight
 } from 'lucide-react';
 
 const STORAGE_KEY_DOCS_CHECKLIST = 'esyasoft_crisp_new_joiner_checklist';
 const STORAGE_KEY_PACKING_CHECKLIST = 'esyasoft_crisp_packing_checklist';
 const STORAGE_KEY_DEV_CHECKLIST = 'esyasoft_crisp_dev_checklist';
 
-interface TocSection {
+interface TocSubsection {
   id: string;
   num: number;
   title: string;
-  category: 'Overview' | 'Company' | 'Domain' | 'Products' | 'Program' | 'Engineering' | 'GCC & Travel' | 'Checklists';
 }
 
-const TOC_SECTIONS: TocSection[] = [
-  { id: 'sec-1', num: 1, title: 'How to Use This Guide', category: 'Overview' },
-  { id: 'sec-2', num: 2, title: 'Esyasoft at a Glance', category: 'Company' },
-  { id: 'sec-3', num: 3, title: 'Story, Vision & Values', category: 'Company' },
-  { id: 'sec-4', num: 4, title: 'How Esyasoft Creates Value', category: 'Company' },
-  { id: 'sec-5', num: 5, title: 'Understand the Energy Transition', category: 'Domain' },
-  { id: 'sec-6', num: 6, title: 'Smart Utilities (Electricity, Water & Gas)', category: 'Domain' },
-  { id: 'sec-7', num: 7, title: 'Smart Metering & AMI Architecture', category: 'Domain' },
-  { id: 'sec-8', num: 8, title: 'Meter-to-Decision Data Journey', category: 'Domain' },
-  { id: 'sec-9', num: 9, title: 'Software, Analytics & AI', category: 'Products' },
-  { id: 'sec-10', num: 10, title: 'Energy as a Service (EaaS)', category: 'Products' },
-  { id: 'sec-11', num: 11, title: 'BESS (Battery Energy Storage)', category: 'Products' },
-  { id: 'sec-12', num: 12, title: 'e-Mobility & EV Infrastructure', category: 'Products' },
-  { id: 'sec-13', num: 13, title: 'Products & Technology Landscape', category: 'Products' },
-  { id: 'sec-14', num: 14, title: 'Graduate Program Structure', category: 'Program' },
-  { id: 'sec-15', num: 15, title: 'Working at Esyasoft & Teams', category: 'Program' },
-  { id: 'sec-16', num: 16, title: 'Project & Engineering Practices', category: 'Engineering' },
-  { id: 'sec-17', num: 17, title: 'Technology & Dev Environment', category: 'Engineering' },
-  { id: 'sec-18', num: 18, title: 'Engineering Quality & Testing Mindset', category: 'Engineering' },
-  { id: 'sec-19', num: 19, title: 'Documentation Practices', category: 'Engineering' },
-  { id: 'sec-20', num: 20, title: 'Security, Privacy & Responsible AI', category: 'Engineering' },
-  { id: 'sec-21', num: 21, title: 'Professional Conduct', category: 'Program' },
-  { id: 'sec-22', num: 22, title: 'Learning, Feedback & Mentorship', category: 'Program' },
-  { id: 'sec-23', num: 23, title: 'Communication Quick Reference', category: 'Engineering' },
-  { id: 'sec-24', num: 24, title: 'Building Relationships', category: 'Program' },
-  { id: 'sec-25', num: 25, title: 'Mangalore GCC, Accommodation & Travel', category: 'GCC & Travel' },
-  { id: 'sec-26', num: 26, title: 'First 30 Days — Quick Reference', category: 'Checklists' },
-  { id: 'sec-27', num: 27, title: '90-Day Self-Check Reflection', category: 'Checklists' },
-  { id: 'sec-28', num: 28, title: 'Comprehensive Energy & Tech Glossary', category: 'Overview' },
-  { id: 'sec-29', num: 29, title: 'Master New-Joiner Checklist', category: 'Checklists' },
-  { id: 'sec-30', num: 30, title: 'Quick Reference — Who to Ask', category: 'Checklists' },
-  { id: 'sec-31', num: 31, title: 'Final Onboarding Principle', category: 'Overview' },
-  { id: 'sec-sources', num: 32, title: 'Primary Reference Sources', category: 'Overview' },
+interface TocChapter {
+  id: string;
+  num: number;
+  title: string;
+  subsections: TocSubsection[];
+}
+
+const TOC_CHAPTERS: TocChapter[] = [
+  {
+    id: 'chap-1',
+    num: 1,
+    title: 'START HERE',
+    subsections: [
+      { id: 'sec-1', num: 1, title: 'How to Use This Guide' },
+    ]
+  },
+  {
+    id: 'chap-2',
+    num: 2,
+    title: 'UNDERSTAND ESYASOFT',
+    subsections: [
+      { id: 'sec-2', num: 2, title: 'Esyasoft at a Glance' },
+      { id: 'sec-3', num: 3, title: 'Story, Vision & Values' },
+      { id: 'sec-4', num: 4, title: 'How Esyasoft Creates Value' },
+    ]
+  },
+  {
+    id: 'chap-3',
+    num: 3,
+    title: 'UNDERSTAND THE ENERGY SYSTEM',
+    subsections: [
+      { id: 'sec-5', num: 5, title: 'Understand the Energy Transition' },
+      { id: 'sec-6', num: 6, title: 'Smart Utilities (Electricity, Water & Gas)' },
+      { id: 'sec-7', num: 7, title: 'Smart Metering & AMI Architecture' },
+      { id: 'sec-8', num: 8, title: 'Meter-to-Decision Data Journey' },
+      { id: 'sec-9', num: 9, title: 'Software, Analytics & AI' },
+      { id: 'sec-10', num: 10, title: 'Energy as a Service (EaaS)' },
+      { id: 'sec-11', num: 11, title: 'BESS (Battery Energy Storage)' },
+      { id: 'sec-12', num: 12, title: 'e-Mobility & EV Infrastructure' },
+      { id: 'sec-13', num: 13, title: 'Products & Technology Landscape' },
+    ]
+  },
+  {
+    id: 'chap-4',
+    num: 4,
+    title: 'TECHNOLOGY & ENGINEERING',
+    subsections: [
+      { id: 'sec-16', num: 16, title: 'Project & Engineering Practices' },
+      { id: 'sec-17', num: 17, title: 'Technology & Dev Environment' },
+      { id: 'sec-18', num: 18, title: 'Engineering Quality & Testing Mindset' },
+      { id: 'sec-19', num: 19, title: 'Documentation Practices' },
+      { id: 'sec-20', num: 20, title: 'Security, Privacy & Responsible AI' },
+    ]
+  },
+  {
+    id: 'chap-5',
+    num: 5,
+    title: 'WORKING AT ESYASOFT',
+    subsections: [
+      { id: 'sec-14', num: 14, title: 'Graduate Program Structure' },
+      { id: 'sec-15', num: 15, title: 'Working at Esyasoft & Teams' },
+      { id: 'sec-21', num: 21, title: 'Professional Conduct' },
+      { id: 'sec-22', num: 22, title: 'Learning, Feedback & Mentorship' },
+      { id: 'sec-24', num: 24, title: 'Building Relationships' },
+    ]
+  },
+  {
+    id: 'chap-6',
+    num: 6,
+    title: 'MANGALORE & GET LIFE',
+    subsections: [
+      { id: 'sec-25', num: 25, title: 'Mangalore GCC, Accommodation & Travel' },
+    ]
+  },
+  {
+    id: 'chap-7',
+    num: 7,
+    title: 'YOUR FIRST 30 DAYS',
+    subsections: [
+      { id: 'sec-26', num: 26, title: 'First 30 Days — Quick Reference' },
+    ]
+  },
+  {
+    id: 'chap-8',
+    num: 8,
+    title: 'CHECK YOUR PROGRESS',
+    subsections: [
+      { id: 'sec-27', num: 27, title: '90-Day Self-Check Reflection' },
+      { id: 'sec-29', num: 29, title: 'Master New-Joiner Checklist' },
+    ]
+  },
+  {
+    id: 'chap-9',
+    num: 9,
+    title: 'QUICK REFERENCE',
+    subsections: [
+      { id: 'sec-23', num: 23, title: 'Communication Quick Reference' },
+      { id: 'sec-28', num: 28, title: 'Comprehensive Energy & Tech Glossary' },
+      { id: 'sec-30', num: 30, title: 'Quick Reference — Who to Ask' },
+      { id: 'sec-sources', num: 32, title: 'Primary Reference Sources' },
+    ]
+  },
+  {
+    id: 'chap-10',
+    num: 10,
+    title: 'FINAL NOTE',
+    subsections: [
+      { id: 'sec-31', num: 31, title: 'Final Onboarding Principle' },
+    ]
+  }
 ];
 
 export const GetGuideView = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [activeChapterId, setActiveChapterId] = useState<string>('chap-1');
   const [activeSectionId, setActiveSectionId] = useState<string>('sec-1');
+  const [expandedChapterIds, setExpandedChapterIds] = useState<string[]>(() =>
+    TOC_CHAPTERS.map(c => c.id)
+  );
   const [mobileTocOpen, setMobileTocOpen] = useState(false);
 
   // Master New-Joiner Checklist State
@@ -119,16 +201,28 @@ export const GetGuideView = () => {
     } catch (e) { /* ignore */ }
   }, [checkedDevItems]);
 
-  // Observer to highlight active section on scroll
+  // Observer to highlight active section and chapter on scroll
   useEffect(() => {
     const handleScroll = () => {
-      const sections = TOC_SECTIONS.map(s => document.getElementById(s.id)).filter(Boolean) as HTMLElement[];
+      const allElements = [
+        ...TOC_CHAPTERS.map(c => document.getElementById(c.id)),
+        ...TOC_CHAPTERS.flatMap(c => c.subsections.map(s => document.getElementById(s.id)))
+      ].filter(Boolean) as HTMLElement[];
+
       const scrollPosition = window.scrollY + 220;
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const sec = sections[i];
-        if (sec.offsetTop <= scrollPosition) {
-          setActiveSectionId(sec.id);
+      for (let i = allElements.length - 1; i >= 0; i--) {
+        const elem = allElements[i];
+        if (elem.offsetTop <= scrollPosition) {
+          if (elem.id.startsWith('chap-')) {
+            setActiveChapterId(elem.id);
+          } else if (elem.id.startsWith('sec-')) {
+            setActiveSectionId(elem.id);
+            const parentChap = TOC_CHAPTERS.find(c => c.subsections.some(s => s.id === elem.id));
+            if (parentChap) {
+              setActiveChapterId(parentChap.id);
+            }
+          }
           break;
         }
       }
@@ -138,21 +232,55 @@ export const GetGuideView = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    setActiveSectionId(id);
+  const toggleChapterExpand = (chapId: string, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    setExpandedChapterIds(prev =>
+      prev.includes(chapId) ? prev.filter(id => id !== chapId) : [...prev, chapId]
+    );
+  };
+
+  const scrollToChapter = (chapId: string) => {
+    setActiveChapterId(chapId);
     setMobileTocOpen(false);
-    const elem = document.getElementById(id);
+    const elem = document.getElementById(chapId);
     if (elem) {
       elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
-  const filteredToc = useMemo(() => {
-    if (!searchTerm.trim()) return TOC_SECTIONS;
+  const scrollToSection = (secId: string) => {
+    setActiveSectionId(secId);
+    const parentChap = TOC_CHAPTERS.find(c => c.subsections.some(s => s.id === secId));
+    if (parentChap) {
+      setActiveChapterId(parentChap.id);
+      if (!expandedChapterIds.includes(parentChap.id)) {
+        setExpandedChapterIds(prev => [...prev, parentChap.id]);
+      }
+    }
+    setMobileTocOpen(false);
+    const elem = document.getElementById(secId);
+    if (elem) {
+      elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const filteredChapters = useMemo(() => {
+    if (!searchTerm.trim()) return TOC_CHAPTERS;
     const q = searchTerm.toLowerCase();
-    return TOC_SECTIONS.filter(
-      s => s.title.toLowerCase().includes(q) || s.category.toLowerCase().includes(q) || s.num.toString().includes(q)
-    );
+    return TOC_CHAPTERS.map(chap => {
+      const matchChap = chap.title.toLowerCase().includes(q) || chap.num.toString().includes(q);
+      const matchingSubs = chap.subsections.filter(
+        sub => sub.title.toLowerCase().includes(q) || sub.num.toString().includes(q)
+      );
+      if (matchChap) return chap;
+      if (matchingSubs.length > 0) {
+        return {
+          ...chap,
+          subsections: matchingSubs
+        };
+      }
+      return null;
+    }).filter(Boolean) as TocChapter[];
   }, [searchTerm]);
 
   const toggleMasterItem = (idx: number) => {
@@ -258,13 +386,14 @@ export const GetGuideView = () => {
     }
   ];
 
-  const activeSection = TOC_SECTIONS.find(s => s.id === activeSectionId) || TOC_SECTIONS[0];
+  const activeChapObj = TOC_CHAPTERS.find(c => c.id === activeChapterId) || TOC_CHAPTERS[0];
+  const activeSecObj = TOC_CHAPTERS.flatMap(c => c.subsections).find(s => s.id === activeSectionId) || activeChapObj.subsections[0];
 
   return (
-    <div className="max-w-[1400px] w-full mx-auto px-2.5 sm:px-6 py-6 sm:py-8 relative z-10 overflow-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start w-full min-w-0">
+    <div className="max-w-[1400px] w-full mx-auto px-2.5 sm:px-6 py-6 sm:py-8 relative z-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 w-full min-w-0">
 
-        {/* MOBILE STICKY ACCORDION TOC (COMPACT 48PX BAR, NEVER BLOCKS SCREEN) */}
+        {/* MOBILE STICKY ACCORDION TOC (COMPACT BAR) */}
         <div className="lg:hidden sticky top-16 z-30 mb-2 bg-white border border-[#E5E5DC] rounded-2xl p-3 shadow-md w-full max-w-full overflow-hidden">
           <button
             type="button"
@@ -275,16 +404,16 @@ export const GetGuideView = () => {
               <BookOpen className="w-4 h-4 text-emerald-600 shrink-0" />
               <div className="truncate">
                 <span className="text-[9px] font-mono text-gray-500 block uppercase font-bold">
-                  Guide Navigation • Section {activeSection.num < 10 ? `0${activeSection.num}` : activeSection.num}
+                  CHAPTER {activeChapObj.num < 10 ? `0${activeChapObj.num}` : activeChapObj.num} • {activeChapObj.title}
                 </span>
                 <span className="text-xs font-bold text-[#061513] truncate block">
-                  {activeSection.title}
+                  {activeSecObj?.title || activeChapObj.title}
                 </span>
               </div>
             </div>
 
             <div className="flex items-center gap-1 shrink-0 bg-[#061513] text-[#8CFF00] px-2.5 py-1 rounded-xl text-[10px] font-mono font-bold">
-              <span>{mobileTocOpen ? 'CLOSE' : 'TOPICS ▾'}</span>
+              <span>{mobileTocOpen ? 'CLOSE' : 'CHAPTERS ▾'}</span>
             </div>
           </button>
 
@@ -296,29 +425,65 @@ export const GetGuideView = () => {
                   type="text"
                   value={searchTerm}
                   onChange={e => setSearchTerm(e.target.value)}
-                  placeholder="Search 32 handbook topics..."
+                  placeholder="Search chapters & topics..."
                   className="w-full bg-[#F5F5F0] border border-[#E5E5DC] rounded-xl pl-9 pr-3 py-2 text-xs text-[#061513] placeholder-gray-500 focus:outline-none focus:border-[#8CFF00]"
                 />
               </div>
 
-              <div className="max-h-56 overflow-y-auto space-y-1 custom-scrollbar pr-1">
-                {filteredToc.map(sec => {
-                  const isActive = activeSectionId === sec.id;
+              <div className="max-h-64 overflow-y-auto space-y-2 custom-scrollbar pr-1">
+                {filteredChapters.map(chap => {
+                  const isChapActive = activeChapterId === chap.id;
+                  const isExpanded = expandedChapterIds.includes(chap.id) || !!searchTerm.trim();
+
                   return (
-                    <button
-                      key={sec.id}
-                      onClick={() => scrollToSection(sec.id)}
-                      className={`w-full text-left px-3 py-2 rounded-xl text-xs transition-all flex items-center gap-2.5 ${
-                        isActive
-                          ? 'bg-[#8CFF00]/25 text-[#061513] font-bold border-l-4 border-[#8CFF00]'
-                          : 'text-gray-700 hover:bg-[#F5F5F0]'
-                      }`}
-                    >
-                      <span className="font-mono text-[10px] text-gray-400 min-w-[18px]">
-                        {sec.num < 10 ? `0${sec.num}` : sec.num}
-                      </span>
-                      <span className="truncate">{sec.title}</span>
-                    </button>
+                    <div key={chap.id} className="space-y-1">
+                      <div
+                        onClick={() => scrollToChapter(chap.id)}
+                        className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                          isChapActive
+                            ? 'bg-[#061513] text-[#8CFF00]'
+                            : 'bg-[#F5F5F0] text-[#061513]'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2 truncate">
+                          <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-white text-gray-800 font-bold border border-[#E5E5DC]">
+                            {chap.num < 10 ? `0${chap.num}` : chap.num}
+                          </span>
+                          <span className="truncate uppercase text-[11px] font-bold">{chap.title}</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={(e) => toggleChapterExpand(chap.id, e)}
+                          className="p-1"
+                        >
+                          {isExpanded ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5" />}
+                        </button>
+                      </div>
+
+                      {isExpanded && (
+                        <div className="ml-3 pl-2 border-l-2 border-[#E5E5DC] space-y-1">
+                          {chap.subsections.map(sub => {
+                            const isSubActive = activeSectionId === sub.id;
+                            return (
+                              <button
+                                key={sub.id}
+                                onClick={() => scrollToSection(sub.id)}
+                                className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs transition-all flex items-center gap-2 ${
+                                  isSubActive
+                                    ? 'bg-[#8CFF00]/25 text-[#061513] font-bold border-l-3 border-[#8CFF00]'
+                                    : 'text-gray-700 hover:bg-[#F5F5F0]'
+                                }`}
+                              >
+                                <span className="font-mono text-[9px] text-gray-400 min-w-[16px]">
+                                  {sub.num < 10 ? `0${sub.num}` : sub.num}
+                                </span>
+                                <span className="truncate text-[11px]">{sub.title}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
                   );
                 })}
               </div>
@@ -326,8 +491,8 @@ export const GetGuideView = () => {
           )}
         </div>
 
-        {/* DESKTOP STICKY SIDEBAR: TABLE OF CONTENTS */}
-        <aside className="hidden lg:block lg:col-span-3 lg:sticky lg:top-24 bg-white border border-[#E5E5DC] rounded-2xl p-4 shadow-sm max-h-[calc(100vh-7rem)] overflow-y-auto custom-scrollbar">
+        {/* DESKTOP STICKY SIDEBAR: TABLE OF CONTENTS (10 CHAPTERS) */}
+        <aside className="hidden lg:block lg:col-span-3 sticky top-20 bg-white border border-[#E5E5DC] rounded-2xl p-4 shadow-sm max-h-[calc(100vh-6rem)] overflow-y-auto custom-scrollbar">
           <div className="pb-3 border-b border-[#E5E5DC] mb-3">
             <div className="flex items-center gap-2 mb-2 text-[#061513] font-bold text-sm uppercase tracking-wider">
               <BookOpen className="w-4 h-4 text-emerald-600" />
@@ -340,30 +505,78 @@ export const GetGuideView = () => {
                 type="text"
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
-                placeholder="Search handbook..."
+                placeholder="Search chapters & topics..."
                 className="w-full bg-[#F5F5F0] border border-[#E5E5DC] rounded-xl pl-9 pr-3 py-2 text-xs text-[#061513] placeholder-gray-500 focus:outline-none focus:border-[#8CFF00] focus:ring-1 focus:ring-[#8CFF00]"
               />
             </div>
           </div>
 
-          <nav className="space-y-1">
-            {filteredToc.map(sec => {
-              const isActive = activeSectionId === sec.id;
+          <nav className="space-y-2">
+            {filteredChapters.map(chap => {
+              const isChapActive = activeChapterId === chap.id;
+              const isExpanded = expandedChapterIds.includes(chap.id) || !!searchTerm.trim();
+
               return (
-                <button
-                  key={sec.id}
-                  onClick={() => scrollToSection(sec.id)}
-                  className={`w-full text-left px-3 py-2 rounded-xl text-xs transition-all flex items-start gap-2.5 ${
-                    isActive
-                      ? 'bg-[#8CFF00]/20 text-[#061513] font-bold border-l-4 border-[#8CFF00] shadow-xs'
-                      : 'text-gray-600 hover:text-black hover:bg-[#F5F5F0]'
-                  }`}
-                >
-                  <span className="font-mono text-[10px] text-gray-400 mt-0.5 min-w-[20px]">
-                    {sec.num < 10 ? `0${sec.num}` : sec.num}
-                  </span>
-                  <span className="truncate">{sec.title}</span>
-                </button>
+                <div key={chap.id} className="rounded-xl overflow-hidden">
+                  {/* Chapter Header */}
+                  <div
+                    className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      isChapActive
+                        ? 'bg-[#061513] text-[#8CFF00] shadow-xs'
+                        : 'text-[#061513] bg-[#F5F5F0]/80 hover:bg-[#F5F5F0]'
+                    }`}
+                    onClick={() => scrollToChapter(chap.id)}
+                  >
+                    <div className="flex items-center gap-2 min-w-0 pr-1">
+                      <span className={`font-mono text-[10px] px-1.5 py-0.5 rounded ${
+                        isChapActive ? 'bg-[#8CFF00] text-[#061513]' : 'bg-white text-gray-700 border border-[#E5E5DC]'
+                      }`}>
+                        {chap.num < 10 ? `0${chap.num}` : chap.num}
+                      </span>
+                      <span className="truncate tracking-tight font-extrabold uppercase text-[11px]">
+                        {chap.title}
+                      </span>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={(e) => toggleChapterExpand(chap.id, e)}
+                      className="p-1 hover:bg-black/10 rounded transition shrink-0"
+                      title={isExpanded ? "Collapse subsections" : "Expand subsections"}
+                    >
+                      {isExpanded ? (
+                        <ChevronDown className={`w-3.5 h-3.5 ${isChapActive ? 'text-[#8CFF00]' : 'text-gray-500'}`} />
+                      ) : (
+                        <ChevronRight className={`w-3.5 h-3.5 ${isChapActive ? 'text-[#8CFF00]' : 'text-gray-500'}`} />
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Subsections List */}
+                  {isExpanded && chap.subsections.length > 0 && (
+                    <div className="mt-1 ml-3 pl-2.5 border-l-2 border-[#E5E5DC] space-y-1 py-1">
+                      {chap.subsections.map(sub => {
+                        const isSubActive = activeSectionId === sub.id;
+                        return (
+                          <button
+                            key={sub.id}
+                            onClick={() => scrollToSection(sub.id)}
+                            className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs transition-all flex items-start gap-2 ${
+                              isSubActive
+                                ? 'bg-[#8CFF00]/25 text-[#061513] font-bold border-l-3 border-[#8CFF00]'
+                                : 'text-gray-600 hover:text-black hover:bg-[#F5F5F0]'
+                            }`}
+                          >
+                            <span className="font-mono text-[9px] text-gray-400 mt-0.5 min-w-[16px]">
+                              {sub.num < 10 ? `0${sub.num}` : sub.num}
+                            </span>
+                            <span className="truncate leading-tight text-[11px] font-medium">{sub.title}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
               );
             })}
           </nav>
@@ -394,14 +607,22 @@ export const GetGuideView = () => {
                 </div>
               </div>
               <div className="pt-2 border-t border-[#E5E5DC] text-xs text-gray-500 flex flex-wrap gap-4">
-            
                 <span><strong>Target Audience:</strong> First-Time GETs & Engineers</span>
                 <span><strong>Companion:</strong> 90-Day Journey Curriculum</span>
               </div>
             </div>
           </div>
 
-          {/* SECTION 1: How to Use This Guide */}
+          {/* CHAPTER 1 BANNER: START HERE */}
+          <div id="chap-1" className="scroll-mt-24 pt-6 pb-4 border-b-2 border-[#061513]">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-700 uppercase tracking-widest mb-1">
+              <span>CHAPTER 01</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513] tracking-tight uppercase">
+              START HERE
+            </h2>
+          </div>
+
           <section id="sec-1" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">01</span>
@@ -449,7 +670,17 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 2: Esyasoft at a Glance */}
+
+          {/* CHAPTER 2 BANNER: UNDERSTAND ESYASOFT */}
+          <div id="chap-2" className="scroll-mt-24 pt-6 pb-4 border-b-2 border-[#061513]">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-700 uppercase tracking-widest mb-1">
+              <span>CHAPTER 02</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513] tracking-tight uppercase">
+              UNDERSTAND ESYASOFT
+            </h2>
+          </div>
+
           <section id="sec-2" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">02</span>
@@ -512,7 +743,6 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 3: Story, Vision & Values */}
           <section id="sec-3" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">03</span>
@@ -566,7 +796,6 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 4: How Esyasoft Creates Value */}
           <section id="sec-4" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">04</span>
@@ -601,7 +830,17 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 5: Understand the Energy Transition */}
+
+          {/* CHAPTER 3 BANNER: UNDERSTAND THE ENERGY SYSTEM */}
+          <div id="chap-3" className="scroll-mt-24 pt-6 pb-4 border-b-2 border-[#061513]">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-700 uppercase tracking-widest mb-1">
+              <span>CHAPTER 03</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513] tracking-tight uppercase">
+              UNDERSTAND THE ENERGY SYSTEM
+            </h2>
+          </div>
+
           <section id="sec-5" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">05</span>
@@ -642,7 +881,6 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 6: Smart Utilities */}
           <section id="sec-6" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">06</span>
@@ -698,7 +936,6 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 7: Smart Metering & AMI Architecture */}
           <section id="sec-7" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">07</span>
@@ -770,7 +1007,6 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 8: Meter-to-Decision Data Journey */}
           <section id="sec-8" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">08</span>
@@ -798,7 +1034,6 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 9: Software, Analytics & AI */}
           <section id="sec-9" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">09</span>
@@ -832,7 +1067,6 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 10: Energy as a Service */}
           <section id="sec-10" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">10</span>
@@ -844,7 +1078,6 @@ export const GetGuideView = () => {
             </p>
           </section>
 
-          {/* SECTION 11: BESS */}
           <section id="sec-11" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">11</span>
@@ -872,7 +1105,6 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 12: e-Mobility */}
           <section id="sec-12" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">12</span>
@@ -896,7 +1128,6 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 13: Products & Technology Landscape */}
           <section id="sec-13" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">13</span>
@@ -923,40 +1154,17 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 14: Graduate Program */}
-          <section id="sec-14" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
-            <div className="flex items-center gap-3">
-              <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">14</span>
-              <h2 className="text-2xl font-bold text-[#061513]">Graduate Program Structure</h2>
+
+          {/* CHAPTER 4 BANNER: TECHNOLOGY & ENGINEERING */}
+          <div id="chap-4" className="scroll-mt-24 pt-6 pb-4 border-b-2 border-[#061513]">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-700 uppercase tracking-widest mb-1">
+              <span>CHAPTER 04</span>
             </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513] tracking-tight uppercase">
+              TECHNOLOGY & ENGINEERING
+            </h2>
+          </div>
 
-            <p className="text-gray-700 leading-relaxed">
-              The Esyasoft GET Program is designed to transform university graduates into domain-capable, production-ready engineers over 90 days.
-            </p>
-
-            <div className="p-4 bg-[#061513] text-white rounded-xl font-mono text-xs border border-[#13332D]">
-              <span className="text-[#8CFF00]">Domain Knowledge → Hands-on Technical Practice → Guided Application → Capstone Contribution</span>
-            </div>
-          </section>
-
-          {/* SECTION 15: Working at Esyasoft */}
-          <section id="sec-15" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
-            <div className="flex items-center gap-3">
-              <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">15</span>
-              <h2 className="text-2xl font-bold text-[#061513]">Working at Esyasoft & Teams</h2>
-            </div>
-
-            <p className="text-gray-700 leading-relaxed">
-              Engineering at Esyasoft is highly cross-functional. You will collaborate with software developers, QA engineers, product managers, business analysts, IoT hardware specialists, and customer delivery leads.
-            </p>
-
-            <div className="bg-[#F5F5F0] p-4 rounded-xl border border-[#E5E5DC] text-sm space-y-1">
-              <p className="text-[#061513] font-bold">Mindset Shift for New GETs:</p>
-              <p className="text-emerald-900 font-semibold italic">“Always understand what business or utility problem a feature solves, rather than only looking at what code to write.”</p>
-            </div>
-          </section>
-
-          {/* SECTION 16: Project & Engineering Practices */}
           <section id="sec-16" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">16</span>
@@ -981,7 +1189,6 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 17: Technology & Dev Environment */}
           <section id="sec-17" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">17</span>
@@ -1023,7 +1230,6 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 18: Engineering Quality */}
           <section id="sec-18" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">18</span>
@@ -1039,7 +1245,6 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 19: Documentation */}
           <section id="sec-19" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">19</span>
@@ -1051,7 +1256,6 @@ export const GetGuideView = () => {
             </p>
           </section>
 
-          {/* SECTION 20: Security, Privacy & Responsible AI */}
           <section id="sec-20" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">20</span>
@@ -1069,7 +1273,48 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 21: Professional Conduct */}
+
+          {/* CHAPTER 5 BANNER: WORKING AT ESYASOFT */}
+          <div id="chap-5" className="scroll-mt-24 pt-6 pb-4 border-b-2 border-[#061513]">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-700 uppercase tracking-widest mb-1">
+              <span>CHAPTER 05</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513] tracking-tight uppercase">
+              WORKING AT ESYASOFT
+            </h2>
+          </div>
+
+          <section id="sec-14" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
+            <div className="flex items-center gap-3">
+              <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">14</span>
+              <h2 className="text-2xl font-bold text-[#061513]">Graduate Program Structure</h2>
+            </div>
+
+            <p className="text-gray-700 leading-relaxed">
+              The Esyasoft GET Program is designed to transform university graduates into domain-capable, production-ready engineers over 90 days.
+            </p>
+
+            <div className="p-4 bg-[#061513] text-white rounded-xl font-mono text-xs border border-[#13332D]">
+              <span className="text-[#8CFF00]">Domain Knowledge → Hands-on Technical Practice → Guided Application → Capstone Contribution</span>
+            </div>
+          </section>
+
+          <section id="sec-15" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
+            <div className="flex items-center gap-3">
+              <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">15</span>
+              <h2 className="text-2xl font-bold text-[#061513]">Working at Esyasoft & Teams</h2>
+            </div>
+
+            <p className="text-gray-700 leading-relaxed">
+              Engineering at Esyasoft is highly cross-functional. You will collaborate with software developers, QA engineers, product managers, business analysts, IoT hardware specialists, and customer delivery leads.
+            </p>
+
+            <div className="bg-[#F5F5F0] p-4 rounded-xl border border-[#E5E5DC] text-sm space-y-1">
+              <p className="text-[#061513] font-bold">Mindset Shift for New GETs:</p>
+              <p className="text-emerald-900 font-semibold italic">“Always understand what business or utility problem a feature solves, rather than only looking at what code to write.”</p>
+            </div>
+          </section>
+
           <section id="sec-21" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">21</span>
@@ -1081,7 +1326,6 @@ export const GetGuideView = () => {
             </p>
           </section>
 
-          {/* SECTION 22: Learning, Feedback & Mentorship */}
           <section id="sec-22" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">22</span>
@@ -1104,34 +1348,6 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 23: Communication Quick Reference */}
-          <section id="sec-23" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
-            <div className="flex items-center gap-3">
-              <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">23</span>
-              <h2 className="text-2xl font-bold text-[#061513]">Communication Quick Reference</h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-[#F5F5F0] border border-[#E5E5DC] rounded-xl p-4 space-y-2">
-                <h3 className="text-[#061513] font-bold text-sm">Daily Standup Status Update</h3>
-                <ul className="text-xs space-y-1 text-gray-700">
-                  <li><strong>Completed:</strong> What was completed since yesterday.</li>
-                  <li><strong>In Progress:</strong> Current active tasks.</li>
-                  <li><strong>Blocked:</strong> Any impediments requiring assistance.</li>
-                  <li><strong>Next:</strong> Planned work for today.</li>
-                </ul>
-              </div>
-
-              <div className="bg-[#F5F5F0] border border-[#E5E5DC] rounded-xl p-4 space-y-2">
-                <h3 className="text-[#061513] font-bold text-sm">Asking for Technical Help</h3>
-                <p className="font-mono text-xs text-[#061513]">
-                  Context → Expected Result → Actual Error → What You Tried → Specific Help Needed
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* SECTION 24: Building Relationships */}
           <section id="sec-24" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">24</span>
@@ -1143,7 +1359,17 @@ export const GetGuideView = () => {
             </p>
           </section>
 
-          {/* SECTION 25: Mangalore GCC */}
+
+          {/* CHAPTER 6 BANNER: MANGALORE & GET LIFE */}
+          <div id="chap-6" className="scroll-mt-24 pt-6 pb-4 border-b-2 border-[#061513]">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-700 uppercase tracking-widest mb-1">
+              <span>CHAPTER 06</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513] tracking-tight uppercase">
+              MANGALORE & GET LIFE
+            </h2>
+          </div>
+
           <section id="sec-25" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">25</span>
@@ -1317,7 +1543,17 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 26: First 30 Days */}
+
+          {/* CHAPTER 7 BANNER: YOUR FIRST 30 DAYS */}
+          <div id="chap-7" className="scroll-mt-24 pt-6 pb-4 border-b-2 border-[#061513]">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-700 uppercase tracking-widest mb-1">
+              <span>CHAPTER 07</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513] tracking-tight uppercase">
+              YOUR FIRST 30 DAYS
+            </h2>
+          </div>
+
           <section id="sec-26" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">26</span>
@@ -1336,7 +1572,17 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 27: 90-Day Self-Check */}
+
+          {/* CHAPTER 8 BANNER: CHECK YOUR PROGRESS */}
+          <div id="chap-8" className="scroll-mt-24 pt-6 pb-4 border-b-2 border-[#061513]">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-700 uppercase tracking-widest mb-1">
+              <span>CHAPTER 08</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513] tracking-tight uppercase">
+              CHECK YOUR PROGRESS
+            </h2>
+          </div>
+
           <section id="sec-27" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">27</span>
@@ -1362,37 +1608,6 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 28: Glossary */}
-          <section id="sec-28" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
-            <div className="flex items-center gap-3">
-              <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">28</span>
-              <h2 className="text-2xl font-bold text-[#061513]">Comprehensive Energy & Tech Glossary</h2>
-            </div>
-
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse border border-[#E5E5DC] text-sm rounded-xl overflow-hidden">
-                <thead>
-                  <tr className="bg-[#061513] text-white font-semibold">
-                    <th className="p-3 border-r border-gray-700 w-1/4">Term</th>
-                    <th className="p-3">Plain English Meaning</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#E5E5DC] text-gray-800 bg-white text-xs">
-                  <tr><td className="p-2.5 font-mono text-[#061513] font-bold border-r border-[#E5E5DC]">AMI</td><td className="p-2.5">Advanced Metering Infrastructure (connected meters + networks + software).</td></tr>
-                  <tr><td className="p-2.5 font-mono text-[#061513] font-bold border-r border-[#E5E5DC]">API</td><td className="p-2.5">Application Programming Interface.</td></tr>
-                  <tr><td className="p-2.5 font-mono text-[#061513] font-bold border-r border-[#E5E5DC]">BESS</td><td className="p-2.5">Battery Energy Storage System.</td></tr>
-                  <tr><td className="p-2.5 font-mono text-[#061513] font-bold border-r border-[#E5E5DC]">CPMS</td><td className="p-2.5">Charge Point Management System (EV charging software platform).</td></tr>
-                  <tr><td className="p-2.5 font-mono text-[#061513] font-bold border-r border-[#E5E5DC]">DER</td><td className="p-2.5">Distributed Energy Resource (local solar/battery generation).</td></tr>
-                  <tr><td className="p-2.5 font-mono text-[#061513] font-bold border-r border-[#E5E5DC]">DLMS/COSEM</td><td className="p-2.5">International standard communication protocols for smart meter data exchange.</td></tr>
-                  <tr><td className="p-2.5 font-mono text-[#061513] font-bold border-r border-[#E5E5DC]">HES</td><td className="p-2.5">Head End System (software that directly communicates with field meters).</td></tr>
-                  <tr><td className="p-2.5 font-mono text-[#061513] font-bold border-r border-[#E5E5DC]">MDMS</td><td className="p-2.5">Meter Data Management System (cleanses, validates, & manages meter telemetry).</td></tr>
-                  <tr><td className="p-2.5 font-mono text-[#061513] font-bold border-r border-[#E5E5DC]">NRW</td><td className="p-2.5">Non-Revenue Water (water produced but lost to leaks/theft before billing).</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
-
-          {/* SECTION 29: Master New-Joiner Checklist */}
           <section id="sec-29" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -1444,7 +1659,72 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 30: Quick Reference — Who to Ask */}
+
+          {/* CHAPTER 9 BANNER: QUICK REFERENCE */}
+          <div id="chap-9" className="scroll-mt-24 pt-6 pb-4 border-b-2 border-[#061513]">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-700 uppercase tracking-widest mb-1">
+              <span>CHAPTER 09</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513] tracking-tight uppercase">
+              QUICK REFERENCE
+            </h2>
+          </div>
+
+          <section id="sec-23" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
+            <div className="flex items-center gap-3">
+              <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">23</span>
+              <h2 className="text-2xl font-bold text-[#061513]">Communication Quick Reference</h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-[#F5F5F0] border border-[#E5E5DC] rounded-xl p-4 space-y-2">
+                <h3 className="text-[#061513] font-bold text-sm">Daily Standup Status Update</h3>
+                <ul className="text-xs space-y-1 text-gray-700">
+                  <li><strong>Completed:</strong> What was completed since yesterday.</li>
+                  <li><strong>In Progress:</strong> Current active tasks.</li>
+                  <li><strong>Blocked:</strong> Any impediments requiring assistance.</li>
+                  <li><strong>Next:</strong> Planned work for today.</li>
+                </ul>
+              </div>
+
+              <div className="bg-[#F5F5F0] border border-[#E5E5DC] rounded-xl p-4 space-y-2">
+                <h3 className="text-[#061513] font-bold text-sm">Asking for Technical Help</h3>
+                <p className="font-mono text-xs text-[#061513]">
+                  Context → Expected Result → Actual Error → What You Tried → Specific Help Needed
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section id="sec-28" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
+            <div className="flex items-center gap-3">
+              <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">28</span>
+              <h2 className="text-2xl font-bold text-[#061513]">Comprehensive Energy & Tech Glossary</h2>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse border border-[#E5E5DC] text-sm rounded-xl overflow-hidden">
+                <thead>
+                  <tr className="bg-[#061513] text-white font-semibold">
+                    <th className="p-3 border-r border-gray-700 w-1/4">Term</th>
+                    <th className="p-3">Plain English Meaning</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#E5E5DC] text-gray-800 bg-white text-xs">
+                  <tr><td className="p-2.5 font-mono text-[#061513] font-bold border-r border-[#E5E5DC]">AMI</td><td className="p-2.5">Advanced Metering Infrastructure (connected meters + networks + software).</td></tr>
+                  <tr><td className="p-2.5 font-mono text-[#061513] font-bold border-r border-[#E5E5DC]">API</td><td className="p-2.5">Application Programming Interface.</td></tr>
+                  <tr><td className="p-2.5 font-mono text-[#061513] font-bold border-r border-[#E5E5DC]">BESS</td><td className="p-2.5">Battery Energy Storage System.</td></tr>
+                  <tr><td className="p-2.5 font-mono text-[#061513] font-bold border-r border-[#E5E5DC]">CPMS</td><td className="p-2.5">Charge Point Management System (EV charging software platform).</td></tr>
+                  <tr><td className="p-2.5 font-mono text-[#061513] font-bold border-r border-[#E5E5DC]">DER</td><td className="p-2.5">Distributed Energy Resource (local solar/battery generation).</td></tr>
+                  <tr><td className="p-2.5 font-mono text-[#061513] font-bold border-r border-[#E5E5DC]">DLMS/COSEM</td><td className="p-2.5">International standard communication protocols for smart meter data exchange.</td></tr>
+                  <tr><td className="p-2.5 font-mono text-[#061513] font-bold border-r border-[#E5E5DC]">HES</td><td className="p-2.5">Head End System (software that directly communicates with field meters).</td></tr>
+                  <tr><td className="p-2.5 font-mono text-[#061513] font-bold border-r border-[#E5E5DC]">MDMS</td><td className="p-2.5">Meter Data Management System (cleanses, validates, & manages meter telemetry).</td></tr>
+                  <tr><td className="p-2.5 font-mono text-[#061513] font-bold border-r border-[#E5E5DC]">NRW</td><td className="p-2.5">Non-Revenue Water (water produced but lost to leaks/theft before billing).</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
           <section id="sec-30" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">30</span>
@@ -1469,7 +1749,29 @@ export const GetGuideView = () => {
             </div>
           </section>
 
-          {/* SECTION 31: Final Principle */}
+          <section id="sec-sources" className="scroll-mt-24 space-y-3 pt-4">
+            <h2 className="text-lg font-bold text-[#061513] flex items-center gap-2">
+              <FileText className="w-4 h-4 text-gray-500" />
+              Primary Reference Sources
+            </h2>
+            <ul className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs text-gray-600">
+              <li>• Esyasoft Corporate Documentation</li>
+              <li>• Public Smart Grid & AMI Architecture Specifications</li>
+              <li>• Supplied September 2026 GET Travel & GCC Guidance</li>
+            </ul>
+          </section>
+
+
+          {/* CHAPTER 10 BANNER: FINAL NOTE */}
+          <div id="chap-10" className="scroll-mt-24 pt-6 pb-4 border-b-2 border-[#061513]">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-700 uppercase tracking-widest mb-1">
+              <span>CHAPTER 10</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#061513] tracking-tight uppercase">
+              FINAL NOTE
+            </h2>
+          </div>
+
           <section id="sec-31" className="scroll-mt-24 space-y-6 border-b border-[#E5E5DC] pb-12">
             <div className="flex items-center gap-3">
               <span className="px-2.5 py-1 rounded-lg bg-[#061513] text-[#8CFF00] font-mono text-xs font-bold">31</span>
@@ -1487,19 +1789,6 @@ export const GetGuideView = () => {
                 Your curiosity, proactive questions, and engineering rigor turn both into confident contribution.
               </p>
             </div>
-          </section>
-
-          {/* SECTION SOURCES */}
-          <section id="sec-sources" className="scroll-mt-24 space-y-3 pt-4">
-            <h2 className="text-lg font-bold text-[#061513] flex items-center gap-2">
-              <FileText className="w-4 h-4 text-gray-500" />
-              Primary Reference Sources
-            </h2>
-            <ul className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs text-gray-600">
-              <li>• Esyasoft Corporate Documentation</li>
-              <li>• Public Smart Grid & AMI Architecture Specifications</li>
-              <li>• Supplied September 2026 GET Travel & GCC Guidance</li>
-            </ul>
           </section>
 
         </main>
