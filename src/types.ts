@@ -2,17 +2,14 @@ export type ViewTab =
   | 'HOME' 
   | 'START_HERE' 
   | 'ESYASOFT' 
-  | 'BUSINESS' 
   | 'HOW_WE_WORK' 
-  | 'WORKPLACE' 
-  | 'FIRST_90' 
-  | 'HELP';
+  | 'FIRST_90';
 
 export type ContentSourceType = 
   | 'OFFICIAL' 
   | 'COMPANY CONTEXT' 
   | 'ONBOARDING GUIDANCE' 
-  | 'PROJECT / ROLE SPECIFIC';
+  | 'PROGRAM / ROLE SPECIFIC';
 
 export interface GridNode {
   id: string;

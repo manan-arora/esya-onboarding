@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import type { ViewTab } from '../types';
 import { DATA_PIPELINE_STAGES, PRODUCT_LIBRARY, SMART_UTILITY_SECTORS } from '../data/businessData';
-import { SourceLabel } from './SourceLabel';
-import { Zap, Cpu, Battery, Activity, Filter } from 'lucide-react';
+import { Zap } from 'lucide-react';
 
 interface BusinessViewProps {
   onSelectTab?: (tab: ViewTab, sectionId?: string) => void;
@@ -22,69 +21,80 @@ export const BusinessView: React.FC<BusinessViewProps> = () => {
   const productCategories = ['ALL', 'Smart Metering & AMI', 'Grid Software & Analytics', 'Energy Storage & BESS', 'e-Mobility', 'IoT & Automation'];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16 animate-fade-in text-slate-100">
-      {/* Ecosystem Header */}
-      <div className="border-b border-[#162E21] pb-6 space-y-4">
-        <div className="flex items-center gap-3">
-          <span className="px-3 py-1 rounded bg-[#00FF66]/10 border border-[#00FF66]/30 font-mono text-xs font-bold text-[#00FF66] tracking-widest uppercase">
-            ESYASOFT / OUR BUSINESS
-          </span>
-          <SourceLabel type="COMPANY CONTEXT" />
-        </div>
-        <h1 className="text-3xl sm:text-5xl font-extrabold font-mono text-white tracking-tight">
-          UNDERSTAND THE ENERGY SYSTEM
-        </h1>
-        <p className="text-sm sm:text-base text-slate-300 font-sans max-w-3xl">
-          How Esyasoft maps smart grid software, meter data pipelines, AI analytics, battery storage, and e-Mobility across the energy value chain.
-        </p>
+    <div className="space-y-20 pb-20 font-sans text-[#061210]">
+      
+      {/* 01. EDITORIAL HEADER & VALUE CHAIN ROUTE */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 space-y-8">
+        <div className="border-b border-[#E2E4DC] pb-8 space-y-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#061210] text-[#8CFF00] text-xs font-extrabold uppercase tracking-widest">
+            <span>● THE BUSINESS ARCHITECTURE</span>
+          </div>
+          <h1 className="text-4xl sm:text-6xl font-extrabold text-[#061210] tracking-tight leading-tight">
+            The Energy Ecosystem.
+          </h1>
+          <p className="text-lg text-slate-700 max-w-3xl leading-relaxed">
+            Understand how Esyasoft connects smart grid hardware, meter data pipelines, enterprise MDMS, AI loss reduction, and clean energy storage.
+          </p>
 
-        {/* Energy Value Chain Header Bar */}
-        <div className="p-4 bg-[#07110D] border border-[#162E21] rounded-xl font-mono text-xs flex flex-wrap items-center justify-between gap-2">
-          <span className="text-slate-400 font-bold uppercase tracking-wider">ENERGY VALUE CHAIN:</span>
-          <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
-            {['ENERGY', 'GENERATE', 'STORE', 'DISTRIBUTE', 'MEASURE', 'MANAGE', 'ANALYSE', 'OPTIMISE'].map((step, idx, arr) => (
-              <React.Fragment key={step}>
-                <span className="px-2 py-0.5 rounded bg-emerald-950/60 text-[#00FF66] border border-[#00FF66]/30 font-bold">
-                  {step}
-                </span>
-                {idx < arr.length - 1 && <span className="text-slate-500">→</span>}
-              </React.Fragment>
-            ))}
+          {/* Connected Energy Value Chain Ribbon */}
+          <div className="pt-4">
+            <div className="p-4 bg-[#061210] text-white rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-lg">
+              <span className="text-xs font-extrabold text-[#8CFF00] uppercase tracking-widest">
+                ENERGY VALUE CHAIN:
+              </span>
+              <div className="flex flex-wrap items-center gap-2 font-mono text-xs font-bold">
+                {['GENERATE', 'STORE', 'DISTRIBUTE', 'MEASURE', 'MANAGE', 'ANALYSE', 'OPTIMISE'].map((step, idx, arr) => (
+                  <React.Fragment key={step}>
+                    <span className="px-3 py-1 rounded-full bg-[#0B1C18] border border-[#14332B] text-white">
+                      {step}
+                    </span>
+                    {idx < arr.length - 1 && <span className="text-[#8CFF00]">→</span>}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Sub-Section 1: SMART UTILITY SOLUTIONS (Electricity, Water, Gas) */}
-      <section className="space-y-6">
-        <div className="flex items-center justify-between border-b border-[#162E21] pb-2">
-          <h2 className="text-xl font-bold font-mono text-white">SMART UTILITY SOLUTIONS</h2>
-          <SourceLabel type="COMPANY CONTEXT" />
+      {/* 02. SMART UTILITY SECTORS */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="border-b border-[#E2E4DC] pb-4">
+          <span className="text-xs font-extrabold text-[#061210] uppercase tracking-widest block mb-1">
+            ● UTILITY DOMAINS
+          </span>
+          <h2 className="text-3xl font-extrabold text-[#061210]">
+            Power, Water & Gas Utility Software
+          </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {SMART_UTILITY_SECTORS.map((sector) => (
-            <div key={sector.id} className="p-6 bg-[#07110D] border border-[#162E21] rounded-xl space-y-4 flex flex-col justify-between">
-              <div className="space-y-3">
-                <div className="flex items-center justify-between border-b border-[#162E21] pb-2">
-                  <span className="text-sm font-bold text-[#00FF66]">{sector.name}</span>
-                  <Zap className="w-4 h-4 text-[#00FF66]" />
+            <div key={sector.id} className="p-8 bg-white border border-[#E2E4DC] hover:border-[#061210] rounded-3xl space-y-6 flex flex-col justify-between shadow-xs transition-all">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between border-b border-[#E2E4DC] pb-3">
+                  <h3 className="text-xl font-extrabold text-[#061210]">{sector.name}</h3>
+                  <Zap className="w-5 h-5 text-[#061210]" />
                 </div>
+                
                 <div>
-                  <span className="text-[10px] text-slate-400 block uppercase">WHAT IS IT?</span>
-                  <p className="text-xs text-white font-sans mt-0.5">{sector.whatIsIt}</p>
+                  <span className="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest block mb-1">
+                    PRIMARY SOLUTION
+                  </span>
+                  <p className="text-xs text-slate-700 leading-relaxed font-medium">{sector.whatIsIt}</p>
                 </div>
+
                 <div>
-                  <span className="text-[10px] text-slate-400 block uppercase">PROBLEM SOLVED</span>
-                  <p className="text-xs text-slate-300 font-sans mt-0.5">{sector.problemSolved}</p>
-                </div>
-                <div>
-                  <span className="text-[10px] text-teal-400 block font-bold uppercase">WHERE ESYASOFT FITS</span>
-                  <p className="text-xs text-slate-300 font-sans mt-0.5">{sector.esyasoftRole}</p>
+                  <span className="text-[10px] font-extrabold text-[#061210] uppercase tracking-widest block mb-1">
+                    ESYASOFT CAPABILITY
+                  </span>
+                  <p className="text-xs text-slate-800 leading-relaxed font-semibold">{sector.esyasoftRole}</p>
                 </div>
               </div>
-              <div className="pt-3 border-t border-[#162E21] flex flex-wrap gap-1">
+
+              <div className="pt-4 border-t border-[#E2E4DC] flex flex-wrap gap-1.5">
                 {sector.techStack.map((tech, i) => (
-                  <span key={i} className="px-2 py-0.5 rounded bg-black/60 border border-slate-800 text-[10px] text-slate-400">
+                  <span key={i} className="px-2.5 py-1 rounded-full bg-[#F4F5F0] text-[#061210] font-extrabold text-[10px]">
                     {tech}
                   </span>
                 ))}
@@ -94,207 +104,128 @@ export const BusinessView: React.FC<BusinessViewProps> = () => {
         </div>
       </section>
 
-      {/* Sub-Section 2: FOLLOW THE DATA (Signature Interactive Pipeline) */}
-      <section id="follow-the-data" className="space-y-6">
-        <div className="flex items-center justify-between border-b border-[#162E21] pb-2">
-          <h2 className="text-xl font-bold font-mono text-white flex items-center gap-2">
-            <Activity className="w-5 h-5 text-[#00FF66]" />
-            <span>FOLLOW THE DATA (SMART METER → ACTION)</span>
-          </h2>
-          <SourceLabel type="ONBOARDING GUIDANCE" />
+      {/* 03. INTERACTIVE DATA PIPELINE (Dark Feature Section #061210) */}
+      <section id="follow-the-data" className="bg-[#061210] text-white py-20 border-y border-[#14332B]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+          
+          <div className="border-b border-[#14332B] pb-4">
+            <span className="text-xs font-extrabold text-[#8CFF00] uppercase tracking-widest block mb-1">
+              ● DATA PIPELINE ARCHITECTURE
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-white">
+              Follow the Meter Data.
+            </h2>
+            <p className="text-sm text-slate-300 mt-2 max-w-2xl">
+              From physical meter sensors to high-level executive insights, see how data moves across Esyasoft's technology stack.
+            </p>
+          </div>
+
+          {/* Interactive Pipeline Step Selector */}
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+            {DATA_PIPELINE_STAGES.map((s) => {
+              const isSelected = selectedPipelineStep === s.step;
+              return (
+                <button
+                  key={s.step}
+                  onClick={() => setSelectedPipelineStep(s.step)}
+                  className={`p-4 rounded-2xl text-left border transition-all cursor-pointer ${
+                    isSelected
+                      ? 'bg-[#8CFF00] text-[#061210] border-[#8CFF00] font-extrabold shadow-lg scale-105'
+                      : 'bg-[#0B1C18] text-slate-300 border-[#14332B] hover:border-slate-500'
+                  }`}
+                >
+                  <span className="text-[10px] uppercase font-extrabold tracking-widest block mb-1">
+                    STEP 0{s.step}
+                  </span>
+                  <h3 className="text-xs font-extrabold uppercase truncate">{s.name}</h3>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Active Pipeline Stage Detail Box */}
+          <div className="p-8 bg-[#0B1C18] border border-[#14332B] rounded-3xl space-y-6 shadow-2xl">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#14332B] pb-4 gap-4">
+              <div className="flex items-center gap-3">
+                <span className="px-3.5 py-1 rounded-full bg-[#8CFF00] text-[#061210] font-extrabold text-xs">
+                  STEP 0{activePipelineStage.step}
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+                  {activePipelineStage.name}
+                </h3>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs">
+              <div className="space-y-3">
+                <span className="text-slate-400 uppercase font-extrabold tracking-wider block">STAGE OVERVIEW:</span>
+                <p className="text-slate-200 leading-relaxed text-sm">{activePipelineStage.description}</p>
+                <div className="pt-2">
+                  <span className="text-[#8CFF00] font-extrabold block mb-1">ESYASOFT CAPABILITY:</span>
+                  <p className="text-slate-300 leading-relaxed">{activePipelineStage.esyasoftCapability}</p>
+                </div>
+              </div>
+
+              <div className="p-5 bg-[#061210] rounded-2xl border border-[#14332B] space-y-3">
+                <span className="text-[#8CFF00] font-extrabold uppercase tracking-wider block">
+                  TECHNICAL DETAILS:
+                </span>
+                <p className="text-slate-300 leading-relaxed">{activePipelineStage.technicalDetails}</p>
+              </div>
+            </div>
+          </div>
+
         </div>
+      </section>
 
-        <p className="text-xs text-slate-300 font-sans">
-          Click any stage below to follow how meter telemetry transforms into actionable operational decisions across Esyasoft's technology stack.
-        </p>
+      {/* 04. PRODUCT SUITE CATALOG */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#E2E4DC] pb-4">
+          <div>
+            <span className="text-xs font-extrabold text-[#061210] uppercase tracking-widest block mb-1">
+              ● PRODUCT SUITE CATALOG
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#061210]">
+              Esyasoft Product Portfolio
+            </h2>
+          </div>
 
-        {/* Interactive Pipeline Sequence */}
-        <div className="grid grid-cols-3 sm:grid-cols-9 gap-1.5 font-mono text-xs">
-          {DATA_PIPELINE_STAGES.map((stage) => {
-            const isSelected = selectedPipelineStep === stage.step;
-            return (
+          {/* Category Filter Pills */}
+          <div className="flex flex-wrap gap-1.5">
+            {productCategories.map((cat) => (
               <button
-                key={stage.id}
-                onClick={() => setSelectedPipelineStep(stage.step)}
-                className={`p-2.5 rounded-lg border transition-all text-center flex flex-col items-center justify-center gap-1 ${
-                  isSelected
-                    ? 'bg-[#00FF66] text-[#050807] border-[#00FF66] font-bold shadow-[0_0_15px_rgba(0,255,102,0.4)]'
-                    : 'bg-[#07110D] text-slate-300 border-[#162E21] hover:border-[#00FF66]/40'
+                key={cat}
+                onClick={() => setProductCategoryFilter(cat)}
+                className={`px-3 py-1.5 rounded-full text-xs font-extrabold transition-all cursor-pointer ${
+                  productCategoryFilter === cat
+                    ? 'bg-[#061210] text-[#8CFF00]'
+                    : 'bg-[#E7E9E0] text-slate-700 hover:bg-[#DDE0D4]'
                 }`}
               >
-                <span className={`text-[10px] px-1.5 rounded ${isSelected ? 'bg-[#050807] text-[#00FF66]' : 'bg-black/40 text-slate-400'}`}>
-                  0{stage.step}
-                </span>
-                <span className="text-[11px] font-bold leading-tight">{stage.shortName}</span>
+                {cat}
               </button>
-            );
-          })}
-        </div>
-
-        {/* Selected Pipeline Stage Details Card */}
-        <div className="p-6 bg-[#07110D] border border-[#162E21] rounded-xl space-y-4 font-mono text-xs">
-          <div className="flex items-center justify-between border-b border-[#162E21] pb-3">
-            <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded bg-[#00FF66]/20 text-[#00FF66] font-bold">
-                STAGE 0{activePipelineStage.step}
-              </span>
-              <h3 className="text-base font-bold text-white uppercase">{activePipelineStage.name}</h3>
-            </div>
-            <SourceLabel type="COMPANY CONTEXT" />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-sans text-xs">
-            <div>
-              <span className="font-mono text-[10px] text-slate-400 uppercase block mb-1">STAGE OVERVIEW</span>
-              <p className="text-slate-200 leading-relaxed">{activePipelineStage.description}</p>
-            </div>
-            <div>
-              <span className="font-mono text-[10px] text-[#00FF66] uppercase block mb-1">ESYASOFT CAPABILITY</span>
-              <p className="text-emerald-300 leading-relaxed font-mono">{activePipelineStage.esyasoftCapability}</p>
-            </div>
-            <div>
-              <span className="font-mono text-[10px] text-teal-400 uppercase block mb-1">TECHNICAL SPECIFICATIONS</span>
-              <p className="text-slate-300 leading-relaxed font-mono">{activePipelineStage.technicalDetails}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Sub-Section 3: SOFTWARE, ANALYTICS & AI CAPABILITY MAP */}
-      <section className="space-y-6">
-        <div className="flex items-center justify-between border-b border-[#162E21] pb-2">
-          <h2 className="text-xl font-bold font-mono text-white">SOFTWARE, ANALYTICS & AI CAPABILITY MAP</h2>
-          <SourceLabel type="COMPANY CONTEXT" />
-        </div>
-
-        <div className="p-6 bg-[#07110D] border border-[#162E21] rounded-xl space-y-6 font-mono text-xs">
-          <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
-            <div className="p-3 bg-[#050807] border border-[#162E21] rounded-lg">
-              <span className="text-[#00FF66] font-bold block">1. METER DATA</span>
-              <span className="text-slate-400 text-[11px]">Interval time-series</span>
-            </div>
-            <div className="p-3 bg-[#050807] border border-[#162E21] rounded-lg">
-              <span className="text-[#00FF66] font-bold block">2. GRID ANALYTICS</span>
-              <span className="text-slate-400 text-[11px]">Transformer stress</span>
-            </div>
-            <div className="p-3 bg-[#050807] border border-[#162E21] rounded-lg">
-              <span className="text-[#00FF66] font-bold block">3. FORECASTING</span>
-              <span className="text-slate-400 text-[11px]">Day-ahead demand</span>
-            </div>
-            <div className="p-3 bg-[#050807] border border-[#162E21] rounded-lg">
-              <span className="text-[#00FF66] font-bold block">4. AI / ML ENGINE</span>
-              <span className="text-slate-400 text-[11px]">Theft & anomaly AI</span>
-            </div>
-            <div className="p-3 bg-[#050807] border border-[#162E21] rounded-lg">
-              <span className="text-[#00FF66] font-bold block">5. INTELLIGENCE</span>
-              <span className="text-slate-400 text-[11px]">Operational dashboards</span>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-center gap-4 text-emerald-400 font-bold text-sm">
-            <span>INSIGHT</span>
-            <span>→</span>
-            <span>DECISION</span>
-            <span>→</span>
-            <span>ACTION</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Sub-Section 4: ENERGY AS A SERVICE & BESS */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-xs">
-        {/* EaaS */}
-        <div className="p-6 bg-[#07110D] border border-[#162E21] rounded-xl space-y-4">
-          <div className="flex items-center justify-between border-b border-[#162E21] pb-2">
-            <h3 className="text-base font-bold text-[#00FF66]">ENERGY AS A SERVICE (EaaS)</h3>
-            <SourceLabel type="COMPANY CONTEXT" />
-          </div>
-          <p className="text-xs text-slate-300 font-sans leading-relaxed">
-            EaaS enables commercial and utility customers to access renewable generation, storage, and smart grid software via a service model without heavy upfront capital investment.
-          </p>
-          <div className="p-3 bg-[#050807] border border-[#162E21] rounded-lg text-emerald-300">
-            <strong>Key Relationship:</strong> RENEWABLES + STORAGE + ENERGY MANAGEMENT + DATA + DEMAND FLEXIBILITY = Energy as a Service.
+            ))}
           </div>
         </div>
 
-        {/* BESS */}
-        <div className="p-6 bg-[#07110D] border border-[#162E21] rounded-xl space-y-4">
-          <div className="flex items-center justify-between border-b border-[#162E21] pb-2">
-            <h3 className="text-base font-bold text-teal-400">BATTERY ENERGY STORAGE (BESS)</h3>
-            <Battery className="w-4 h-4 text-teal-400" />
-          </div>
-          <p className="text-xs text-slate-300 font-sans leading-relaxed">
-            BESS stores solar/wind energy during peak generation hours and dispatches it during high demand to stabilize frequency and prevent grid overload.
-          </p>
-          <div className="p-3 bg-[#050807] border border-[#162E21] rounded-lg text-teal-300">
-            <strong>Esyasoft Support:</strong> Smart BESS Controllers for peak shaving, microgrid control, and utility battery management.
-          </div>
-        </div>
-      </section>
-
-      {/* Sub-Section 5: PRODUCTS & TECHNOLOGY (Filterable Library) */}
-      <section id="products" className="space-y-6">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-[#162E21] pb-3">
-          <h2 className="text-xl font-bold font-mono text-white flex items-center gap-2">
-            <Cpu className="w-5 h-5 text-[#00FF66]" />
-            <span>PRODUCTS & TECHNOLOGY LIBRARY</span>
-          </h2>
-          <SourceLabel type="COMPANY CONTEXT" />
-        </div>
-
-        {/* Filters */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 font-mono text-xs no-scrollbar">
-          <Filter className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-          {productCategories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setProductCategoryFilter(cat)}
-              className={`px-3 py-1 rounded whitespace-nowrap transition-all ${
-                productCategoryFilter === cat
-                  ? 'bg-[#00FF66] text-[#050807] font-bold'
-                  : 'bg-[#07110D] text-slate-300 border border-[#162E21] hover:border-slate-700'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Product Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-xs">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProducts.map((prod) => (
-            <div key={prod.id} className="p-6 bg-[#07110D] border border-[#162E21] rounded-xl space-y-4">
-              <div className="flex items-center justify-between border-b border-[#162E21] pb-2">
-                <span className="text-sm font-bold text-white">{prod.name}</span>
-                <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-950/60 text-[#00FF66] border border-[#00FF66]/30">
+            <div key={prod.id} className="p-6 bg-white border border-[#E2E4DC] hover:border-[#061210] rounded-3xl space-y-4 shadow-xs transition-all">
+              <div className="flex items-center justify-between">
+                <span className="px-3 py-1 rounded-full bg-[#061210] text-[#8CFF00] font-extrabold text-[10px] uppercase">
                   {prod.category}
                 </span>
               </div>
-              <div className="space-y-2 text-xs font-sans">
-                <div>
-                  <span className="font-mono text-[10px] text-slate-400 uppercase block">WHAT IS IT?</span>
-                  <p className="text-slate-200">{prod.whatIsIt}</p>
-                </div>
-                <div>
-                  <span className="font-mono text-[10px] text-slate-400 uppercase block">PROBLEM SOLVED</span>
-                  <p className="text-slate-300">{prod.whatProblemItSolves}</p>
-                </div>
-                <div>
-                  <span className="font-mono text-[10px] text-teal-400 uppercase block">WHERE IT FITS</span>
-                  <p className="text-slate-300 font-mono">{prod.whereItFits}</p>
-                </div>
-              </div>
-              <div className="pt-2 border-t border-[#162E21] flex flex-wrap gap-1">
-                {prod.relatedTechnology.map((t, idx) => (
-                  <span key={idx} className="px-2 py-0.5 rounded bg-black/60 text-[10px] text-slate-400 border border-slate-800">
-                    {t}
-                  </span>
-                ))}
+              <h3 className="text-xl font-extrabold text-[#061210]">{prod.name}</h3>
+              <p className="text-xs text-slate-600 leading-relaxed font-medium">{prod.whatIsIt}</p>
+              <div className="pt-3 border-t border-[#E2E4DC] text-[11px] text-slate-500 font-semibold">
+                Fits: {prod.whereItFits}
               </div>
             </div>
           ))}
         </div>
       </section>
+
     </div>
   );
 };

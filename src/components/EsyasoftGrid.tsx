@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import { SYSTEM_GRID_NODES } from '../data/gridData';
 import type { GridNode, ViewTab } from '../types';
-import { ArrowRight, Activity, Circle, Zap } from 'lucide-react';
+import { ArrowRight, Activity, Zap, Circle } from 'lucide-react';
 
 interface EsyasoftGridProps {
   onNavigateNode: (targetTab: ViewTab, targetSection?: string) => void;
   selectedNodeId?: string;
   className?: string;
+  darkTheme?: boolean;
+  integrated?: boolean; // If true, hides outer chrome/header for hero integration
 }
 
 export const EsyasoftGrid: React.FC<EsyasoftGridProps> = ({
   onNavigateNode,
   selectedNodeId = 'you',
-  className = ''
+  className = '',
+  darkTheme = true,
+  integrated = false
 }) => {
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
   const [activeNodeId, setActiveNodeId] = useState<string>(selectedNodeId);
@@ -20,7 +24,6 @@ export const EsyasoftGrid: React.FC<EsyasoftGridProps> = ({
   const currentNode = SYSTEM_GRID_NODES.find((n) => n.id === activeNodeId) || SYSTEM_GRID_NODES[0];
   const hoveredNode = SYSTEM_GRID_NODES.find((n) => n.id === hoveredNodeId);
 
-  // Helper to find connections
   const activeConnections = new Set<string>();
   const activeTargetNode = hoveredNode || currentNode;
 
@@ -35,61 +38,83 @@ export const EsyasoftGrid: React.FC<EsyasoftGridProps> = ({
   };
 
   return (
-    <div className={`relative w-full bg-[#050807] border border-[#162E21] rounded-xl overflow-hidden shadow-2xl ${className}`}>
-      {/* Background Grid Pattern Lines */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none" />
+    <div
+      className={`relative w-full rounded-3xl overflow-hidden transition-all duration-500 ${
+        darkTheme
+          ? 'bg-[#061210] text-white border border-[#14332B]'
+          : 'bg-[#F4F5F0] text-[#061210] border border-[#E2E4DC]'
+      } ${className}`}
+    >
+      {/* Background Energy Grid Visual Pattern */}
+      <div
+        className={`absolute inset-0 pointer-events-none ${
+          darkTheme ? 'bg-grid-pattern-dark opacity-40' : 'bg-grid-pattern opacity-60'
+        }`}
+      />
 
-      {/* Grid Header Controls */}
-      <div className="relative z-10 flex items-center justify-between px-4 py-3 bg-[#07110D]/90 border-b border-[#162E21]">
-        <div className="flex items-center gap-2">
-          <Zap className="w-4 h-4 text-[#00FF66]" />
-          <span className="font-mono text-xs font-bold text-white tracking-widest uppercase">
-            ESYASOFT ENERGY SYSTEM GRID
-          </span>
+      {/* Optional Integrated Header (Only shown when NOT integrated inside Hero) */}
+      {!integrated && (
+        <div className={`relative z-10 flex items-center justify-between px-6 py-3 border-b ${
+          darkTheme ? 'bg-[#0B1C18]/90 border-[#14332B]' : 'bg-white border-[#E2E4DC]'
+        }`}>
+          <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#8CFF00]">
+            <Zap className="w-4 h-4 fill-current" />
+            <span>ESYASOFT CONNECTED ECOSYSTEM GRID</span>
+          </div>
+          <div className="flex items-center gap-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+            <span className="w-2 h-2 rounded-full bg-[#8CFF00] animate-ping" />
+            <span>LIVE NETWORK NODES</span>
+          </div>
         </div>
-        <div className="flex items-center gap-2 text-[11px] font-mono text-slate-400">
-          <span className="inline-block w-2 h-2 rounded-full bg-[#00FF66] animate-pulse" />
-          <span>NETWORK ACTIVE</span>
-        </div>
-      </div>
+      )}
 
-      {/* SVG Connections Layer */}
-      <div className="relative w-full aspect-[16/9] min-h-[360px] sm:min-h-[480px]">
+      {/* Interactive SVG Network Diagram */}
+      <div className="relative w-full aspect-[16/10] min-h-[360px] sm:min-h-[460px] flex items-center justify-center p-4">
+        
+        {/* Glow backdrop behind network */}
+        <div className="absolute w-72 h-72 rounded-full bg-[#8CFF00]/10 blur-[100px] pointer-events-none" />
+
         <svg className="absolute inset-0 w-full h-full pointer-events-none">
+          <defs>
+            <linearGradient id="energyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#8CFF00" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#10B981" stopOpacity="0.2" />
+            </linearGradient>
+          </defs>
           {SYSTEM_GRID_NODES.map((node) => {
             return node.connectedTo.map((targetId) => {
               const targetNode = SYSTEM_GRID_NODES.find((n) => n.id === targetId);
               if (!targetNode) return null;
-
-              // Avoid duplicate lines by ensuring x1 < x2 or id comparison
               if (node.id > targetId) return null;
 
               const isConnectedToHover =
-                (hoveredNodeId === node.id || hoveredNodeId === targetId) ||
+                hoveredNodeId === node.id ||
+                hoveredNodeId === targetId ||
                 (activeNodeId === node.id && (node.connectedTo.includes(targetId) || targetNode.connectedTo.includes(node.id)));
 
               return (
                 <g key={`${node.id}-${targetId}`}>
+                  {/* Base Connection Line */}
                   <line
                     x1={`${node.x}%`}
                     y1={`${node.y}%`}
                     x2={`${targetNode.x}%`}
                     y2={`${targetNode.y}%`}
-                    stroke={isConnectedToHover ? '#00FF66' : '#1F382B'}
-                    strokeWidth={isConnectedToHover ? 2 : 1}
+                    stroke={isConnectedToHover ? '#8CFF00' : darkTheme ? '#183D34' : '#CCD0C0'}
+                    strokeWidth={isConnectedToHover ? 2.5 : 1.2}
                     strokeDasharray={isConnectedToHover ? 'none' : '4 4'}
                     className="transition-all duration-300"
                   />
+                  {/* Energy Pulse Glow */}
                   {isConnectedToHover && (
                     <line
                       x1={`${node.x}%`}
                       y1={`${node.y}%`}
                       x2={`${targetNode.x}%`}
                       y2={`${targetNode.y}%`}
-                      stroke="#00FF66"
-                      strokeWidth={3}
+                      stroke="url(#energyGrad)"
+                      strokeWidth={4}
                       strokeLinecap="round"
-                      opacity={0.6}
                       className="animate-pulse"
                     />
                   )}
@@ -99,7 +124,7 @@ export const EsyasoftGrid: React.FC<EsyasoftGridProps> = ({
           })}
         </svg>
 
-        {/* Nodes Layer */}
+        {/* Interactive System Nodes */}
         {SYSTEM_GRID_NODES.map((node) => {
           const isSelected = activeNodeId === node.id;
           const isHovered = hoveredNodeId === node.id;
@@ -116,40 +141,51 @@ export const EsyasoftGrid: React.FC<EsyasoftGridProps> = ({
               className="absolute -translate-x-1/2 -translate-y-1/2 z-20 cursor-pointer group"
             >
               <div className="relative flex flex-col items-center">
-                {/* Outer Glow Pulse for Active/Selected */}
+                
+                {/* Active Energy Pulse Ring */}
                 {(isSelected || isHovered || isYou) && (
-                  <div className="absolute inset-0 -m-3 rounded-full bg-[#00FF66]/20 animate-ping pointer-events-none" />
+                  <div className="absolute inset-0 -m-3.5 rounded-full bg-[#8CFF00]/25 animate-ping pointer-events-none" />
                 )}
 
                 {/* Node Icon Circle */}
                 <div
-                  className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center border transition-all duration-200 ${
+                  className={`w-9 h-9 sm:w-11 sm:h-11 rounded-full flex items-center justify-center border-2 transition-all duration-300 shadow-lg ${
                     isSelected
-                      ? 'bg-[#00FF66] text-[#050807] border-[#00FF66] shadow-[0_0_20px_#00FF66]'
+                      ? 'bg-[#8CFF00] text-[#061210] border-[#8CFF00] scale-115 shadow-[0_0_20px_rgba(140,255,0,0.5)]'
                       : isHovered
-                      ? 'bg-emerald-900/80 text-[#00FF66] border-[#00FF66] scale-110 shadow-[0_0_15px_rgba(0,255,102,0.5)]'
+                      ? 'bg-[#0E2922] text-[#8CFF00] border-[#8CFF00] scale-110'
                       : isConnected
-                      ? 'bg-[#071610] text-[#00FF66] border-[#00FF66]/60'
-                      : 'bg-[#050807] text-slate-500 border-[#1F382B] group-hover:border-slate-400'
+                      ? darkTheme
+                        ? 'bg-[#0B1C18] text-[#8CFF00] border-[#8CFF00]/60'
+                        : 'bg-white text-[#061210] border-[#8CFF00]/70'
+                      : darkTheme
+                      ? 'bg-[#0B1C18] text-slate-400 border-[#183D34] group-hover:border-[#8CFF00]/50'
+                      : 'bg-white text-slate-500 border-[#E2E4DC] group-hover:border-[#8CFF00]'
                   }`}
                 >
                   {isYou ? (
-                    <Activity className="w-4 h-4 animate-spin-slow" />
+                    <Activity className="w-5 h-5 stroke-[2.5]" />
                   ) : (
-                    <Circle className={`w-3 h-3 ${isSelected ? 'fill-[#050807]' : 'fill-current'}`} />
+                    <Circle className={`w-3.5 h-3.5 ${isSelected ? 'fill-[#061210]' : 'fill-current'}`} />
                   )}
                 </div>
 
-                {/* Node Label */}
+                {/* Node Label Pill */}
                 <div
-                  className={`mt-1.5 px-2 py-0.5 rounded font-mono text-[10px] sm:text-xs font-bold whitespace-nowrap tracking-wide border transition-all duration-200 ${
+                  className={`mt-2 px-3 py-1 rounded-full font-sans text-[11px] sm:text-xs font-extrabold uppercase tracking-wider whitespace-nowrap border transition-all duration-200 shadow-md ${
                     isSelected
-                      ? 'bg-[#00FF66] text-[#050807] border-[#00FF66]'
+                      ? 'bg-[#8CFF00] text-[#061210] border-[#8CFF00]'
                       : isHovered
-                      ? 'bg-[#071610] text-[#00FF66] border-[#00FF66]'
+                      ? darkTheme
+                        ? 'bg-[#0B1C18] text-[#8CFF00] border-[#8CFF00]'
+                        : 'bg-white text-[#061210] border-[#8CFF00]'
                       : isConnected
-                      ? 'bg-[#07110D]/90 text-emerald-300 border-[#162E21]'
-                      : 'bg-[#050807]/80 text-slate-400 border-transparent group-hover:text-slate-200'
+                      ? darkTheme
+                        ? 'bg-[#061210] text-slate-200 border-[#183D34]'
+                        : 'bg-white text-slate-800 border-[#E2E4DC]'
+                      : darkTheme
+                      ? 'bg-[#061210]/90 text-slate-400 border-[#183D34]/50'
+                      : 'bg-white/90 text-slate-600 border-[#E2E4DC]'
                   }`}
                 >
                   {node.label}
@@ -158,24 +194,6 @@ export const EsyasoftGrid: React.FC<EsyasoftGridProps> = ({
             </div>
           );
         })}
-      </div>
-
-      {/* Selected Node Details Footer Bar */}
-      <div className="relative z-10 px-4 py-3 bg-[#07110D] border-t border-[#162E21] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 font-mono">
-        <div className="flex-1">
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] text-slate-400 uppercase tracking-widest">SELECTED NODE:</span>
-            <span className="text-xs font-bold text-[#00FF66]">{currentNode.label}</span>
-          </div>
-          <p className="text-xs text-slate-300 font-sans mt-0.5 max-w-2xl">{currentNode.description}</p>
-        </div>
-        <button
-          onClick={() => handleNodeClick(currentNode)}
-          className="flex items-center gap-2 px-4 py-2 rounded bg-[#00FF66] hover:bg-[#00E676] text-[#050807] font-bold text-xs transition-all shadow-[0_0_15px_rgba(0,255,102,0.3)] whitespace-nowrap"
-        >
-          <span>NAVIGATE TO SECTION</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </button>
       </div>
     </div>
   );

@@ -5,8 +5,8 @@ export const ACTION_PATHWAYS: ActionPathway[] = [
     id: 'act-leave',
     title: 'Apply for Leave',
     description: 'Submit Earned, Sick, Casual, or Menstrual leave request in Zoho People.',
-    targetTab: 'WORKPLACE',
-    targetSection: 'hrms',
+    targetTab: 'START_HERE',
+    targetSection: 'i-need-to',
     policyId: 'leave-policy',
     iconName: 'Calendar'
   },
@@ -14,8 +14,8 @@ export const ACTION_PATHWAYS: ActionPathway[] = [
     id: 'act-travel',
     title: 'Travel for Work',
     description: 'Submit a domestic business trip request and flight/hotel bookings in Zoho Expense.',
-    targetTab: 'WORKPLACE',
-    targetSection: 'travel',
+    targetTab: 'START_HERE',
+    targetSection: 'i-need-to',
     policyId: 'domestic-travel-policy',
     iconName: 'Plane'
   },
@@ -23,8 +23,8 @@ export const ACTION_PATHWAYS: ActionPathway[] = [
     id: 'act-expense',
     title: 'Claim an Expense',
     description: 'Submit expense receipts for travel, per diem, or approved business expenses.',
-    targetTab: 'WORKPLACE',
-    targetSection: 'travel',
+    targetTab: 'START_HERE',
+    targetSection: 'i-need-to',
     policyId: 'domestic-travel-policy',
     iconName: 'Receipt'
   },
@@ -32,24 +32,24 @@ export const ACTION_PATHWAYS: ActionPathway[] = [
     id: 'act-policy',
     title: 'Find a Policy',
     description: 'Access official Esyasoft policy summaries and full document texts in the Policy Library.',
-    targetTab: 'WORKPLACE',
-    targetSection: 'policies',
+    targetTab: 'HOW_WE_WORK',
+    targetSection: 'policy-library',
     iconName: 'FileText'
   },
   {
     id: 'act-it-access',
     title: 'Get IT Access',
-    description: 'Follow the "Get Connected" sequence for email, VPN, development tools, and system access.',
-    targetTab: 'WORKPLACE',
-    targetSection: 'it-access',
+    description: 'Follow the "Essential systems & access" guide for email, VPN, and credentials.',
+    targetTab: 'START_HERE',
+    targetSection: 'systems',
     iconName: 'Laptop'
   },
   {
     id: 'act-hrms',
     title: 'Understand HRMS',
     description: 'Learn how to use Zoho People 5.0 for attendance, check-in, profile, and performance.',
-    targetTab: 'WORKPLACE',
-    targetSection: 'hrms',
+    targetTab: 'START_HERE',
+    targetSection: 'systems',
     policyId: 'zoho-people-handbook',
     iconName: 'Users'
   },
@@ -57,7 +57,7 @@ export const ACTION_PATHWAYS: ActionPathway[] = [
     id: 'act-contact-hr',
     title: 'Contact HR',
     description: 'Reach out to your HR Business Partner (HRBP) for onboarding, leave, or policy queries.',
-    targetTab: 'HELP',
+    targetTab: 'HOW_WE_WORK',
     targetSection: 'who-do-i-ask',
     iconName: 'UserCheck'
   },
@@ -65,25 +65,25 @@ export const ACTION_PATHWAYS: ActionPathway[] = [
     id: 'act-posh-concern',
     title: 'Raise a Workplace Concern / POSH',
     description: 'Understand confidential grievance redressal and contact the Internal Complaints Committee.',
-    targetTab: 'WORKPLACE',
-    targetSection: 'policies',
+    targetTab: 'START_HERE',
+    targetSection: 'i-need-to',
     policyId: 'posh-policy',
     iconName: 'ShieldAlert'
   },
   {
     id: 'act-product',
-    title: 'Understand a Product',
-    description: 'Browse the filterable product library (MDMS, HES, Grid Analytics, BESS, CPMS).',
-    targetTab: 'BUSINESS',
-    targetSection: 'products',
+    title: 'Understand Esyasoft Business',
+    description: 'Explore smart utility solutions, software platforms, AI analytics, and clean energy.',
+    targetTab: 'ESYASOFT',
+    targetSection: 'business-areas',
     iconName: 'Cpu'
   },
   {
     id: 'act-find-person',
     title: 'Find a Person / Directory',
     description: 'Look up colleagues, department structures, and reporting managers in Zoho People.',
-    targetTab: 'WORKPLACE',
-    targetSection: 'hrms',
+    targetTab: 'HOW_WE_WORK',
+    targetSection: 'who-do-i-ask',
     policyId: 'zoho-people-handbook',
     iconName: 'Search'
   },
@@ -100,7 +100,7 @@ export const ACTION_PATHWAYS: ActionPathway[] = [
     id: 'act-find-guide',
     title: 'Find Something in the Guide',
     description: 'Use the global search (Ctrl + K) to instant-find any policy, guide, term, or procedure.',
-    targetTab: 'HELP',
+    targetTab: 'START_HERE',
     targetSection: 'search',
     iconName: 'Compass'
   }

@@ -1,7 +1,6 @@
 import React from 'react';
 import type { PolicyDoc } from '../types';
-import { SourceLabel } from './SourceLabel';
-import { X, FileText, CheckCircle2, Copy, Check } from 'lucide-react';
+import { X, FileText, CheckCircle2 } from 'lucide-react';
 
 interface PolicyModalProps {
   policy: PolicyDoc | null;
@@ -9,110 +8,133 @@ interface PolicyModalProps {
 }
 
 export const PolicyModal: React.FC<PolicyModalProps> = ({ policy, onClose }) => {
-  const [copied, setCopied] = React.useState(false);
-
   if (!policy) return null;
 
-  const handleCopyText = () => {
-    navigator.clipboard.writeText(policy.contentMarkdown);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/70 backdrop-blur-sm animate-fade-in font-sans">
       <div
-        className="relative w-full max-w-4xl max-h-[90vh] bg-[#07110D] border border-[#162E21] rounded-xl shadow-2xl flex flex-col overflow-hidden text-slate-100"
+        className="relative w-full max-w-4xl max-h-[90vh] bg-white border border-[#E2E4DC] rounded-2xl shadow-2xl flex flex-col overflow-hidden text-[#343333]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 bg-[#050807] border-b border-[#162E21]">
+        <div className="flex items-center justify-between px-6 py-4 bg-[#061210] text-white border-b border-[#14332B]">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded bg-[#00FF66]/10 border border-[#00FF66]/30 flex items-center justify-center text-[#00FF66]">
+            <div className="w-9 h-9 rounded-lg bg-[#8CFF00] text-[#061210] flex items-center justify-center font-extrabold">
               <FileText className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-lg font-bold font-mono text-white">{policy.title}</h2>
-                <SourceLabel type="OFFICIAL" />
+                <h2 className="text-lg font-extrabold text-white">{policy.title}</h2>
+                <span className="px-2 py-0.5 rounded-full bg-[#8CFF00] text-[#061210] text-[10px] font-extrabold uppercase">
+                  OFFICIAL POLICY HIGHLIGHTS
+                </span>
               </div>
-              <p className="text-xs text-slate-400 font-mono">
+              <p className="text-xs text-slate-300">
                 Version {policy.version} • Rev. {policy.revisionDate} • {policy.fileName}
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition-all"
+            className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-all cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Modal Body - Scrollable */}
+        {/* Modal Body */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
+
+          {/* Important Policy Notice Banner */}
+          <div className="p-4 bg-[#F4F5F0] border border-[#E2E4DC] rounded-xl text-xs space-y-1">
+            <span className="font-extrabold text-[#061210] uppercase tracking-wider block">
+              ● IMPORTANT POLICY NOTICE
+            </span>
+            <p className="text-slate-700 leading-relaxed">
+              All summaries and cards on this site are provided for orientation and convenience. The official policy document maintained in Esyasoft&apos;s authorised HR systems (Zoho People / Zoho Expense / Zoho Recruit / ICC registry) is the authoritative source of truth.
+            </p>
+          </div>
+
           {/* Metadata Card Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 bg-[#050807] border border-[#162E21] rounded-lg text-xs font-mono">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 bg-[#F4F5F0] border border-[#E2E4DC] rounded-xl text-xs font-sans">
             <div>
-              <span className="text-slate-400 block text-[10px] uppercase">APPLICABILITY:</span>
-              <span className="text-emerald-300 font-medium">{policy.applicability}</span>
+              <span className="text-slate-500 font-bold block text-[10px] uppercase">APPLICABILITY:</span>
+              <span className="text-[#061210] font-semibold">{policy.applicability}</span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[10px] uppercase">POLICY OWNER:</span>
-              <span className="text-emerald-300 font-medium">{policy.owner}</span>
+              <span className="text-slate-500 font-bold block text-[10px] uppercase">POLICY OWNER:</span>
+              <span className="text-[#061210] font-semibold">{policy.owner}</span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[10px] uppercase">PREPARED / APPROVED BY:</span>
-              <span className="text-emerald-300 font-medium">
+              <span className="text-slate-500 font-bold block text-[10px] uppercase">PREPARED / APPROVED BY:</span>
+              <span className="text-[#061210] font-semibold">
                 {policy.preparedBy} / {policy.approvedBy}
               </span>
             </div>
           </div>
 
-          {/* Key Things To Know */}
-          <div className="p-4 bg-emerald-950/20 border border-[#162E21] rounded-lg space-y-2">
-            <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#00FF66]">
-              <CheckCircle2 className="w-4 h-4 text-[#00FF66]" />
-              <span>KEY POLICY HIGHLIGHTS</span>
-            </div>
-            <ul className="space-y-1.5 text-xs text-slate-300">
-              {policy.keyThingsToKnow.map((item, idx) => (
+          {/* What It Answers */}
+          <div className="p-4 bg-white border border-[#E2E4DC] rounded-xl space-y-2 shadow-xs">
+            <span className="font-extrabold text-[#061210] text-xs uppercase tracking-wider block">● WHAT IT ANSWERS</span>
+            <ul className="space-y-1.5 text-xs text-slate-800 font-medium">
+              {policy.whatItAnswers.map((ans, idx) => (
                 <li key={idx} className="flex items-start gap-2">
-                  <span className="text-[#00FF66] mt-0.5">•</span>
-                  <span>{item}</span>
+                  <span className="text-[#061210] font-bold">•</span>
+                  <span>{ans}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Document Content View */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between font-mono text-xs text-slate-400 pb-2 border-b border-[#162E21]">
-              <span className="font-bold text-white uppercase">OFFICIAL DOCUMENT TEXT</span>
-              <button
-                onClick={handleCopyText}
-                className="flex items-center gap-1.5 text-xs text-[#00FF66] hover:underline"
-              >
-                {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copied ? 'Copied' : 'Copy Text'}</span>
-              </button>
+          {/* Key Highlights */}
+          <div className="p-4 bg-white border border-[#E2E4DC] rounded-xl space-y-2 shadow-xs">
+            <div className="flex items-center gap-2 font-bold text-xs text-[#061210]">
+              <CheckCircle2 className="w-4 h-4 text-[#061210]" />
+              <span className="uppercase tracking-wider">KEY POLICY HIGHLIGHTS & RULES</span>
             </div>
-            <div className="p-5 bg-[#050807] border border-[#162E21] rounded-lg font-mono text-xs text-slate-300 leading-relaxed whitespace-pre-wrap select-text">
-              {policy.contentMarkdown}
-            </div>
+            <ul className="space-y-2 text-xs text-slate-800 font-medium">
+              {policy.keyThingsToKnow.map((item, idx) => (
+                <li key={idx} className="p-3 bg-[#F4F5F0] border border-[#E2E4DC] rounded-xl flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-[#8CFF00] text-[#061210] font-bold flex items-center justify-center shrink-0 text-[10px]">{idx + 1}</span>
+                  <span className="leading-relaxed">{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
+
+          {/* Official Source Precedence Footer Box */}
+          <div className="p-4 bg-[#061210] text-white rounded-xl space-y-3 border border-[#14332B]">
+            <div className="space-y-1">
+              <span className="text-[#8CFF00] font-extrabold text-xs uppercase tracking-wider block">
+                ● OFFICIAL SOURCE PRECEDENCE
+              </span>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                This page is a practical summary of the applicable company policy. The latest official policy available through Esyasoft&apos;s authorised HR systems takes precedence.
+              </p>
+            </div>
+            <a
+              href="https://people.zoho.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[#8CFF00] text-[#061210] text-xs font-extrabold rounded-lg hover:bg-[#76DA00] transition-colors"
+            >
+              <span>FIND THIS POLICY IN ZOHO PEOPLE</span>
+              <FileText className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
         </div>
 
         {/* Modal Footer */}
-        <div className="flex items-center justify-between px-6 py-3 bg-[#050807] border-t border-[#162E21] font-mono text-xs">
-          <span className="text-slate-400">
-            Source File: <code className="text-emerald-400">docs/{policy.fileName}</code>
+        <div className="flex items-center justify-between px-6 py-3 bg-[#F4F5F0] border-t border-[#E2E4DC] text-xs">
+          <span className="text-slate-600 font-mono">
+            Source File: <code className="text-[#061210] font-bold">docs/{policy.fileName}</code>
           </span>
           <button
             onClick={onClose}
-            className="px-4 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-white font-bold transition-all"
+            className="v1-btn-primary px-4 py-1.5 text-xs font-extrabold cursor-pointer"
           >
-            Close Reader
+            CLOSE HIGHLIGHTS
           </button>
         </div>
       </div>
